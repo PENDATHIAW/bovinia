@@ -23,14 +23,9 @@ export async function Footer() {
       <div className="container-bovinia section-padding">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <div className="mb-4 brightness-0 invert">
-              <Logo size="md" />
-            </div>
+            <Logo size="md" onDark className="mb-4" />
             <p className="text-sm text-ivory/70 leading-relaxed">
               {settings.footer_tagline}
-            </p>
-            <p className="mt-2 text-xs tracking-widest text-gold uppercase">
-              Powered by Bone Broth
             </p>
           </div>
 

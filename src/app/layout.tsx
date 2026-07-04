@@ -38,6 +38,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "BOVINIA",
+    images: ["/assets/logo/bovinia-logo.png"],
+  },
+  icons: {
+    icon: "/assets/logo/bovinia-logo.png",
+    apple: "/assets/logo/bovinia-logo.png",
   },
   robots: { index: true, follow: true },
 };
