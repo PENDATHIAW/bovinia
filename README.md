@@ -63,7 +63,21 @@ Renseigner :
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 
-### 4. Lancer en développement
+### 4. Visualiser sans base de données (mode démo)
+
+Aucune configuration Supabase requise. Lancez simplement :
+
+```bash
+npm install
+npm run dev
+```
+
+- Site client : http://localhost:3000
+- Aperçu admin : http://localhost:3000/admin (sans connexion en mode démo)
+
+Le site affiche les produits, pages et contenus intégrés au code. Les formulaires affichent un message de succès mais ne sont pas enregistrés.
+
+### 5. Lancer en développement (avec Supabase)
 
 ```bash
 npm run dev
@@ -72,9 +86,9 @@ npm run dev
 - Site client : http://localhost:3000
 - Admin : http://localhost:3000/admin
 
-> **Note** : Sans Supabase configuré, le site fonctionne avec des données seed locales (fallback).
+> **Note** : Sans Supabase configuré, le site fonctionne en **mode démo** (données seed locales).
 
-## Logo
+### 6. Déployer sur Vercel sans base de données
 
 Le logo officiel BOVINIA est inclus dans le projet :
 
@@ -125,7 +139,7 @@ Ou connectez le repo GitHub à [vercel.com/new](https://vercel.com/new) — dép
 
 **Région recommandée :** Paris (`cdg1`) — déjà configurée dans `vercel.json`.
 
-Le site fonctionne **sans Supabase** en mode démo (données seed). Ajoutez les variables d'environnement Supabase dans Vercel pour activer les formulaires et l'admin.
+Le site fonctionne **sans Supabase** en mode démo (données seed). Ajoutez les variables d'environnement Supabase dans Vercel pour activer les formulaires et l'admin sécurisé.
 
 ## Rôles admin
 

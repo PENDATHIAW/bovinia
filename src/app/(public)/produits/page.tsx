@@ -24,6 +24,7 @@ export default async function ProductsPage() {
         </div>
         <ProductCatalog products={products} />
       </div>
+      <DiscoveryPacks products={products} />
     </div>
   );
 }

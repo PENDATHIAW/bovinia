@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
+import { getSiteUrl } from "@/lib/env";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -15,6 +16,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: "BOVINIA — Nutrition fonctionnelle powered by Bone Broth",
     template: "%s | BOVINIA",
