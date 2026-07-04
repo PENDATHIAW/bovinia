@@ -1,4 +1,4 @@
-// Seed data for BOVINIA — run after 001_initial_schema.sql
+-- Seed data for BOVINIA — run after 001_initial_schema.sql
 
 INSERT INTO site_settings (id, hero_title, hero_subtitle, hero_cta_primary, hero_cta_secondary, whatsapp_number, contact_email, contact_address, instagram_url, tiktok_url, site_title, site_description, footer_tagline)
 VALUES (
