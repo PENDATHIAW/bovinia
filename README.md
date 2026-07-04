@@ -76,8 +76,13 @@ npm run dev
 
 ## Logo
 
-Placer le logo officiel dans `/public/assets/logo/bovinia-logo.svg`.
-Un logo placeholder est fourni en attendant.
+Le logo officiel BOVINIA est inclus dans le projet :
+
+```
+public/assets/logo/bovinia-logo.png      # Logo complet (header, footer, admin)
+public/assets/logo/bovinia-logo-icon.png # Variante compacte (favicon)
+src/app/icon.png                         # Icône application Next.js
+```
 
 ## Structure du projet
 

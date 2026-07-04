@@ -9,26 +9,15 @@ interface LogoProps {
   onDark?: boolean;
 }
 
+/** Logo officiel BOVINIA — ratio ~3:2 (1536×1024) */
 const sizes = {
-  sm: { width: 100, height: 120 },
-  md: { width: 140, height: 168 },
-  lg: { width: 180, height: 216 },
+  sm: { width: 120, height: 80 },
+  md: { width: 160, height: 107 },
+  lg: { width: 220, height: 147 },
 };
 
 export function Logo({ className, size = "md", onDark = false }: LogoProps) {
   const { width, height } = sizes[size];
-
-  const image = (
-    <Image
-      src="/assets/logo/bovinia-logo.png"
-      alt="BOVINIA — Powered by Bone Broth"
-      width={width}
-      height={height}
-      priority={size !== "sm"}
-      className="h-auto w-auto object-contain"
-      style={{ maxWidth: width, maxHeight: height }}
-    />
-  );
 
   return (
     <Link
@@ -39,7 +28,15 @@ export function Logo({ className, size = "md", onDark = false }: LogoProps) {
         className
       )}
     >
-      {image}
+      <Image
+        src="/assets/logo/bovinia-logo.png"
+        alt="BOVINIA — Powered by Bone Broth"
+        width={width}
+        height={height}
+        priority={size !== "sm"}
+        className="h-auto w-auto object-contain"
+        style={{ maxWidth: width, maxHeight: height }}
+      />
     </Link>
   );
 }
