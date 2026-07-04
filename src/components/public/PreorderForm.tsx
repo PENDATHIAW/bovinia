@@ -2,18 +2,49 @@
 
 import { useState, useTransition } from "react";
 import { submitPreorder } from "@/lib/actions/forms";
+import { DISCOVERY_PACKS } from "@/components/public/DiscoveryPacks";
 import type { Product } from "@/types/database";
 
 interface PreorderFormProps {
   products: Product[];
   defaultProduct?: string;
+  defaultPack?: string;
   compact?: boolean;
 }
 
-export function PreorderForm({ products, defaultProduct, compact = false }: PreorderFormProps) {
+function getDefaultProductName(
+  products: Product[],
+  defaultProduct?: string,
+  defaultPack?: string
+): string {
+  if (defaultPack) {
+    const pack = DISCOVERY_PACKS.find((p) => p.id === defaultPack);
+    if (pack) return `Pack ${pack.name}`;
+  }
+  if (defaultProduct) {
+    return products.find((p) => p.slug === defaultProduct)?.name ?? "";
+  }
+  return "";
+}
+
+function getDefaultQuantity(defaultPack?: string): number {
+  if (!defaultPack) return 1;
+  const pack = DISCOVERY_PACKS.find((p) => p.id === defaultPack);
+  return pack?.slugs.length ?? 1;
+}
+
+export function PreorderForm({
+  products,
+  defaultProduct,
+  defaultPack,
+  compact = false,
+}: PreorderFormProps) {
   const [pending, startTransition] = useTransition();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const defaultProductName = getDefaultProductName(products, defaultProduct, defaultPack);
+  const defaultQuantity = getDefaultQuantity(defaultPack);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -75,23 +106,40 @@ export function PreorderForm({ products, defaultProduct, compact = false }: Preo
           <input id="city" name="city" required className="input-field" />
         </div>
         <div>
-          <label htmlFor="product_name" className="label-field">Produit souhaité *</label>
+          <label htmlFor="product_name" className="label-field">Produit ou pack *</label>
           <select
             id="product_name"
             name="product_name"
             required
-            defaultValue={defaultProduct ? products.find(p => p.slug === defaultProduct)?.name : ""}
+            defaultValue={defaultProductName}
             className="input-field"
           >
-            <option value="">Sélectionner un rituel</option>
-            {products.map((p) => (
-              <option key={p.id} value={p.name}>{p.name} — {p.mission}</option>
-            ))}
+            <option value="">Sélectionner</option>
+            <optgroup label="Rituels">
+              {products.map((p) => (
+                <option key={p.id} value={p.name}>{p.name} — {p.mission}</option>
+              ))}
+            </optgroup>
+            <optgroup label="Packs">
+              {DISCOVERY_PACKS.map((pack) => (
+                <option key={pack.id} value={`Pack ${pack.name}`}>
+                  Pack {pack.name}
+                </option>
+              ))}
+            </optgroup>
           </select>
         </div>
         <div>
           <label htmlFor="quantity" className="label-field">Quantité</label>
-          <input id="quantity" name="quantity" type="number" min={1} max={20} defaultValue={1} className="input-field" />
+          <input
+            id="quantity"
+            name="quantity"
+            type="number"
+            min={1}
+            max={20}
+            defaultValue={defaultQuantity}
+            className="input-field"
+          />
         </div>
         <div>
           <label htmlFor="preferred_channel" className="label-field">Canal préféré</label>

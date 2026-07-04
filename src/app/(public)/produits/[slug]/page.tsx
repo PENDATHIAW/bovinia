@@ -3,8 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 import { getProductBySlug, getProducts, getSiteSettings } from "@/lib/data/queries";
-import { PRODUCT_COLORS } from "@/types/database";
-import { cn, formatPrice } from "@/lib/utils";
+import { ProductPotImage } from "@/components/public/ProductPotImage";
+import { formatPrice } from "@/lib/utils";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -35,7 +35,6 @@ export default async function ProductDetailPage({ params }: Props) {
 
   if (!product) notFound();
 
-  const colors = PRODUCT_COLORS[product.color_theme] ?? PRODUCT_COLORS.wellness;
   const whatsappUrl = `https://wa.me/${settings.whatsapp_number.replace(/\D/g, "")}?text=${encodeURIComponent(`Bonjour, j'ai une question sur ${product.name} BOVINIA.`)}`;
 
   return (
@@ -47,21 +46,7 @@ export default async function ProductDetailPage({ params }: Props) {
         </Link>
 
         <div className="grid gap-12 lg:grid-cols-2">
-          <div
-            className={cn("flex items-center justify-center rounded-3xl p-12", colors.bg)}
-            style={{ backgroundColor: colors.accent + "22" }}
-          >
-            <div
-              className="relative h-72 w-44 rounded-t-3xl rounded-b-xl shadow-2xl"
-              style={{ backgroundColor: colors.accent }}
-            >
-              <div className="absolute inset-x-4 top-6 h-12 rounded bg-white/20" />
-              <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-8">
-                <span className="text-sm font-bold tracking-widest text-white">{product.name}</span>
-                <span className="mt-1 text-xs text-white/70">{product.mission}</span>
-              </div>
-            </div>
-          </div>
+          <ProductPotImage product={product} size="lg" className="w-full" />
 
           <div>
             <p className="text-sm font-medium uppercase tracking-widest text-gold">{product.mission}</p>

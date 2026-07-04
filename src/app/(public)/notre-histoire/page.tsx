@@ -60,11 +60,31 @@ export default function NotreHistoirePage() {
             </p>
           </section>
 
-          <section className="card-premium border-gold/30 p-8">
-            <h2 className="font-serif text-2xl text-forest">Et demain : Tallow & Go</h2>
-            <p className="mt-4 leading-relaxed text-foreground/70">
-              L&apos;écosystème BOVINIA s&apos;étendra prochainement avec Tallow & Go, une extension
-              naturelle de notre vision de valorisation des ressources animales et agricoles locales.
+          <section className="card-premium border-gold/30 bg-forest/5 p-8">
+            <h2 className="font-serif text-2xl text-forest">L&apos;écosystème : Horizon Farm, BOVINIA & Tallow & Go</h2>
+            <blockquote className="mt-6 border-l-4 border-gold pl-6 font-serif text-lg italic text-forest/90">
+              Des os naît BOVINIA. Du suif naît Tallow &amp; Go. De la ferme naît une industrie
+              naturelle qui valorise l&apos;animal et les plantes avec intelligence.
+            </blockquote>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-xl bg-white p-4">
+                <p className="font-serif text-forest">Horizon Farm</p>
+                <p className="mt-1 text-xs text-foreground/60">Production, traçabilité, élevage</p>
+              </div>
+              <div className="rounded-xl bg-white p-4 ring-2 ring-gold/30">
+                <p className="font-serif text-forest">BOVINIA</p>
+                <p className="mt-1 text-xs text-foreground/60">Nutrition de l&apos;intérieur — Bone Broth</p>
+              </div>
+              <div className="rounded-xl bg-white p-4">
+                <p className="font-serif text-forest">Tallow &amp; Go</p>
+                <p className="mt-1 text-xs text-foreground/60">Soin du corps de l&apos;extérieur — suif purifié</p>
+              </div>
+            </div>
+            <p className="mt-6 leading-relaxed text-foreground/70">
+              Tallow &amp; Go prolongera la vision BOVINIA : valoriser chaque ressource de l&apos;élevage
+              local. Là où BOVINIA nourrit de l&apos;intérieur avec le Bone Broth, Tallow &amp; Go
+              accompagnera la peau avec des soins naturels à base de suif de bœuf purifié, huiles et
+              beurres végétaux — une marque sœur, complémentaire et exportable.
             </p>
           </section>
         </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ProductCatalog } from "@/components/public/ProductCatalog";
+import { DiscoveryPacks } from "@/components/public/DiscoveryPacks";
 import { getProducts } from "@/lib/data/queries";
 
 export const metadata: Metadata = {

@@ -110,11 +110,22 @@ public/
     └── logo/              # Logo BOVINIA
 ```
 
-## Déploiement Vercel
+## Déploiement Vercel (5 minutes)
 
-1. Connecter le repo à Vercel
-2. Ajouter les variables d'environnement
-3. Déployer
+```bash
+# Installer Vercel CLI
+npm i -g vercel
+
+# Se connecter et déployer
+vercel login
+vercel --prod
+```
+
+Ou connectez le repo GitHub à [vercel.com/new](https://vercel.com/new) — déploiement automatique à chaque push.
+
+**Région recommandée :** Paris (`cdg1`) — déjà configurée dans `vercel.json`.
+
+Le site fonctionne **sans Supabase** en mode démo (données seed). Ajoutez les variables d'environnement Supabase dans Vercel pour activer les formulaires et l'admin.
 
 ## Rôles admin
 

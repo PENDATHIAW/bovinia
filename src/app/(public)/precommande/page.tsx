@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default async function PrecommandePage({
   searchParams,
 }: {
-  searchParams: Promise<{ produit?: string }>;
+  searchParams: Promise<{ produit?: string; pack?: string }>;
 }) {
-  const { produit } = await searchParams;
+  const { produit, pack } = await searchParams;
   const products = await getProducts();
 
   return (
@@ -23,12 +23,12 @@ export default async function PrecommandePage({
           <p className="text-sm font-medium uppercase tracking-widest text-gold">Waitlist</p>
           <h1 className="mt-2 font-serif text-4xl text-forest md:text-5xl">Précommander</h1>
           <p className="mt-4 text-foreground/70">
-            Rejoignez la liste d&apos;attente et soyez parmi les premiers à découvrir BOVINIA.
+            Rejoignez la liste d&apos;attente — rituels à 15 000 FCFA · packs à partir de 28 000 FCFA.
           </p>
         </div>
 
         <div className="card-premium p-6 md:p-10">
-          <PreorderForm products={products} defaultProduct={produit} />
+          <PreorderForm products={products} defaultProduct={produit} defaultPack={pack} />
         </div>
       </div>
     </div>

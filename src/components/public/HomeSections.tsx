@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Leaf,
   Droplets,
@@ -7,13 +8,13 @@ import {
   ShieldCheck,
   Sparkles,
   ArrowRight,
-  Recycle,
   Heart,
 } from "lucide-react";
 import { ProductCard } from "./ProductCard";
 import { FAQAccordion } from "./FAQAccordion";
 import { TestimonialsSection } from "./TestimonialsSection";
 import { PreorderForm } from "./PreorderForm";
+import { DiscoveryPacks } from "./DiscoveryPacks";
 import type { FAQ, Product, SiteSettings, Testimonial } from "@/types/database";
 
 interface HomeSectionsProps {
@@ -74,25 +75,23 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
             </div>
 
             <div className="relative flex justify-center">
-              <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+              <div className="flex flex-wrap items-end justify-center gap-2 sm:gap-3">
                 {products.map((p) => (
-                  <div
+                  <Link
                     key={p.id}
-                    className="h-28 w-16 rounded-t-xl rounded-b-md shadow-lg transition-transform hover:-translate-y-2 sm:h-36 sm:w-20"
-                    style={{
-                      backgroundColor:
-                        p.color_theme === "wellness" ? "#8B9A7D" :
-                        p.color_theme === "bloom" ? "#D4A5A5" :
-                        p.color_theme === "period" ? "#722F37" :
-                        p.color_theme === "pulse" ? "#C45C26" : "#1B2A4A",
-                    }}
+                    href={`/produits/${p.slug}`}
+                    className="transition-transform hover:-translate-y-2"
                   >
-                    <div className="flex h-full flex-col items-center justify-end pb-3">
-                      <span className="text-[8px] font-bold tracking-wider text-white sm:text-[10px]">
-                        {p.name}
-                      </span>
-                    </div>
-                  </div>
+                    {p.image ? (
+                      <Image
+                        src={p.image}
+                        alt={p.name}
+                        width={100}
+                        height={130}
+                        className="h-24 w-auto object-contain drop-shadow-lg sm:h-32"
+                      />
+                    ) : null}
+                  </Link>
                 ))}
               </div>
             </div>
@@ -248,6 +247,8 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
           </div>
         </div>
       </section>
+
+      <DiscoveryPacks products={products} />
 
       {/* Précommande */}
       <section id="precommande" className="section-padding">
