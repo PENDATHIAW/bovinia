@@ -3,8 +3,8 @@
 INSERT INTO site_settings (id, hero_title, hero_subtitle, hero_cta_primary, hero_cta_secondary, whatsapp_number, contact_email, contact_address, instagram_url, tiktok_url, site_title, site_description, footer_tagline)
 VALUES (
   1,
-  'Le rituel nutritionnel nouvelle génération, powered by Bone Broth.',
-  'BOVINIA transforme la richesse naturelle du Bone Broth en rituels gourmands pour accompagner votre bien-être au quotidien.',
+  'Nourrir votre corps, naturellement.',
+  'BOVINIA transforme la puissance naturelle du Bone Broth en cinq rituels gourmands et modernes, conçus pour accompagner le corps au quotidien.',
   'Découvrir la gamme',
   'Précommander',
   '+221771234567',
@@ -30,7 +30,7 @@ INSERT INTO faqs (question, answer, sort_order) VALUES
 ('Comment consommer les produits ?', 'Mélangez une cuillère doseuse (~10 g) dans 200 ml de liquide.', 3),
 ('Est-ce adapté aux femmes enceintes ?', 'BLOOM a été conçu pour accompagner les femmes enceintes. Consultez votre professionnel de santé.', 4),
 ('Combien de fois par jour peut-on en prendre ?', 'Une à deux portions par jour suffisent généralement.', 5),
-('Les produits contiennent-ils du sel ajouté ?', 'Non. Sans sel ajouté, sans colorants ni conservateurs artificiels.', 6),
+('Les produits contiennent-ils du sel ou des sucres ajoutés ?', 'Non. Sans sel ajouté, sans sucres ajoutés, sans colorants ni conservateurs artificiels. Riche en collagène, fabriqué au Sénégal.', 6),
 ('Où acheter BOVINIA ?', 'Inscrivez-vous à la waitlist pour être informé du lancement.', 7),
 ('Est-ce disponible à l''international ?', 'Notre ambition est exportable. Contactez-nous pour l''export.', 8);
 

@@ -25,19 +25,20 @@ interface HomeSectionsProps {
 
 const COMMITMENTS = [
   { icon: ShieldCheck, label: "Sans sel ajouté" },
+  { icon: Heart, label: "Sans sucres ajoutés" },
   { icon: Sparkles, label: "Sans colorants artificiels" },
   { icon: Leaf, label: "Sans conservateurs artificiels" },
-  { icon: Heart, label: "Ingrédients naturels sélectionnés" },
+  { icon: Droplets, label: "Riche en collagène" },
   { icon: Globe, label: "Fabriqué au Sénégal" },
-  { icon: Flame, label: "Vision africaine, ambition internationale" },
+  { icon: Flame, label: "Ingrédients naturels sélectionnés" },
 ];
 
 const CONSUMPTION = [
-  { product: "WELLNESS", methods: "Eau fraîche ou smoothie" },
-  { product: "BLOOM", methods: "Lait, smoothie ou eau" },
+  { product: "WELLNESS", methods: "Eau fraîche, eau tiède ou smoothie léger" },
+  { product: "BLOOM", methods: "Lait, lait végétal, smoothie ou milkshake" },
   { product: "PERIOD!", methods: "Eau chaude ou fraîche" },
-  { product: "PULSE", methods: "Eau fraîche ou smoothie" },
-  { product: "CALM", methods: "Boisson chaude, lait ou infusion" },
+  { product: "PULSE", methods: "Eau fraîche, smoothie, avant/après sport" },
+  { product: "CALM", methods: "Eau chaude, lait ou lait végétal le soir" },
 ];
 
 export function HomeSections({ products, faqs, testimonials, settings }: HomeSectionsProps) {
@@ -157,13 +158,15 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
                 Qu&apos;est-ce que le Bone Broth ?
               </h2>
               <p className="mt-6 leading-relaxed text-foreground/70">
-                Le Bone Broth est un bouillon longuement préparé à partir de tissus conjonctifs
-                sélectionnés, naturellement riches en collagène, gélatine, acides aminés et minéraux.
+                Le Bone Broth est un bouillon concentré puis déshydraté, issu d&apos;un mélange
+                sélectionné de tissus conjonctifs de bœuf et de poulet — pattes, articulations,
+                tendons et carcasses — naturellement riches en collagène, gélatine, acides aminés
+                et protéines, sans sel ajouté.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                BOVINIA transforme cette richesse traditionnelle en poudre moderne, facile à utiliser
-                et agréable à boire — pour intégrer le Bone Broth à votre routine quotidienne sans
-                compromis sur le goût.
+                BOVINIA transforme cette base en poudre premium, facile à utiliser et agréable à
+                boire. L&apos;objectif : un rituel quotidien gourmand où le Bone Broth reste la base
+                active, mais disparaît en bouche au profit des fruits et plantes africaines.
               </p>
             </div>
             <div className="card-premium flex items-center justify-center p-12">
@@ -213,7 +216,7 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
             <p className="text-sm font-medium uppercase tracking-widest text-gold">Mode d&apos;emploi</p>
             <h2 className="mt-2 font-serif text-3xl text-forest md:text-4xl">Comment consommer ?</h2>
             <p className="mt-4 text-foreground/70">
-              1 cuillère doseuse (~10 g) · 200 ml de liquide · Mélangez et savourez
+              15–17 g par portion · ~30 portions par pot · 200 ml de liquide · Mélangez et savourez
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

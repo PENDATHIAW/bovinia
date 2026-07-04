@@ -9,9 +9,9 @@ import { SEED_PRODUCTS } from "@/lib/data/products";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  hero_title: "Le rituel nutritionnel nouvelle génération, powered by Bone Broth.",
+  hero_title: "Nourrir votre corps, naturellement.",
   hero_subtitle:
-    "BOVINIA transforme la richesse naturelle du Bone Broth en rituels gourmands pour accompagner votre bien-être au quotidien.",
+    "BOVINIA transforme la puissance naturelle du Bone Broth en cinq rituels gourmands et modernes, conçus pour accompagner le corps au quotidien.",
   hero_cta_primary: "Découvrir la gamme",
   hero_cta_secondary: "Précommander",
   whatsapp_number: "+221771234567",
@@ -49,7 +49,7 @@ export const SEED_FAQS: FAQ[] = [
     id: "3",
     question: "Comment consommer les produits ?",
     answer:
-      "Mélangez une cuillère doseuse (environ 10 g) dans 200 ml d'eau chaude ou froide, de lait, du lait végétal ou un smoothie. Chaque rituel a ses modes de consommation recommandés, indiqués sur la fiche produit.",
+      "Mélangez une portion de 15 à 17 g (environ 1 cuillère doseuse) dans 200 ml d'eau chaude ou froide, de lait, du lait végétal ou un smoothie. Chaque pot de 500 g offre environ 30 portions. Consultez la fiche produit pour le mode de consommation recommandé.",
     sort_order: 3,
     is_active: true,
     created_at: new Date().toISOString(),
@@ -74,9 +74,9 @@ export const SEED_FAQS: FAQ[] = [
   },
   {
     id: "6",
-    question: "Les produits contiennent-ils du sel ajouté ?",
+    question: "Les produits contiennent-ils du sel ou des sucres ajoutés ?",
     answer:
-      "Non. Nos formules sont élaborées sans sel ajouté, sans colorants artificiels et sans conservateurs artificiels.",
+      "Non. Nos formules sont élaborées sans sel ajouté et sans sucres ajoutés, sans colorants artificiels et sans conservateurs artificiels. Riches en collagène et en protéines selon analyses, fabriquées au Sénégal.",
     sort_order: 6,
     is_active: true,
     created_at: new Date().toISOString(),
