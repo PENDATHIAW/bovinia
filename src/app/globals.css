@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FAF7F2;
+  --foreground: #1A2E1A;
+  --forest: #1B4332;
+  --forest-light: #2D6A4F;
+  --gold: #C9A962;
+  --gold-light: #E8D5A3;
+  --ivory: #FAF7F2;
+  --cream: #F5F0E8;
+  --wellness: #8B9A7D;
+  --bloom: #D4A5A5;
+  --period: #722F37;
+  --pulse: #C45C26;
+  --calm: #1B2A4A;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-forest: var(--forest);
+  --color-forest-light: var(--forest-light);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-wellness: var(--wellness);
+  --color-bloom: var(--bloom);
+  --color-period: var(--period);
+  --color-pulse: var(--pulse);
+  --color-calm: var(--calm);
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-dm-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+::selection {
+  background: var(--gold-light);
+  color: var(--forest);
+}
+
+.section-padding {
+  @apply px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+}
+
+.container-bovinia {
+  @apply max-w-7xl mx-auto;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-3 text-sm font-medium text-ivory transition-all hover:bg-forest-light hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-gold bg-transparent px-6 py-3 text-sm font-medium text-forest transition-all hover:bg-gold/10;
+}
+
+.btn-gold {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-forest transition-all hover:bg-gold-light hover:shadow-lg;
+}
+
+.card-premium {
+  @apply rounded-3xl bg-white/80 backdrop-blur-sm border border-gold/20 shadow-sm transition-all hover:shadow-md hover:border-gold/40;
+}
+
+.input-field {
+  @apply w-full rounded-xl border border-forest/20 bg-white px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20 transition-all;
+}
+
+.label-field {
+  @apply block text-sm font-medium text-forest mb-1.5;
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #FAF7F2 0%, #F5F0E8 50%, #EDE8DC 100%);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #C9A962 0%, #E8D5A3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.prose-bovinia h2 {
+  @apply text-2xl font-serif text-forest mt-8 mb-4;
+}
+
+.prose-bovinia p {
+  @apply text-foreground/80 leading-relaxed mb-4;
+}
+
+.prose-bovinia ul {
+  @apply list-disc pl-6 mb-4 text-foreground/80;
+}

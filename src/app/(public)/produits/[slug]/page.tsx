@@ -1,0 +1,122 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { MessageCircle, ArrowLeft } from "lucide-react";
+import { getProductBySlug, getProducts, getSiteSettings } from "@/lib/data/queries";
+import { PRODUCT_COLORS } from "@/types/database";
+import { cn, formatPrice } from "@/lib/utils";
+
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
+  if (!product) return { title: "Produit introuvable" };
+
+  return {
+    title: product.seo_title ?? product.name,
+    description: product.seo_description ?? product.short_description,
+  };
+}
+
+export default async function ProductDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const [product, settings] = await Promise.all([
+    getProductBySlug(slug),
+    getSiteSettings(),
+  ]);
+
+  if (!product) notFound();
+
+  const colors = PRODUCT_COLORS[product.color_theme] ?? PRODUCT_COLORS.wellness;
+  const whatsappUrl = `https://wa.me/${settings.whatsapp_number.replace(/\D/g, "")}?text=${encodeURIComponent(`Bonjour, j'ai une question sur ${product.name} BOVINIA.`)}`;
+
+  return (
+    <div className="section-padding">
+      <div className="container-bovinia">
+        <Link href="/produits" className="mb-8 inline-flex items-center gap-2 text-sm text-forest/60 hover:text-forest">
+          <ArrowLeft size={16} />
+          Retour au catalogue
+        </Link>
+
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div
+            className={cn("flex items-center justify-center rounded-3xl p-12", colors.bg)}
+            style={{ backgroundColor: colors.accent + "22" }}
+          >
+            <div
+              className="relative h-72 w-44 rounded-t-3xl rounded-b-xl shadow-2xl"
+              style={{ backgroundColor: colors.accent }}
+            >
+              <div className="absolute inset-x-4 top-6 h-12 rounded bg-white/20" />
+              <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-8">
+                <span className="text-sm font-bold tracking-widest text-white">{product.name}</span>
+                <span className="mt-1 text-xs text-white/70">{product.mission}</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-medium uppercase tracking-widest text-gold">{product.mission}</p>
+            <h1 className="mt-2 font-serif text-4xl text-forest">{product.name}</h1>
+            <p className="mt-2 text-foreground/60">{product.dominant_flavors.join(" • ")}</p>
+            {product.price && (
+              <p className="mt-4 font-serif text-2xl text-forest">{formatPrice(product.price)}</p>
+            )}
+            <p className="mt-1 text-sm text-foreground/50">Format : 500 g · Statut : Précommande</p>
+
+            <p className="mt-6 leading-relaxed text-foreground/70">{product.long_description}</p>
+
+            <div className="mt-8 space-y-4">
+              <div className="card-premium p-5">
+                <h2 className="font-serif text-lg text-forest">Pour qui ?</h2>
+                <p className="mt-2 text-sm text-foreground/70">{product.target_audience}</p>
+              </div>
+              <div className="card-premium p-5">
+                <h2 className="font-serif text-lg text-forest">Quand le consommer ?</h2>
+                <p className="mt-2 text-sm text-foreground/70">{product.usage_moment}</p>
+              </div>
+              <div className="card-premium p-5">
+                <h2 className="font-serif text-lg text-forest">Comment le préparer ?</h2>
+                <p className="mt-2 text-sm text-foreground/70">
+                  {product.preparation_methods.join(" · ")}
+                </p>
+              </div>
+              <div className="card-premium p-5">
+                <h2 className="font-serif text-lg text-forest">Ingrédients principaux</h2>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {product.main_ingredients.map((ing) => (
+                    <li key={ing} className="rounded-full bg-cream px-3 py-1 text-xs text-forest">
+                      {ing}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+              {product.warnings}
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href={`/precommande?produit=${product.slug}`} className="btn-gold">
+                Précommander
+              </Link>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                <MessageCircle size={16} />
+                Poser une question
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
