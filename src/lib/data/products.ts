@@ -1,3 +1,4 @@
+import { OFFICIAL_IMAGES } from "@/lib/data/officialImages";
 import type { Product } from "@/types/database";
 
 const HOT_PREP = [
@@ -39,8 +40,8 @@ export const SEED_PRODUCTS: Product[] = [
     status: "visible",
     category: "bien-etre",
     color_theme: "wellness",
-    image: "/assets/products/wellness.png",
-    gallery: ["/assets/products/wellness.png"],
+    image: OFFICIAL_IMAGES.products.wellness,
+    gallery: [OFFICIAL_IMAGES.lifestyle.wellnessOffice, OFFICIAL_IMAGES.lifestyle.wellness],
     seo_title: "WELLNESS — Rituel bien-être quotidien | BOVINIA",
     seo_description:
       "WELLNESS, le rituel BOVINIA au Bone Broth. Ananas, mandarine et menthe — chaud ou froid.",
@@ -85,8 +86,8 @@ export const SEED_PRODUCTS: Product[] = [
     status: "visible",
     category: "grossesse",
     color_theme: "bloom",
-    image: "/assets/products/bloom.png",
-    gallery: ["/assets/products/bloom.png"],
+    image: OFFICIAL_IMAGES.products.bloom,
+    gallery: [OFFICIAL_IMAGES.lifestyle.bloom],
     seo_title: "BLOOM — Grossesse & post-partum | BOVINIA",
     seo_description:
       "BLOOM accompagne les femmes enceintes et jeunes mamans. Mangue, coco et vanille à base de Bone Broth premium.",
@@ -130,8 +131,8 @@ export const SEED_PRODUCTS: Product[] = [
     status: "visible",
     category: "cycle-feminin",
     color_theme: "period",
-    image: "/assets/products/period.png",
-    gallery: ["/assets/products/period.png"],
+    image: OFFICIAL_IMAGES.products.period,
+    gallery: [OFFICIAL_IMAGES.lifestyle.period],
     seo_title: "PERIOD! — Confort du cycle féminin | BOVINIA",
     seo_description:
       "PERIOD! en boisson chaude ou fraîche. Bissap, mandarine et cannelle — rituel BOVINIA au Bone Broth.",
@@ -172,8 +173,8 @@ export const SEED_PRODUCTS: Product[] = [
     status: "visible",
     category: "sport",
     color_theme: "pulse",
-    image: "/assets/products/pulse.png",
-    gallery: ["/assets/products/pulse.png"],
+    image: OFFICIAL_IMAGES.products.pulse,
+    gallery: [OFFICIAL_IMAGES.lifestyle.pulse],
     seo_title: "PULSE — Énergie & vitalité | BOVINIA",
     seo_description:
       "PULSE accompagne énergie et récupération. Mangue, orange et gingembre — chaud ou froid.",
@@ -216,8 +217,8 @@ export const SEED_PRODUCTS: Product[] = [
     status: "visible",
     category: "sommeil",
     color_theme: "calm",
-    image: "/assets/products/calm.png",
-    gallery: ["/assets/products/calm.png"],
+    image: OFFICIAL_IMAGES.products.calm,
+    gallery: [OFFICIAL_IMAGES.lifestyle.calm],
     seo_title: "CALM — Sommeil & récupération | BOVINIA",
     seo_description:
       "CALM, rituel du soir BOVINIA en boisson chaude. Verveine, camomille et vanille.",
