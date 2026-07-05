@@ -4,7 +4,7 @@ import { MessageCircle, Mail, MapPin, ShoppingBag, ArrowRight } from "lucide-rea
 import { ContactForm } from "@/components/public/ContactForm";
 import { OfficialAssetImage } from "@/components/public/OfficialAssetImage";
 import { getSiteSettings } from "@/lib/data/queries";
-import { OFFICIAL_IMAGES } from "@/lib/data/officialImages";
+import { ASSETS } from "@/lib/data/assetPaths";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -35,7 +35,7 @@ export default async function ContactPage() {
 
         <div className="mb-12 overflow-hidden rounded-3xl border border-gold/20 bg-cream shadow-lg">
           <OfficialAssetImage
-            src={OFFICIAL_IMAGES.contact}
+            src={ASSETS.contact}
             alt="BOVINIA — contact et service client"
             className="mx-auto h-auto w-full object-contain"
           />

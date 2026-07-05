@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { OFFICIAL_IMAGES } from "@/lib/data/officialImages";
+import { ASSETS } from "@/lib/data/assetPaths";
 import { OfficialAssetImage } from "./OfficialAssetImage";
 
 interface LogoProps {
@@ -26,7 +26,7 @@ export function Logo({ className, size = "md", onDark = false }: LogoProps) {
       )}
     >
       <OfficialAssetImage
-        src={OFFICIAL_IMAGES.logo}
+        src={ASSETS.logo}
         alt="BOVINIA — Powered by Bone Broth"
         priority
         className={cn("h-auto object-contain", sizes[size])}
@@ -38,7 +38,7 @@ export function Logo({ className, size = "md", onDark = false }: LogoProps) {
 export function LogoIcon({ className }: { className?: string }) {
   return (
     <OfficialAssetImage
-      src={OFFICIAL_IMAGES.logoIcon}
+      src={ASSETS.logoIcon}
       alt="BOVINIA"
       className={cn("h-10 w-10 object-contain", className)}
     />
