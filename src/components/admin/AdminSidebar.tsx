@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   Package,
   ShoppingCart,
-  ClipboardList,
   FileText,
   HelpCircle,
   MessageSquare,
@@ -23,7 +22,6 @@ import { logoutAdmin } from "@/lib/actions/admin";
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Produits", icon: Package },
-  { href: "/admin/preorders", label: "Commandes clients", icon: ClipboardList },
   { href: "/admin/orders", label: "Commandes", icon: ShoppingCart },
   { href: "/admin/blog", label: "Blog", icon: FileText },
   { href: "/admin/faq", label: "FAQ", icon: HelpCircle },

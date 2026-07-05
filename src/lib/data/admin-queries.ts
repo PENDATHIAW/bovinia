@@ -7,19 +7,19 @@ export async function getAdminStats() {
 
   if (!supabase) {
     return {
-      preorders: 0,
+      orders: 0,
       contacts: 0,
       newsletter: 0,
       blogPosts: SEED_BLOG_POSTS.length,
       products: SEED_PRODUCTS.length,
-      revenue: SEED_PRODUCTS.reduce((s, p) => s + (p.price ?? 0) * 10, 0),
+      revenue: 0,
       topProducts: SEED_PRODUCTS.map((p) => ({ name: p.name, count: 0 })),
       topCities: [] as { city: string; count: number }[],
     };
   }
 
-  const [preorders, contacts, newsletter, blogPosts, products, analytics] = await Promise.all([
-    supabase.from("preorders").select("*", { count: "exact", head: true }),
+  const [orders, contacts, newsletter, blogPosts, products, analytics] = await Promise.all([
+    supabase.from("orders").select("*", { count: "exact", head: true }),
     supabase.from("contact_messages").select("*", { count: "exact", head: true }),
     supabase.from("newsletter_subscribers").select("*", { count: "exact", head: true }),
     supabase.from("blog_posts").select("*", { count: "exact", head: true }),
@@ -27,21 +27,24 @@ export async function getAdminStats() {
     supabase.from("analytics_events").select("*", { count: "exact", head: true }),
   ]);
 
-  const { data: preorderData } = await supabase.from("preorders").select("product_name, city");
+  const { data: ordersData } = await supabase.from("orders").select("city, total");
+  const { data: orderItems } = await supabase.from("order_items").select("product_name");
+
   const productCounts: Record<string, number> = {};
   const cityCounts: Record<string, number> = {};
-  preorderData?.forEach((p) => {
-    productCounts[p.product_name] = (productCounts[p.product_name] || 0) + 1;
-    cityCounts[p.city] = (cityCounts[p.city] || 0) + 1;
+
+  orderItems?.forEach((item) => {
+    productCounts[item.product_name] = (productCounts[item.product_name] || 0) + 1;
   });
 
-  const revenue = (products.data ?? []).reduce(
-    (s, p) => s + (Number(p.price) || 0) * (p.stock || 0),
-    0
-  );
+  ordersData?.forEach((order) => {
+    if (order.city) cityCounts[order.city] = (cityCounts[order.city] || 0) + 1;
+  });
+
+  const revenue = (ordersData ?? []).reduce((s, o) => s + (Number(o.total) || 0), 0);
 
   return {
-    preorders: preorders.count ?? 0,
+    orders: orders.count ?? 0,
     contacts: contacts.count ?? 0,
     newsletter: newsletter.count ?? 0,
     blogPosts: blogPosts.count ?? 0,
@@ -82,9 +85,25 @@ export async function getAdminNewsletter() {
 
 export async function getAdminOrders() {
   const supabase = await createServiceClient();
-  if (!supabase) return [];
-  const { data } = await supabase.from("orders").select("*").order("created_at", { ascending: false });
-  return data ?? [];
+  if (!supabase) return { orders: [] as import("@/types/database").Order[], itemsByOrder: {} };
+
+  const { data: orders } = await supabase
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  const { data: items } = await supabase.from("order_items").select("*");
+
+  const itemsByOrder: Record<string, import("@/types/database").OrderItemRow[]> = {};
+  items?.forEach((item) => {
+    if (!itemsByOrder[item.order_id]) itemsByOrder[item.order_id] = [];
+    itemsByOrder[item.order_id].push(item);
+  });
+
+  return {
+    orders: (orders ?? []) as import("@/types/database").Order[],
+    itemsByOrder,
+  };
 }
 
 export async function getAdminBlogPosts() {

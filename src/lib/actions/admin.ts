@@ -29,6 +29,20 @@ export async function logoutAdmin() {
   redirect("/admin/login");
 }
 
+export async function updateOrderStatus(
+  id: string,
+  update: { payment_status?: string; delivery_status?: string }
+) {
+  const supabase = await createClient();
+  if (!supabase) return { error: "Non configuré" };
+
+  const { error } = await supabase.from("orders").update(update).eq("id", id);
+  if (error) return { error: error.message };
+
+  revalidatePath("/admin/orders");
+  return { success: true };
+}
+
 export async function updatePreorderStatus(id: string, status: string, note?: string) {
   const supabase = await createClient();
   if (!supabase) return { error: "Non configuré" };

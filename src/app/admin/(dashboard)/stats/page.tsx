@@ -8,7 +8,7 @@ export default async function AdminStatsPage() {
 
   const conversionRate =
     analytics.pageViews > 0
-      ? ((stats.preorders / analytics.pageViews) * 100).toFixed(1)
+      ? ((stats.orders / analytics.pageViews) * 100).toFixed(1)
       : "0";
 
   return (

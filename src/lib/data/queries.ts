@@ -85,7 +85,7 @@ export const SEED_FAQS: FAQ[] = [
     id: "7",
     question: "Où acheter BOVINIA ?",
     answer:
-      "Commandez directement sur bovinia.sn/commander ou via le bouton Commander sur chaque produit. Nous vous contactons pour confirmer et organiser la livraison (Wave, Orange Money ou paiement à la livraison).",
+      "Commandez sur bovinia.sn/commander : ajoutez vos rituels au panier, renseignez la livraison et confirmez. Votre commande est validée immédiatement sur le site, avec un email récapitulatif.",
     sort_order: 7,
     is_active: true,
     created_at: new Date().toISOString(),

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { OrderForm } from "@/components/public/OrderForm";
+import { CheckoutFlow } from "@/components/public/CheckoutFlow";
 import { getProducts } from "@/lib/data/queries";
 import { formatPrice } from "@/lib/utils";
 
@@ -28,12 +28,12 @@ export default async function CommanderPage({
             {formatPrice(28000)}.
           </p>
           <p className="mt-2 text-sm text-foreground/50">
-            Paiement Wave, Orange Money ou à la livraison — confirmation par WhatsApp.
+            Paiement Wave, Orange Money ou à la livraison — confirmation immédiate sur le site.
           </p>
         </div>
 
         <div className="card-premium p-6 md:p-10">
-          <OrderForm products={products} defaultProduct={produit} defaultPack={pack} />
+          <CheckoutFlow products={products} defaultProduct={produit} defaultPack={pack} />
         </div>
       </div>
     </div>

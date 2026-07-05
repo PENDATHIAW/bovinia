@@ -155,10 +155,14 @@ export interface SiteSettings {
 
 export interface Order {
   id: string;
+  order_number: string | null;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
+  city: string | null;
   items: OrderItem[];
+  subtotal: number;
+  shipping_fee: number;
   total: number;
   payment_status: OrderPaymentStatus;
   delivery_status: OrderDeliveryStatus;
@@ -167,6 +171,17 @@ export interface Order {
   note: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface OrderItemRow {
+  id: string;
+  order_id: string;
+  product_id: string | null;
+  product_name: string;
+  product_slug: string | null;
+  quantity: number;
+  unit_price: number;
+  created_at: string;
 }
 
 export interface OrderItem {

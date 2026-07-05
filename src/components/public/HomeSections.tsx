@@ -13,7 +13,6 @@ import {
 import { ProductCard } from "./ProductCard";
 import { FAQAccordion } from "./FAQAccordion";
 import { TestimonialsSection } from "./TestimonialsSection";
-import { OrderForm } from "./OrderForm";
 import { DiscoveryPacks } from "./DiscoveryPacks";
 import type { FAQ, Product, SiteSettings, Testimonial } from "@/types/database";
 
@@ -262,12 +261,20 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
                 Commandez vos rituels
               </h2>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Tous nos produits sont disponibles. Remplissez le formulaire — nous vous contactons
-                pour confirmer la commande et la livraison.
+                Tous nos produits sont disponibles. Ajoutez au panier, renseignez votre livraison et
+                confirmez — votre commande est validée immédiatement sur le site.
               </p>
+              <Link href="/commander" className="btn-gold mt-6 inline-flex">
+                Commander maintenant
+                <ArrowRight size={16} />
+              </Link>
             </div>
-            <div className="card-premium p-6 md:p-8">
-              <OrderForm products={products} compact />
+            <div className="card-premium flex flex-col items-center justify-center p-8 text-center">
+              <p className="font-serif text-2xl text-forest">15 000 FCFA</p>
+              <p className="mt-1 text-sm text-foreground/60">le pot · livraison dès 2 000 FCFA</p>
+              <p className="mt-4 text-sm text-foreground/50">
+                Wave · Orange Money · Paiement à la livraison
+              </p>
             </div>
           </div>
         </div>

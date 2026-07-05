@@ -150,6 +150,30 @@ Le site fonctionne **sans Supabase** en mode démo (données seed). Ajoutez les 
 | editor | Contenu (blog, FAQ, témoignages) |
 | order_manager | Commandes clients |
 
+## Checkout e-commerce
+
+Le parcours commande se déroule entièrement sur le site :
+
+1. **Panier** — rituels et packs
+2. **Livraison** — coordonnées et adresse
+3. **Paiement** — Wave, Orange Money ou à la livraison
+4. **Confirmation** — numéro de commande affiché sur le site + email (Resend)
+
+### Configuration Supabase
+
+Exécuter dans l'ordre :
+
+1. `supabase/migrations/001_initial_schema.sql`
+2. `supabase/migrations/002_checkout_orders.sql`
+
+Puis configurer Resend dans Supabase SQL Editor :
+
+```sql
+UPDATE private.app_config SET value = 're_VOTRE_CLE' WHERE key = 'resend_api_key';
+UPDATE private.app_config SET value = 'votre@email.com' WHERE key = 'shop_email';
+UPDATE private.app_config SET value = 'BOVINIA <noreply@votredomaine.sn>' WHERE key = 'from_email';
+```
+
 ## Paiement (à venir)
 
 Structure prête pour :

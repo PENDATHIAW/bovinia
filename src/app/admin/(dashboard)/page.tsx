@@ -7,7 +7,7 @@ export default async function AdminDashboardPage() {
   const stats = await getAdminStats();
 
   const cards = [
-    { label: "Commandes clients", value: stats.preorders, icon: ClipboardList, href: "/admin/preorders", color: "text-blue-600" },
+    { label: "Commandes", value: stats.orders, icon: ClipboardList, href: "/admin/orders", color: "text-blue-600" },
     { label: "Messages", value: stats.contacts, icon: Mail, href: "/admin/contacts", color: "text-green-600" },
     { label: "Newsletter", value: stats.newsletter, icon: Users, href: "/admin/newsletter", color: "text-purple-600" },
     { label: "Produits", value: stats.products, icon: Package, href: "/admin/products", color: "text-forest" },
