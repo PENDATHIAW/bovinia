@@ -1,12 +1,13 @@
 "use client";
 
-import { Flame, Snowflake } from "lucide-react";
+import { Flame, Moon, Snowflake, Sun, SunMoon } from "lucide-react";
 import {
   CONSUMPTION_BY_SLUG,
   HOT_CONSUMPTION_NOTE,
   RATING_LABELS,
   RATING_STARS,
   UNIVERSAL_PREPARATION,
+  USAGE_TIME_BY_SLUG,
   type ConsumptionOption,
 } from "@/lib/data/consumption";
 
@@ -29,9 +30,28 @@ function StarRow({ count }: { count: number }) {
 export function ProductConsumptionGuide({ slug }: ProductConsumptionGuideProps) {
   const options: ConsumptionOption[] =
     CONSUMPTION_BY_SLUG[slug] ?? CONSUMPTION_BY_SLUG.wellness;
+  const usageTime = USAGE_TIME_BY_SLUG[slug] ?? USAGE_TIME_BY_SLUG.wellness;
+
+  const TimeIcon =
+    usageTime.timeOfDay === "soir"
+      ? Moon
+      : usageTime.timeOfDay === "matin-soir"
+        ? SunMoon
+        : Sun;
 
   return (
     <section className="space-y-6">
+      <div className="rounded-2xl border border-forest/15 bg-cream p-5">
+        <div className="flex items-start gap-3">
+          <TimeIcon className="mt-0.5 shrink-0 text-gold" size={22} />
+          <div>
+            <h2 className="font-serif text-lg text-forest">Quand l&apos;utiliser ?</h2>
+            <p className="mt-1 text-base font-medium text-forest">{usageTime.label}</p>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/75">{usageTime.detail}</p>
+          </div>
+        </div>
+      </div>
+
       <div className="rounded-2xl border border-gold/30 bg-gold/10 p-5">
         <div className="flex items-start gap-3">
           <Flame className="mt-0.5 shrink-0 text-forest" size={22} />

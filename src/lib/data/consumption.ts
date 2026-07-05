@@ -66,3 +66,41 @@ export const RATING_STARS: Record<ConsumptionRating, number> = {
   ok: 3,
   avoid: 1,
 };
+
+/** Moment de consommation recommandé */
+export type UsageTimeOfDay = "matin" | "soir" | "matin-soir";
+
+export interface UsageTimeGuide {
+  timeOfDay: UsageTimeOfDay;
+  /** Affichage court : « Le matin », « Le soir », etc. */
+  label: string;
+  detail: string;
+}
+
+export const USAGE_TIME_BY_SLUG: Record<string, UsageTimeGuide> = {
+  wellness: {
+    timeOfDay: "matin",
+    label: "Le matin",
+    detail: "Rituel de démarrage — idéal au petit-déjeuner ou en début de journée.",
+  },
+  bloom: {
+    timeOfDay: "matin",
+    label: "Le matin ou l'après-midi",
+    detail: "Collation gourmande — pendant la grossesse et en post-partum.",
+  },
+  period: {
+    timeOfDay: "matin-soir",
+    label: "Matin ou soir",
+    detail: "Quelques jours avant et pendant les règles, chaud ou frais.",
+  },
+  pulse: {
+    timeOfDay: "matin",
+    label: "Le matin ou avant l'effort",
+    detail: "Avant ou après le sport, ou en début de journée active.",
+  },
+  calm: {
+    timeOfDay: "soir",
+    label: "Le soir",
+    detail: "Rituel de fin de journée — de préférence chaud, 1 à 2 h avant le coucher.",
+  },
+};

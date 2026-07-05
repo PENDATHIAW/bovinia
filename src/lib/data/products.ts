@@ -19,7 +19,7 @@ export const SEED_PRODUCTS: Product[] = [
     long_description:
       "WELLNESS est le produit signature de la gamme : une base quotidienne à saveur de jus tropical frais. Enrichi en baobab, kinkeliba et Bone Broth premium, il accompagne le confort digestif, l'énergie du quotidien et le bien-être peau, cheveux et ongles. À savourer chaud le matin ou frais en smoothie — les fruits dominent en bouche.",
     target_audience: "Tout public — adultes cherchant une routine nutritionnelle naturelle.",
-    usage_moment: "Matin ou journée — rituel de base quotidien.",
+    usage_moment: "Le matin — rituel de démarrage au petit-déjeuner ou en début de journée.",
     preparation_methods: HOT_PREP,
     dominant_flavors: ["Ananas", "Mandarine", "Menthe"],
     main_ingredients: [
@@ -59,7 +59,7 @@ export const SEED_PRODUCTS: Product[] = [
       "BLOOM accompagne les femmes en état (grossesse) et en post-partum avec un rituel crémeux type milkshake. Il peut contribuer au confort digestif, à l'énergie quotidienne, au soutien nutritionnel et au bien-être peau, cheveux et ongles. Se déguste chaud, au lait ou en smoothie gourmand. Le gingembre est présent à dose modérée — consultez votre professionnel de santé avant utilisation.",
     target_audience:
       "Femmes enceintes (grossesse) et jeunes mamans (post-partum et allaitement, avis médical recommandé).",
-    usage_moment: "Matin, collation ou après-midi — pendant et après la grossesse.",
+    usage_moment: "Le matin ou l'après-midi — pendant la grossesse et en post-partum.",
     preparation_methods: [
       "Eau chaude (rituel recommandé)",
       "Lait ou lait végétal chaud",
@@ -104,7 +104,7 @@ export const SEED_PRODUCTS: Product[] = [
     long_description:
       "PERIOD! accompagne les périodes prémenstruelles et menstruelles avec une boisson fruitée, épicée et réconfortante. Aux notes de bissap, mandarine et cannelle, enrichi en graines de courge et gingembre, ce rituel peut contribuer au confort digestif et à l'équilibre du quotidien pendant le cycle. Parfait en tisane chaude le soir ou en boisson fraîche.",
     target_audience: "Femmes — période prémenstruelle ou menstruelle.",
-    usage_moment: "Quelques jours avant et pendant les règles — chaud ou frais.",
+    usage_moment: "Matin ou soir — quelques jours avant et pendant les règles.",
     preparation_methods: [
       "Eau chaude (rituel recommandé)",
       "Eau tiède",
@@ -149,7 +149,7 @@ export const SEED_PRODUCTS: Product[] = [
     long_description:
       "PULSE est le rituel des adultes actifs. Cette formule dynamique accompagne l'énergie physique, l'endurance, la concentration et la récupération après l'effort. À préparer chaud en bouillon énergisant ou frais en shaker avant/après sport — mangue et orange dominent en bouche.",
     target_audience: "Adultes actifs, sportifs, personnes en quête de vitalité.",
-    usage_moment: "Avant ou après l'effort, matin ou journée.",
+    usage_moment: "Le matin ou avant l'effort — avant/après sport ou journée active.",
     preparation_methods: [
       "Eau chaude (rituel recommandé)",
       "Eau fraîche / shaker",
@@ -191,7 +191,7 @@ export const SEED_PRODUCTS: Product[] = [
     long_description:
       "CALM est votre rituel du soir : une boisson chaude apaisante qui accompagne la détente, la relaxation et la récupération mentale et physique. Pomme, citronnelle et cannelle complètent camomille et verveine pour un effet cocooning en fin de journée.",
     target_audience: "Adultes souhaitant une routine du soir apaisante.",
-    usage_moment: "Soir — rituel de fin de journée, de préférence chaud.",
+    usage_moment: "Le soir — rituel de fin de journée, de préférence chaud.",
     preparation_methods: [
       "Eau chaude (rituel recommandé)",
       "Lait chaud / lait végétal",

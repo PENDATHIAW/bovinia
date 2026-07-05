@@ -35,11 +35,11 @@ const COMMITMENTS = [
 ];
 
 const CONSUMPTION = [
-  { product: "WELLNESS", methods: "Eau chaude, tiède ou fraîche · smoothie" },
-  { product: "BLOOM", methods: "Chaud, lait, smoothie — grossesse & post-partum" },
-  { product: "PERIOD!", methods: "Eau chaude (tisane) ou fraîche" },
-  { product: "PULSE", methods: "Chaud ou frais · avant/après sport" },
-  { product: "CALM", methods: "Eau chaude ou lait chaud le soir" },
+  { product: "WELLNESS", moment: "Le matin", methods: "Eau chaude, tiède ou fraîche · smoothie" },
+  { product: "BLOOM", moment: "Matin ou après-midi", methods: "Chaud, lait ou smoothie" },
+  { product: "PERIOD!", moment: "Matin ou soir", methods: "Eau chaude (tisane) ou fraîche" },
+  { product: "PULSE", moment: "Matin ou avant l'effort", methods: "Chaud ou frais · sport" },
+  { product: "CALM", moment: "Le soir", methods: "Eau chaude ou lait chaud" },
 ];
 
 export function HomeSections({ products, faqs, testimonials, settings }: HomeSectionsProps) {
@@ -223,6 +223,7 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
             {CONSUMPTION.map((item) => (
               <div key={item.product} className="card-premium p-5">
                 <p className="font-serif text-lg text-forest">{item.product}</p>
+                <p className="mt-2 text-sm font-medium text-gold">{item.moment}</p>
                 <p className="mt-1 text-sm text-foreground/60">{item.methods}</p>
               </div>
             ))}

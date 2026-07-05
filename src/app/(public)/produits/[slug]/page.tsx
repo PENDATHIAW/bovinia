@@ -7,6 +7,7 @@ import { ProductPotImage } from "@/components/public/ProductPotImage";
 import { ProductLifestyleSection } from "@/components/public/ProductLifestyleSection";
 import { ProductConsumptionGuide } from "@/components/public/ProductConsumptionGuide";
 import { formatPrice } from "@/lib/utils";
+import { USAGE_TIME_BY_SLUG } from "@/lib/data/consumption";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -37,6 +38,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
   if (!product) notFound();
 
+  const usageTime = USAGE_TIME_BY_SLUG[product.slug];
   const whatsappUrl = `https://wa.me/${settings.whatsapp_number.replace(/\D/g, "")}?text=${encodeURIComponent(`Bonjour, j'ai une question sur ${product.name} BOVINIA.`)}`;
 
   return (
@@ -58,9 +60,16 @@ export default async function ProductDetailPage({ params }: Props) {
             <h1 className="mt-2 font-serif text-4xl text-forest">{product.name}</h1>
             <p className="mt-2 text-foreground/60">{product.dominant_flavors.join(" • ")}</p>
 
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-2 text-sm text-forest">
-              <Flame size={16} className="text-gold" />
-              Se déguste chaud — et aussi frais
+            <div className="mt-4 flex flex-wrap gap-2">
+              {usageTime && (
+                <span className="inline-flex items-center gap-2 rounded-full bg-forest/10 px-4 py-2 text-sm font-medium text-forest">
+                  {usageTime.label}
+                </span>
+              )}
+              <span className="inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-2 text-sm text-forest">
+                <Flame size={16} className="text-gold" />
+                Se déguste chaud — et aussi frais
+              </span>
             </div>
 
             {product.price && (

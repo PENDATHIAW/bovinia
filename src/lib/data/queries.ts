@@ -49,7 +49,7 @@ export const SEED_FAQS: FAQ[] = [
     id: "3",
     question: "Comment consommer les produits ?",
     answer:
-      "Tous nos rituels se préparent à l'eau chaude — c'est le mode recommandé. Mélangez 15 à 17 g dans 200 ml d'eau chaude, tiède ou froide, de lait, lait végétal ou en smoothie. Chaque pot de 500 g offre environ 30 portions.",
+      "Tous nos rituels se préparent à l'eau chaude. WELLNESS, BLOOM et PULSE se consomment plutôt le matin ; CALM le soir ; PERIOD! le matin ou le soir selon votre cycle. Mélangez 15 à 17 g dans 200 ml de liquide — environ 30 portions par pot.",
     sort_order: 3,
     is_active: true,
     created_at: new Date().toISOString(),
