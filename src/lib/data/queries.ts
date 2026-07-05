@@ -19,7 +19,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
     "BOVINIA transforme la puissance du bouillon d'os en boissons gourmandes et modernes — enrichies de fruits et plantes africains, fabriquées au Sénégal, prêtes à commander.",
   hero_cta_primary: "Découvrir la boutique",
   hero_cta_secondary: "Commander",
-  whatsapp_number: "+221771234567",
+  whatsapp_number: "+221 78 589 01 53",
   contact_email: "contact@bovinia.sn",
   contact_address: "Dakar, Sénégal",
   instagram_url: "https://instagram.com/bovinia",
@@ -36,7 +36,7 @@ export const SEED_FAQS: FAQ[] = [
     id: "1",
     question: "Qu'est-ce que le Bone Broth ?",
     answer:
-      "Le Bone Broth est un bouillon longuement préparé à partir de tissus conjonctifs sélectionnés (os, tendons, articulations), naturellement riches en collagène, gélatine, acides aminés et minéraux. BOVINIA le transforme en poudre premium, facile à utiliser et agréable à boire.",
+      "Le Bone Broth est un bouillon longuement préparé à partir de tissus conjonctifs sélectionnés (os, tendons, articulations), naturellement riches en collagène, gélatine, acides aminés et minéraux. BOVINIA le transforme en poudre premium, facile à utiliser et agréable à boire — enrichie de fruits et plantes africains.",
     sort_order: 1,
     is_active: true,
     created_at: new Date().toISOString(),
@@ -104,6 +104,33 @@ export const SEED_FAQS: FAQ[] = [
     is_active: true,
     created_at: new Date().toISOString(),
   },
+  {
+    id: "9",
+    question: "Pourquoi le Bone Broth fait-il parler de lui sur TikTok ?",
+    answer:
+      "Aux États-Unis et en Europe, le bouillon d'os est devenu un rituel bien-être viral : les créateurs partagent leurs recettes, leurs routines matinales et leurs ressentis. BOVINIA adapte cette tendance au Sénégal — fabrication locale, fruits et plantes africains, format poudre pratique.",
+    sort_order: 9,
+    is_active: true,
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: "10",
+    question: "Quels sont les bienfaits du Bone Broth pour l'organisme ?",
+    answer:
+      "Traditionnellement consommé chaud, le Bone Broth apporte naturellement du collagène, de la gélatine, des acides aminés (glycine, proline…) et des minéraux issus des os. Il accompagne une alimentation équilibrée — confort digestif, routine réconfortante, nutrition de l'intérieur. Ce n'est pas un médicament.",
+    sort_order: 10,
+    is_active: true,
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: "11",
+    question: "Est-ce connu au Sénégal ?",
+    answer:
+      "Le bouillon d'os sous forme premium en poudre est encore peu connu au Sénégal. BOVINIA est pionnière : nous transformons localement des ressources d'élevage (via Horizon Farm) en rituels gourmands accessibles, sans dépendre de compléments importés.",
+    sort_order: 11,
+    is_active: true,
+    created_at: new Date().toISOString(),
+  },
 ];
 
 export { SEED_TESTIMONIALS } from "@/lib/data/testimonials";
@@ -116,7 +143,7 @@ export const SEED_BLOG_POSTS: BlogPost[] = [
     excerpt:
       "Découvrez les bases du Bone Broth, cette tradition millénaire revisitée par BOVINIA en poudre premium.",
     content:
-      "<p>Le Bone Broth, ou bouillon d'os, est préparé en faisant mijoter longuement des tissus conjonctifs sélectionnés. Cette préparation traditionnelle est naturellement riche en collagène, gélatine et acides aminés.</p><p>BOVINIA transforme cette richesse en poudre moderne, facile à intégrer à votre quotidien sous forme de rituels gourmands.</p>",
+      "<h2>Le bouillon d'os, une tradition millénaire</h2><p>Le <strong>Bone Broth</strong> — le bouillon d'os — est obtenu en faisant mijoter longuement des os, tendons et articulations de bœuf. Cette cuisson lente extrait naturellement le <strong>collagène</strong>, la <strong>gélatine</strong>, des <strong>acides aminés</strong> (glycine, proline, glutamine…) et des <strong>minéraux</strong>.</p><h2>Pourquoi tout le monde en parle sur TikTok</h2><p>Depuis plusieurs années, le Bone Broth est devenu un phénomène sur TikTok et Instagram : des millions de vidéos montrent des routines matinales, des recettes réconfortantes et des témoignages sur la vitalité et le bien-être digestif. Aux États-Unis et en Europe, c'est déjà un pilier de la nutrition fonctionnelle.</p><h2>Et au Sénégal ?</h2><p><strong>Très peu de Sénégalais connaissent le Bone Broth</strong> sous cette forme moderne et premium. Personne ne le propose encore en poudre gourmande, fabriquée localement. BOVINIA est pionnière : nous avons voulu apporter cette tendance mondiale au pays, avec nos propres fruits et plantes — baobab, kinkeliba, bissap, gingembre, camomille…</p><h2>Les bienfaits pour l'organisme</h2><p>Consommé chaud, le bouillon d'os accompagne traditionnellement une alimentation équilibrée. Il apporte des nutriments que l'organisme utilise pour entretenir les tissus, le confort digestif et une routine réconfortante. Ce n'est pas un médicament — c'est un aliment fonctionnel.</p><h2>Comment BOVINIA le rend accessible</h2><p>Nous transformons le Bone Broth en <strong>poudre premium</strong>, dosée en cuillère, à mélanger avec 200 ml d'eau chaude ou froide. Cinq rituels ciblent des besoins différents (énergie, maternité, cycle, sport, sommeil), mais une seule base : le Bone Broth fabriqué au Sénégal via <a href='/horizon-farm'>Horizon Farm</a>.</p>",
     cover_image: null,
     category: "Bone Broth",
     tags: ["bone broth", "collagène", "routine"],

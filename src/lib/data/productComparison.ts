@@ -10,8 +10,8 @@ export const COMPARISON_PROBLEM: Record<string, string> = {
   wellness: "Fatigue, digestion, manque d'énergie au quotidien",
   bloom: "Grossesse, post-partum, besoin nutritionnel doux",
   period: "Confort du cycle, règles, ballonnements",
-  pulse: "Sport, récupération, vitalité avant l'effort",
-  calm: "Sommeil, stress du soir, détente",
+  pulse: "Sport, énergie et récupération musculaire — le matin ou autour de l'effort",
+  calm: "Sommeil, stress du soir, détente — pas d'excitants",
 };
 
 export function buildComparisonRows(products: Product[]): ComparisonRow[] {

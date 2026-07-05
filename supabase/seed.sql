@@ -7,7 +7,7 @@ VALUES (
   'BOVINIA transforme la puissance naturelle du Bone Broth en cinq rituels gourmands et modernes, conçus pour accompagner le corps au quotidien.',
   'Découvrir la gamme',
   'Commander',
-  '+221771234567',
+  '+221 78 589 01 53',
   'contact@bovinia.sn',
   'Dakar, Sénégal',
   'https://instagram.com/bovinia',

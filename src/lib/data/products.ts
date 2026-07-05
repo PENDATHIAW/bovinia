@@ -186,7 +186,7 @@ export const SEED_PRODUCTS: Product[] = [
     id: "calm",
     name: "CALM",
     slug: "calm",
-    mission: "Sommeil & récupération",
+    mission: "Sommeil & détente",
     short_description:
       "Rituel du soir verveine, camomille et vanille — en boisson chaude réconfortante pour accompagner détente et récupération.",
     long_description:

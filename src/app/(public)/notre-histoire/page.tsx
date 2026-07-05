@@ -82,6 +82,20 @@ export default function NotreHistoirePage() {
           </section>
 
           <section className="card-premium border-l-4 border-l-gold/50 p-8">
+            <h2 className="font-serif text-2xl text-forest">Le Bone Broth : pourquoi maintenant ?</h2>
+            <p className="mt-4 leading-relaxed text-foreground/70">
+              Sur TikTok et les réseaux bien-être, le bouillon d&apos;os est devenu un phénomène
+              mondial — des millions de personnes partagent leurs rituels et leurs ressentis. Au
+              Sénégal, personne ne le proposait encore en version premium, locale et gourmande.
+              Nous avons voulu combler ce vide : apporter les bienfaits du Bone Broth (collagène,
+              acides aminés, minéraux) en l&apos;associant à nos fruits et plantes africains.
+            </p>
+            <Link href="/bone-broth" className="btn-secondary mt-4 inline-flex">
+              Tout savoir sur le Bone Broth
+            </Link>
+          </section>
+
+          <section className="card-premium border-l-4 border-l-gold/50 p-8">
             <h2 className="font-serif text-2xl text-forest">Transformation locale</h2>
             <p className="mt-4 leading-relaxed text-foreground/70">
               Nous transformons le Bone Broth — bouillon traditionnel riche en collagène et acides

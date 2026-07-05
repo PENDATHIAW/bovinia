@@ -10,6 +10,8 @@ import {
   RITUAL_QUESTIONS,
   RITUAL_SUMMARIES,
   computeRitualRecommendation,
+  getRecommendationReason,
+  getVisibleQuestionOptions,
 } from "@/lib/shop/ritualFinder";
 import { cn } from "@/lib/utils";
 
@@ -59,7 +61,9 @@ export function RitualFinder({ products, compact = false }: RitualFinderProps) {
         </div>
         <h3 className="mt-2 font-serif text-2xl text-forest md:text-3xl">{product.name}</h3>
         <p className="mt-1 text-sm text-gold">{summary.tagline}</p>
-        <p className="mt-4 max-w-xl text-sm leading-relaxed text-foreground/70">{summary.reason}</p>
+        <p className="mt-4 max-w-xl text-sm leading-relaxed text-foreground/70">
+          {getRecommendationReason(result, answers)}
+        </p>
 
         <div className="mt-8 flex flex-col items-center gap-6 sm:flex-row">
           <ProductPotImage product={product} size="md" className="shrink-0" />
@@ -91,7 +95,8 @@ export function RitualFinder({ products, compact = false }: RitualFinderProps) {
           <p className="text-sm font-medium uppercase tracking-widest text-gold">Guide personnalisé</p>
           <h2 className="mt-2 font-serif text-3xl text-forest">Quel rituel pour moi ?</h2>
           <p className="mt-3 text-sm text-foreground/60">
-            3 questions pour trouver le rituel BOVINIA adapté à vos besoins.
+            3 questions pour trouver le rituel adapté — besoin, moment et saveur, sans incohérence
+            (ex. : pas de PULSE le soir).
           </p>
         </div>
       )}
@@ -111,14 +116,17 @@ export function RitualFinder({ products, compact = false }: RitualFinderProps) {
       <p className="font-serif text-xl text-forest md:text-2xl">{currentQuestion.question}</p>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {currentQuestion.options.map((option) => (
+        {getVisibleQuestionOptions(currentQuestion.id, answers).map((option) => (
           <button
             key={option.id}
             type="button"
             onClick={() => selectOption(currentQuestion.id, option.id)}
             className="rounded-2xl border border-gold/20 bg-ivory px-5 py-4 text-left text-sm text-forest shadow-sm transition-all hover:border-gold hover:bg-gold/5 hover:shadow-md"
           >
-            {option.label}
+            <span className="block">{option.label}</span>
+            {option.hint && (
+              <span className="mt-1 block text-xs text-foreground/50">{option.hint}</span>
+            )}
           </button>
         ))}
       </div>

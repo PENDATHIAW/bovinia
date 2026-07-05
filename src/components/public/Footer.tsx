@@ -11,6 +11,7 @@ const FOOTER_LINKS = [
   { href: "/quel-rituel", label: "Quel rituel ?" },
   { href: "/commander", label: "Commander" },
   { href: "/livraison", label: "Livraison" },
+  { href: "/bone-broth", label: "Le Bone Broth" },
   { href: "/notre-histoire", label: "Notre histoire" },
   { href: "/horizon-farm", label: "Horizon Farm" },
   { href: "/blog", label: "Conseils" },

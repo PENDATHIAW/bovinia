@@ -17,6 +17,7 @@ import { OfficialAssetImage } from "./OfficialAssetImage";
 import { SectionHeader } from "./SectionHeader";
 import { LifestyleMarquee } from "./LifestyleMarquee";
 import { BrandManifesto } from "./BrandManifesto";
+import { BoneBrothEducation } from "./BoneBrothEducation";
 import { SectionAnchorNav } from "./SectionAnchorNav";
 import { ConversionStrip } from "./ConversionStrip";
 import { ASSETS } from "@/lib/data/assetPaths";
@@ -27,6 +28,7 @@ const HOME_ANCHORS = [
   { id: "gamme", label: "Gamme" },
   { id: "packs", label: "Packs" },
   { id: "quiz", label: "Quel rituel ?" },
+  { id: "bone-broth", label: "Bone Broth" },
   { id: "commander", label: "Commander" },
   { id: "temoignages", label: "Avis" },
   { id: "faq", label: "FAQ" },
@@ -204,39 +206,10 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
 
       <BrandManifesto />
 
-      {/* Bone Broth — version courte */}
-      <section className="section-padding">
+      {/* Bone Broth — éducation */}
+      <section id="bone-broth" className="section-padding scroll-mt-36">
         <div className="container-bovinia">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div className="gold-frame order-2 lg:order-1">
-              <div className="gold-frame-inner">
-                <OfficialAssetImage
-                  src={ASSETS.heroRange}
-                  alt="Gamme BOVINIA"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-            <div className="order-1 lg:order-2">
-              <p className="section-label">Notre base</p>
-              <h2 className="mt-2 font-serif text-3xl text-forest">Le Bone Broth, en poudre premium</h2>
-              <p className="mt-4 leading-relaxed text-foreground/70">
-                Riche en collagène et acides aminés, transformé en rituel gourmand — le Bone Broth
-                reste la base active, les fruits et plantes africains dominent en bouche.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/blog/quest-ce-que-le-bone-broth" className="btn-secondary text-sm">
-                  En savoir plus
-                </Link>
-                <Link href="/horizon-farm" className="text-sm font-medium text-gold hover:underline">
-                  Horizon Farm →
-                </Link>
-                <Link href="/notre-histoire" className="text-sm font-medium text-gold hover:underline">
-                  Notre histoire →
-                </Link>
-              </div>
-            </div>
-          </div>
+          <BoneBrothEducation />
         </div>
       </section>
 
