@@ -41,11 +41,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "BOVINIA",
-    images: ["/assets/logo/bovinia-logo.png"],
+    images: [ASSETS.logo],
   },
   icons: {
-    icon: "/assets/logo/bovinia-logo-icon.png",
-    apple: "/assets/logo/bovinia-logo-icon.png",
+    icon: ASSETS.logoIcon,
+    apple: ASSETS.logoIcon,
   },
   robots: { index: true, follow: true },
 };
