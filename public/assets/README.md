@@ -1,15 +1,15 @@
-# Assets BOVINIA — visuels officiels uniquement
+# Assets BOVINIA
 
-Ne jamais recréer ces visuels en SVG, CSS ou IA.
+Déposez vos fichiers **directement** ici — pas ailleurs.
 
-| Fichier | Usage |
-|---------|--------|
-| `logo/bovinia-logo.png` | Header, footer, Open Graph |
+| Dossier / fichier | Usage |
+|-------------------|--------|
+| `logo/bovinia-logo.png` | Logo site |
 | `logo/bovinia-logo-icon.png` | Favicon |
-| `brand/hero-range.jpg` | Hero page d'accueil |
-| `products/{slug}.png` | Pots (catalogue, fiches produit) |
-| `lifestyle/wellness-office.jpg` | Lifestyle WELLNESS (bureau) |
-| `lifestyle/wellness-fresh.jpg` | Lifestyle WELLNESS (frais) |
-| `lifestyle/{slug}.jpg` | Lifestyle BLOOM, PERIOD!, PULSE, CALM |
+| `brand/hero-range.jpg` | Hero accueil |
+| `products/wellness.png` … `calm.png` | Pots produits |
+| `lifestyle/*.jpg` | Photos mise en situation |
 
-**Interdit sur le site client :** `formulas-chart` et toute image avec pourcentages/formules détaillées.
+Puis **commit + push** sur GitHub. Le site lit ces fichiers tels quels.
+
+**Interdit :** `formulas-chart` et images avec formules détaillées.

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:demo": "next dev",
-    "build": "node scripts/sync-incoming-assets.mjs && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "setup:supabase": "bash scripts/setup-supabase.sh"
