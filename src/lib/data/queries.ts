@@ -11,7 +11,10 @@ import {
   getFeaturedTestimonials,
   getTestimonialsForProduct as filterTestimonialsByProduct,
 } from "@/lib/data/testimonials";
-import { mergeProductGallery } from "@/lib/data/discoverAssets";
+import {
+  resolveProductGallery,
+  resolveProductImage,
+} from "@/lib/data/productAssets";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
@@ -161,7 +164,8 @@ export const SEED_BLOG_POSTS: BlogPost[] = [
 function withAutoGallery(product: Product): Product {
   return {
     ...product,
-    gallery: mergeProductGallery(product.gallery ?? [], product.slug),
+    image: resolveProductImage(product.slug, product.image ?? ""),
+    gallery: resolveProductGallery(product.slug, product.gallery ?? []),
   };
 }
 

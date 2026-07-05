@@ -1,27 +1,24 @@
 # Assets BOVINIA
 
-## Images automatiques (recommandé)
+## Dossier principal : `products/` (recommandé)
 
-Déposez vos fichiers dans **`public/assets/auto/`** — le site les détecte tout seul.
+Toutes les images produits, lifestyle et marque sont dans **`public/assets/products/`**.
 
-Voir le guide complet : [`auto/README.md`](./auto/README.md)
+Voir le guide : [`products/README.md`](./products/README.md)
 
-| Dossier | Effet sur le site |
-|---------|-------------------|
-| `auto/marquee/` | Bandeau défilant page d'accueil |
-| `auto/gallery/wellness/` | Galerie fiche WELLNESS (+ autres slugs) |
+| Sous-dossier | Contenu |
+|--------------|---------|
+| `products/brand/` | Logo + hero gamme |
+| `products/pots/` | Photo de chaque pot |
+| `products/lifestyle/` | Photos en situation par rituel |
+| `products/inbox/` | Nouvelles images (nom avec wellness, pulse, etc.) |
 
-Formats : `.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`
+## Images auto supplémentaires
 
-## Visuels officiels (logo, pots)
+Dossier **`auto/`** pour ajouts sans structure : [`auto/README.md`](./auto/README.md)
 
-Fichiers dans `logo/` — mapping manuel dans `src/lib/data/assetPaths.ts`.
+## Ancien dossier `logo/`
 
-| Usage | Fichier |
-|-------|---------|
-| Logo | `1E8C3793-...png` |
-| Hero gamme | `B730BCA1-...png` |
-| Pot WELLNESS | `2F591EDD-...png` |
-| … | voir assetPaths.ts |
+Conservé en archive (fichiers UUID). Le site utilise désormais **`products/`**.
 
 **Interdit :** images formulas-chart / formules détaillées.

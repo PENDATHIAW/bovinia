@@ -6,6 +6,7 @@ import {
   getSiteSettings,
 } from "@/lib/data/queries";
 import { getAutoMarqueeImages } from "@/lib/data/discoverAssets";
+import { getAllProductLifestyleMarquee } from "@/lib/data/productAssets";
 
 export default async function HomePage() {
   const [products, faqs, testimonials, settings, marqueeImages] = await Promise.all([
@@ -13,7 +14,7 @@ export default async function HomePage() {
     getFAQs(),
     getFeaturedTestimonialsForHome(),
     getSiteSettings(),
-    Promise.resolve(getAutoMarqueeImages()),
+    Promise.resolve([...getAllProductLifestyleMarquee(), ...getAutoMarqueeImages()]),
   ]);
 
   return (
