@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, ShoppingBag } from "lucide-react";
 import { ProductCatalog } from "@/components/public/ProductCatalog";
 import { DiscoveryPacks } from "@/components/public/DiscoveryPacks";
+import { RitualFinder } from "@/components/public/RitualFinder";
 import { getProducts } from "@/lib/data/queries";
 import { formatPrice } from "@/lib/utils";
 
@@ -28,16 +27,17 @@ export default async function ProductsPage() {
               5 formules disponibles dès maintenant — {formatPrice(15000)} le pot · 500 g · ~30
               portions.
             </p>
-            <Link href="/commander" className="btn-primary mt-6 inline-flex">
-              <ShoppingBag size={16} />
-              Commander
-              <ArrowRight size={16} />
-            </Link>
           </div>
         </div>
       </section>
 
-      <div className="section-padding">
+      <div className="section-padding pb-8">
+        <div className="container-bovinia max-w-4xl">
+          <RitualFinder products={products} compact />
+        </div>
+      </div>
+
+      <div className="section-padding pt-0">
         <div className="container-bovinia">
           <ProductCatalog products={products} />
         </div>

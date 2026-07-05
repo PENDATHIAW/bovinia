@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import {
   Check,
@@ -13,15 +13,15 @@ import {
 } from "lucide-react";
 import { submitCheckout } from "@/lib/actions/checkout";
 import { DISCOVERY_PACKS } from "@/components/public/DiscoveryPacks";
+import { ShippingProgress } from "@/components/public/ShippingProgress";
+import { CheckoutFAQ } from "@/components/public/CheckoutFAQ";
+import { useCart } from "@/lib/shop/CartContext";
 import {
-  addPackToCart,
-  addProductToCart,
   buildInitialCart,
-  computeCartTotals,
+  PAYMENT_INSTRUCTIONS,
   PAYMENT_METHODS,
-  removeLine,
-  updateLineQuantity,
   type CartLine,
+  type PaymentMethodId,
 } from "@/lib/shop/cart";
 import { formatPrice } from "@/lib/utils";
 import { cn } from "@/lib/utils";
@@ -58,6 +58,7 @@ interface OrderConfirmation {
   total: number;
   emailSent: boolean;
   paymentMethod: string;
+  paymentMethodId: PaymentMethodId;
   lines: CartLine[];
   customer: CustomerForm;
 }
@@ -68,10 +69,21 @@ export function CheckoutFlow({
   defaultPack,
   compact = false,
 }: CheckoutFlowProps) {
+  const {
+    cart,
+    subtotal,
+    shippingFee,
+    total,
+    addProduct,
+    addPack,
+    updateQuantity,
+    removeLine,
+    clearCart,
+    mergeLines,
+    hydrated,
+  } = useCart();
+
   const [step, setStep] = useState<Step>("cart");
-  const [cart, setCart] = useState<CartLine[]>(() =>
-    buildInitialCart(products, defaultProduct, defaultPack)
-  );
   const [customer, setCustomer] = useState<CustomerForm>({
     name: "",
     email: "",
@@ -79,14 +91,24 @@ export function CheckoutFlow({
     city: "",
     address: "",
   });
-  const [paymentMethod, setPaymentMethod] = useState<string>("wave");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodId>("wave");
   const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [confirmation, setConfirmation] = useState<OrderConfirmation | null>(null);
   const [pending, startTransition] = useTransition();
+  const mergedRef = useRef(false);
 
-  const totals = useMemo(() => computeCartTotals(cart), [cart]);
+  useEffect(() => {
+    if (!hydrated || mergedRef.current) return;
+    if (defaultProduct || defaultPack) {
+      const initial = buildInitialCart(products, defaultProduct, defaultPack);
+      if (initial.length) mergeLines(initial);
+    }
+    mergedRef.current = true;
+  }, [hydrated, defaultProduct, defaultPack, products, mergeLines]);
+
   const stepIndex = STEPS.findIndex((s) => s.id === step);
+  const paymentInfo = PAYMENT_INSTRUCTIONS[paymentMethod];
 
   function goNext() {
     setError(null);
@@ -133,16 +155,19 @@ export function CheckoutFlow({
         emailSent: result.emailSent,
         paymentMethod:
           PAYMENT_METHODS.find((m) => m.id === paymentMethod)?.label ?? paymentMethod,
+        paymentMethodId: paymentMethod,
         lines: [...cart],
         customer: { ...customer },
       });
+      clearCart();
       setStep("confirm");
     });
   }
 
   if (confirmation) {
+    const confirmPayment = PAYMENT_INSTRUCTIONS[confirmation.paymentMethodId];
     return (
-      <div className="rounded-2xl border border-forest/20 bg-forest/5 p-8">
+      <div className="rounded-2xl border border-gold/20 bg-cream/40 p-8">
         <div className="mx-auto max-w-lg text-center">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-forest text-ivory">
             <Check size={28} />
@@ -151,7 +176,7 @@ export function CheckoutFlow({
           <p className="mt-2 text-sm text-foreground/70">
             Merci {confirmation.customer.name.split(" ")[0]} — votre commande est enregistrée.
           </p>
-          <p className="mt-4 rounded-xl bg-ivory px-4 py-3 font-serif text-xl text-forest">
+          <p className="mt-4 rounded-xl border border-gold/30 bg-ivory px-4 py-3 font-serif text-xl text-forest">
             N° {confirmation.orderNumber}
           </p>
           {confirmation.emailSent ? (
@@ -160,9 +185,19 @@ export function CheckoutFlow({
             </p>
           ) : (
             <p className="mt-3 text-sm text-foreground/60">
-              Conservez votre numéro de commande pour le suivi.
+              Conservez votre numéro de commande. Notre équipe vous contactera pour le paiement et
+              la livraison.
             </p>
           )}
+        </div>
+
+        <div className="mx-auto mt-6 max-w-md rounded-xl border border-gold/20 bg-ivory p-5 text-left">
+          <p className="font-medium text-forest">Prochaines étapes — {confirmation.paymentMethod}</p>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-foreground/70">
+            {confirmPayment.steps.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ol>
         </div>
 
         <div className="mx-auto mt-8 max-w-md space-y-2 text-sm">
@@ -174,7 +209,7 @@ export function CheckoutFlow({
               <span>{formatPrice(line.unitPrice * line.quantity)}</span>
             </div>
           ))}
-          <div className="border-t border-forest/10 pt-2">
+          <div className="border-t border-gold/15 pt-2">
             <div className="flex justify-between text-foreground/70">
               <span>Sous-total</span>
               <span>{formatPrice(confirmation.subtotal)}</span>
@@ -189,9 +224,6 @@ export function CheckoutFlow({
               <span>Total</span>
               <span>{formatPrice(confirmation.total)}</span>
             </div>
-            <p className="mt-2 text-xs text-foreground/50">
-              Paiement : {confirmation.paymentMethod} · Livraison à {confirmation.customer.city}
-            </p>
           </div>
         </div>
 
@@ -204,7 +236,6 @@ export function CheckoutFlow({
             className="btn-primary"
             onClick={() => {
               setConfirmation(null);
-              setCart([]);
               setStep("cart");
               setCustomer({ name: "", email: "", phone: "", city: "", address: "" });
             }}
@@ -240,84 +271,90 @@ export function CheckoutFlow({
       )}
 
       {error && (
-        <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+        <div className="rounded-xl border border-gold/30 bg-cream px-4 py-3 text-sm text-forest">
+          {error}
+        </div>
       )}
 
       {step === "cart" && (
         <div className="space-y-6">
           {cart.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-forest/20 p-8 text-center">
-              <ShoppingBag size={32} className="mx-auto text-forest/40" />
+            <div className="rounded-xl border border-dashed border-gold/30 p-8 text-center">
+              <ShoppingBag size={32} className="mx-auto text-forest/30" />
               <p className="mt-3 text-sm text-foreground/60">Votre panier est vide.</p>
+              <Link href="/produits" className="btn-secondary mt-4 inline-flex">
+                Découvrir la gamme
+              </Link>
             </div>
           ) : (
-            <ul className="space-y-3">
-              {cart.map((line) => (
-                <li
-                  key={line.key}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-forest/10 bg-ivory p-4"
-                >
-                  <div>
-                    <p className="font-medium text-forest">{line.name}</p>
-                    <p className="text-sm text-foreground/50">{formatPrice(line.unitPrice)} / unité</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center rounded-lg border border-forest/20">
+            <>
+              <ul className="space-y-3">
+                {cart.map((line) => (
+                  <li
+                    key={line.key}
+                    className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gold/15 bg-ivory p-4"
+                  >
+                    <div>
+                      <p className="font-medium text-forest">{line.name}</p>
+                      <p className="text-sm text-foreground/50">
+                        {formatPrice(line.unitPrice)} / unité
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center rounded-lg border border-forest/20">
+                        <button
+                          type="button"
+                          className="p-2 text-forest hover:bg-cream"
+                          onClick={() => updateQuantity(line.key, line.quantity - 1)}
+                          aria-label="Diminuer"
+                        >
+                          <Minus size={14} />
+                        </button>
+                        <span className="min-w-[2rem] text-center text-sm">{line.quantity}</span>
+                        <button
+                          type="button"
+                          className="p-2 text-forest hover:bg-cream"
+                          onClick={() => updateQuantity(line.key, line.quantity + 1)}
+                          aria-label="Augmenter"
+                        >
+                          <Plus size={14} />
+                        </button>
+                      </div>
+                      <span className="min-w-[5rem] text-right font-medium text-forest">
+                        {formatPrice(line.unitPrice * line.quantity)}
+                      </span>
                       <button
                         type="button"
-                        className="p-2 text-forest hover:bg-cream"
-                        onClick={() =>
-                          setCart(updateLineQuantity(cart, line.key, line.quantity - 1))
-                        }
-                        aria-label="Diminuer"
+                        className="rounded-lg p-2 text-foreground/40 hover:bg-cream hover:text-forest"
+                        onClick={() => removeLine(line.key)}
+                        aria-label="Retirer"
                       >
-                        <Minus size={14} />
-                      </button>
-                      <span className="min-w-[2rem] text-center text-sm">{line.quantity}</span>
-                      <button
-                        type="button"
-                        className="p-2 text-forest hover:bg-cream"
-                        onClick={() =>
-                          setCart(updateLineQuantity(cart, line.key, line.quantity + 1))
-                        }
-                        aria-label="Augmenter"
-                      >
-                        <Plus size={14} />
+                        <Trash2 size={16} />
                       </button>
                     </div>
-                    <span className="min-w-[5rem] text-right font-medium text-forest">
-                      {formatPrice(line.unitPrice * line.quantity)}
-                    </span>
-                    <button
-                      type="button"
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
-                      onClick={() => setCart(removeLine(cart, line.key))}
-                      aria-label="Retirer"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+              <ShippingProgress />
+            </>
           )}
 
-          <div className="rounded-xl bg-cream p-4 text-sm">
+          <div className="rounded-xl border border-gold/15 bg-cream/60 p-4 text-sm">
             <div className="flex justify-between">
               <span>Sous-total</span>
-              <span>{formatPrice(totals.subtotal)}</span>
+              <span>{formatPrice(subtotal)}</span>
             </div>
             <div className="mt-1 flex justify-between text-foreground/60">
               <span>Livraison</span>
-              <span>{totals.shippingFee === 0 ? "Offerte" : formatPrice(totals.shippingFee)}</span>
+              <span>{shippingFee === 0 && subtotal > 0 ? "Offerte" : formatPrice(shippingFee)}</span>
             </div>
             <div className="mt-2 flex justify-between font-medium text-forest">
               <span>Total</span>
-              <span>{formatPrice(totals.total)}</span>
+              <span>{formatPrice(total)}</span>
             </div>
           </div>
 
-          {!compact && (
+          {!compact && cart.length > 0 && (
             <div>
               <p className="label-field mb-2">Ajouter un rituel</p>
               <div className="flex flex-wrap gap-2">
@@ -326,7 +363,7 @@ export function CheckoutFlow({
                     key={p.id}
                     type="button"
                     className="rounded-full border border-forest/20 px-3 py-1.5 text-xs text-forest hover:bg-cream"
-                    onClick={() => setCart(addProductToCart(cart, p))}
+                    onClick={() => addProduct(p)}
                   >
                     + {p.name}
                   </button>
@@ -339,7 +376,7 @@ export function CheckoutFlow({
                     key={pack.id}
                     type="button"
                     className="rounded-full border border-gold/40 px-3 py-1.5 text-xs text-forest hover:bg-gold/10"
-                    onClick={() => setCart(addPackToCart(cart, pack.id))}
+                    onClick={() => addPack(pack.id)}
                   >
                     + {pack.name}
                   </button>
@@ -429,40 +466,60 @@ export function CheckoutFlow({
               />
             </div>
           )}
+          <p className="sm:col-span-2 text-xs text-foreground/50">
+            Livraison Dakar et régions · 2 000 FCFA · offerte dès 50 000 FCFA.{" "}
+            <Link href="/livraison" className="text-gold underline">
+              En savoir plus
+            </Link>
+          </p>
         </div>
       )}
 
       {step === "payment" && (
         <div className="space-y-4">
           <p className="text-sm text-foreground/70">
-            Choisissez votre mode de paiement. Votre commande sera confirmée immédiatement sur le
-            site.
+            Choisissez votre mode de paiement. Votre commande est confirmée sur le site — nous vous
+            guidons ensuite pour le règlement.
           </p>
           <div className="space-y-2">
             {PAYMENT_METHODS.map((method) => (
               <label
                 key={method.id}
                 className={cn(
-                  "flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-colors",
+                  "flex cursor-pointer flex-col gap-1 rounded-xl border p-4 transition-colors",
                   paymentMethod === method.id
-                    ? "border-forest bg-forest/5"
-                    : "border-forest/10 hover:border-forest/30"
+                    ? "border-gold bg-gold/5"
+                    : "border-forest/10 hover:border-gold/30"
                 )}
               >
-                <input
-                  type="radio"
-                  name="payment_method"
-                  value={method.id}
-                  checked={paymentMethod === method.id}
-                  onChange={() => setPaymentMethod(method.id)}
-                  className="text-forest"
-                />
-                <span className="font-medium text-forest">{method.label}</span>
+                <span className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment_method"
+                    value={method.id}
+                    checked={paymentMethod === method.id}
+                    onChange={() => setPaymentMethod(method.id)}
+                    className="text-forest"
+                  />
+                  <span className="font-medium text-forest">{method.label}</span>
+                </span>
+                <span className="pl-7 text-xs text-foreground/60">
+                  {PAYMENT_INSTRUCTIONS[method.id].summary}
+                </span>
               </label>
             ))}
           </div>
 
-          <div className="rounded-xl bg-cream p-4 text-sm">
+          <div className="rounded-xl border border-gold/15 bg-cream/60 p-4 text-sm">
+            <p className="font-medium text-forest">Comment ça marche</p>
+            <ol className="mt-2 list-decimal space-y-1 pl-5 text-foreground/70">
+              {paymentInfo.steps.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="rounded-xl border border-gold/15 bg-ivory p-4 text-sm">
             <p className="font-medium text-forest">Récapitulatif</p>
             <ul className="mt-2 space-y-1 text-foreground/70">
               {cart.map((line) => (
@@ -474,9 +531,9 @@ export function CheckoutFlow({
                 </li>
               ))}
             </ul>
-            <div className="mt-3 border-t border-forest/10 pt-3 flex justify-between font-medium text-forest">
+            <div className="mt-3 flex justify-between border-t border-gold/15 pt-3 font-medium text-forest">
               <span>Total TTC</span>
-              <span>{formatPrice(totals.total)}</span>
+              <span>{formatPrice(total)}</span>
             </div>
           </div>
         </div>
@@ -510,6 +567,8 @@ export function CheckoutFlow({
           </button>
         )}
       </div>
+
+      {!compact && step !== "confirm" && <CheckoutFAQ />}
     </div>
   );
 }

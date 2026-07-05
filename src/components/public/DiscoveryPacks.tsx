@@ -2,6 +2,7 @@ import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/types/database";
 import { ProductPotImage } from "./ProductPotImage";
+import { AddPackButton } from "./AddPackButton";
 
 export const DISCOVERY_PACKS = [
   {
@@ -42,6 +43,14 @@ export const DISCOVERY_PACKS = [
   },
 ];
 
+const UNIT_PRICE = 15000;
+
+function packSavings(pack: (typeof DISCOVERY_PACKS)[number]) {
+  const fullPrice = pack.slugs.length * UNIT_PRICE;
+  const savings = fullPrice - pack.price;
+  return savings > 0 ? savings : 0;
+}
+
 export function DiscoveryPacks({ products }: { products: Product[] }) {
   const bySlug = Object.fromEntries(products.map((p) => [p.slug, p]));
 
@@ -59,10 +68,11 @@ export function DiscoveryPacks({ products }: { products: Product[] }) {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {DISCOVERY_PACKS.map((pack) => {
             const packProducts = pack.slugs.map((s) => bySlug[s]).filter(Boolean);
+            const savings = packSavings(pack);
             return (
               <article
                 key={pack.id}
-                className={`card-premium flex flex-col overflow-hidden ${pack.highlight ? "ring-2 ring-gold/40" : ""}`}
+                className={`card-premium flex flex-col overflow-hidden border-l-4 border-l-gold/40 ${pack.highlight ? "ring-2 ring-gold/40" : ""}`}
               >
                 {pack.highlight && (
                   <div className="bg-gold px-4 py-1.5 text-center text-xs font-medium uppercase tracking-wider text-forest">
@@ -85,13 +95,21 @@ export function DiscoveryPacks({ products }: { products: Product[] }) {
                   <p className="text-xs text-foreground/50">
                     {pack.slugs.length} pot{pack.slugs.length > 1 ? "s" : ""} · 500 g chacun
                   </p>
+                  {savings > 0 && (
+                    <p className="mt-1 text-xs font-medium text-gold">
+                      Économisez {formatPrice(savings)} vs achat séparé
+                    </p>
+                  )}
 
-                  <Link
-                    href={`/commander?pack=${pack.id}`}
-                    className="btn-primary mt-5 text-center text-sm"
-                  >
-                    Commander ce pack
-                  </Link>
+                  <div className="mt-5 flex flex-col gap-2">
+                    <AddPackButton packId={pack.id} className="w-full" />
+                    <Link
+                      href={`/commander?pack=${pack.id}`}
+                      className="btn-secondary text-center text-sm"
+                    >
+                      Commander directement
+                    </Link>
+                  </div>
                 </div>
               </article>
             );

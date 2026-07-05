@@ -12,6 +12,39 @@ export const PAYMENT_METHODS = [
 
 export type PaymentMethodId = (typeof PAYMENT_METHODS)[number]["id"];
 
+export const PAYMENT_INSTRUCTIONS: Record<
+  PaymentMethodId,
+  { summary: string; steps: string[] }
+> = {
+  wave: {
+    summary: "Vous recevrez un lien Wave par SMS ou WhatsApp sous 24 h.",
+    steps: [
+      "Confirmez votre commande sur le site.",
+      "Notre équipe vous envoie un lien de paiement Wave.",
+      "Réglez le montant exact indiqué sur le récapitulatif.",
+      "Votre commande est préparée dès réception du paiement.",
+    ],
+  },
+  orange_money: {
+    summary: "Vous recevrez les coordonnées Orange Money par SMS ou WhatsApp sous 24 h.",
+    steps: [
+      "Confirmez votre commande sur le site.",
+      "Nous vous communiquons le numéro et le montant à régler.",
+      "Effectuez le transfert Orange Money.",
+      "Votre commande est préparée dès réception du paiement.",
+    ],
+  },
+  cash_on_delivery: {
+    summary: "Vous réglez en espèces au livreur à la réception.",
+    steps: [
+      "Confirmez votre commande — aucun paiement immédiat.",
+      "Nous préparons et expédions votre colis.",
+      "Le livreur vous contacte pour la livraison.",
+      "Réglez le montant total en espèces à la réception.",
+    ],
+  },
+};
+
 export interface CartLine {
   key: string;
   type: "product" | "pack";

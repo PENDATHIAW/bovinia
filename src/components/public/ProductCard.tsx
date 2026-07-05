@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Product } from "@/types/database";
 import { ProductPotImage } from "./ProductPotImage";
+import { AddToCartButton } from "./AddToCartButton";
 import { formatPrice } from "@/lib/utils";
 import { getProductAvailabilityLabel, isProductOrderable } from "@/lib/product-availability";
 
@@ -14,7 +15,7 @@ export function ProductCard({ product, showOrder = true }: ProductCardProps) {
   const orderable = isProductOrderable(product.status);
 
   return (
-    <article className="card-premium group flex flex-col overflow-hidden">
+    <article className="card-premium group flex flex-col overflow-hidden border-l-4 border-l-gold/40">
       <ProductPotImage
         product={product}
         size="md"
@@ -38,21 +39,22 @@ export function ProductCard({ product, showOrder = true }: ProductCardProps) {
         </p>
         <p className="text-xs text-foreground/50">Format : 500 g · ~30 portions</p>
 
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-col gap-2">
           <Link
             href={`/produits/${product.slug}`}
-            className="btn-secondary flex-1 text-center text-xs sm:text-sm"
+            className="btn-secondary w-full text-center text-xs sm:text-sm"
           >
             Voir le produit
             <ArrowRight size={14} />
           </Link>
           {showOrder && orderable && (
-            <Link
-              href={`/commander?produit=${product.slug}`}
-              className="btn-primary flex-1 text-center text-xs sm:text-sm"
-            >
-              Commander
-            </Link>
+            <AddToCartButton
+              product={product}
+              variant="gold"
+              size="sm"
+              openDrawerOnAdd
+              className="w-full [&_button]:w-full"
+            />
           )}
         </div>
       </div>

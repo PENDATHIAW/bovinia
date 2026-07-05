@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CheckoutFlow } from "@/components/public/CheckoutFlow";
 import { getProducts } from "@/lib/data/queries";
 import { formatPrice } from "@/lib/utils";
@@ -28,11 +29,14 @@ export default async function CommanderPage({
             {formatPrice(28000)}.
           </p>
           <p className="mt-2 text-sm text-foreground/50">
-            Paiement Wave, Orange Money ou à la livraison — confirmation immédiate sur le site.
+            Ajoutez au panier depuis la boutique, puis finalisez ici.{" "}
+            <Link href="/livraison" className="text-gold underline">
+              Infos livraison
+            </Link>
           </p>
         </div>
 
-        <div className="card-premium p-6 md:p-10">
+        <div className="card-premium border-l-4 border-l-gold/40 p-6 md:p-10">
           <CheckoutFlow products={products} defaultProduct={produit} defaultPack={pack} />
         </div>
       </div>

@@ -15,6 +15,9 @@ import { FAQAccordion } from "./FAQAccordion";
 import { TestimonialsSection } from "./TestimonialsSection";
 import { DiscoveryPacks } from "./DiscoveryPacks";
 import { HeroShowcase } from "./HeroShowcase";
+import { RitualFinder } from "./RitualFinder";
+import { OfficialAssetImage } from "./OfficialAssetImage";
+import { ASSETS } from "@/lib/data/assetPaths";
 import { formatPrice } from "@/lib/utils";
 import type { FAQ, Product, SiteSettings, Testimonial } from "@/types/database";
 
@@ -145,6 +148,13 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
         </div>
       </section>
 
+      {/* Quel rituel */}
+      <section className="section-padding">
+        <div className="container-bovinia max-w-4xl">
+          <RitualFinder products={products} />
+        </div>
+      </section>
+
       {/* Bone Broth */}
       <section className="section-padding">
         <div className="container-bovinia">
@@ -166,12 +176,14 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
                 active, mais disparaît en bouche au profit des fruits et plantes africaines.
               </p>
             </div>
-            <div className="card-premium flex items-center justify-center p-12">
-              <div className="text-center">
-                <Droplets size={64} className="mx-auto text-gold" />
-                <p className="mt-4 font-serif text-2xl text-forest">Collagène naturel</p>
-                <p className="mt-2 text-sm text-foreground/60">Acides aminés · Gélatine · Minéraux</p>
-              </div>
+            <div className="card-premium overflow-hidden p-0">
+              <OfficialAssetImage
+                src={ASSETS.heroRange}
+                alt="Gamme complète BOVINIA — 5 rituels nutritionnels"
+                width={800}
+                height={600}
+                className="h-full w-full object-cover"
+              />
             </div>
           </div>
         </div>

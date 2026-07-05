@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MessageCircle, ArrowLeft, Flame } from "lucide-react";
+import { ArrowLeft, Flame } from "lucide-react";
 import { getProductBySlug, getProducts, getSiteSettings } from "@/lib/data/queries";
+import { getRelatedProducts } from "@/lib/shop/relatedProducts";
 import { ProductPotImage } from "@/components/public/ProductPotImage";
 import { ProductLifestyleSection } from "@/components/public/ProductLifestyleSection";
 import { ProductConsumptionGuide } from "@/components/public/ProductConsumptionGuide";
+import { ProductDetailActions } from "@/components/public/ProductDetailActions";
+import { RelatedProducts } from "@/components/public/RelatedProducts";
 import { formatPrice } from "@/lib/utils";
 import { USAGE_TIME_BY_SLUG } from "@/lib/data/consumption";
-import { getProductAvailabilityLabel, isProductOrderable } from "@/lib/product-availability";
+import { getProductAvailabilityLabel } from "@/lib/product-availability";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -32,19 +35,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
-  const [product, settings] = await Promise.all([
+  const [product, allProducts, settings] = await Promise.all([
     getProductBySlug(slug),
+    getProducts(),
     getSiteSettings(),
   ]);
 
   if (!product) notFound();
 
+  const related = getRelatedProducts(product, allProducts);
   const usageTime = USAGE_TIME_BY_SLUG[product.slug];
-  const orderable = isProductOrderable(product.status);
   const whatsappUrl = `https://wa.me/${settings.whatsapp_number.replace(/\D/g, "")}?text=${encodeURIComponent(`Bonjour, j'ai une question sur ${product.name} BOVINIA.`)}`;
 
   return (
-    <div className="section-padding">
+    <div className="section-padding pb-28 md:pb-16">
       <div className="container-bovinia">
         <Link
           href="/produits"
@@ -64,11 +68,11 @@ export default async function ProductDetailPage({ params }: Props) {
 
             <div className="mt-4 flex flex-wrap gap-2">
               {usageTime && (
-                <span className="inline-flex items-center gap-2 rounded-full bg-forest/10 px-4 py-2 text-sm font-medium text-forest">
+                <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-cream px-4 py-2 text-sm font-medium text-forest">
                   {usageTime.label}
                 </span>
               )}
-              <span className="inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-2 text-sm text-forest">
+              <span className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-ivory px-4 py-2 text-sm text-forest">
                 <Flame size={16} className="text-gold" />
                 Se déguste chaud — et aussi frais
               </span>
@@ -84,19 +88,19 @@ export default async function ProductDetailPage({ params }: Props) {
             <p className="mt-6 leading-relaxed text-foreground/70">{product.long_description}</p>
 
             <div className="mt-8 space-y-4">
-              <div className="card-premium p-5">
+              <div className="card-premium border-l-4 border-l-gold/50 p-5">
                 <h2 className="font-serif text-lg text-forest">Pour qui ?</h2>
                 <p className="mt-2 text-sm text-foreground/70">{product.target_audience}</p>
               </div>
-              <div className="card-premium p-5">
+              <div className="card-premium border-l-4 border-l-gold/50 p-5">
                 <h2 className="font-serif text-lg text-forest">Quand le consommer ?</h2>
                 <p className="mt-2 text-sm text-foreground/70">{product.usage_moment}</p>
               </div>
-              <div className="card-premium p-5">
+              <div className="card-premium border-l-4 border-l-gold/50 p-5">
                 <h2 className="font-serif text-lg text-forest">Ingrédients principaux</h2>
                 <ul className="mt-2 flex flex-wrap gap-2">
                   {product.main_ingredients.map((ing) => (
-                    <li key={ing} className="rounded-full bg-cream px-3 py-1 text-xs text-forest">
+                    <li key={ing} className="rounded-full border border-gold/20 bg-cream px-3 py-1 text-xs text-forest">
                       {ing}
                     </li>
                   ))}
@@ -104,26 +108,11 @@ export default async function ProductDetailPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+            <div className="mt-6 rounded-xl border border-gold/25 bg-cream/60 p-4 text-sm text-forest/80">
               {product.warnings}
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              {orderable && (
-                <Link href={`/commander?produit=${product.slug}`} className="btn-gold">
-                  Commander
-                </Link>
-              )}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary"
-              >
-                <MessageCircle size={16} />
-                Poser une question
-              </a>
-            </div>
+            <ProductDetailActions product={product} whatsappUrl={whatsappUrl} />
           </div>
         </div>
 
@@ -132,6 +121,8 @@ export default async function ProductDetailPage({ params }: Props) {
         <div className="mt-12 max-w-3xl">
           <ProductConsumptionGuide slug={product.slug} />
         </div>
+
+        <RelatedProducts products={related} currentSlug={product.name} />
       </div>
     </div>
   );

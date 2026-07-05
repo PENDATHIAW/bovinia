@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* Palette BOVINIA — or métallique, forêt, ivoire (logo officiel) */
 :root {
   --background: #FAF7F2;
   --foreground: #1A2E1A;
@@ -9,11 +10,6 @@
   --gold-light: #E8D5A3;
   --ivory: #FAF7F2;
   --cream: #F5F0E8;
-  --wellness: #8B9A7D;
-  --bloom: #D4A5A5;
-  --period: #722F37;
-  --pulse: #C45C26;
-  --calm: #1B2A4A;
 }
 
 @theme inline {
@@ -25,11 +21,6 @@
   --color-gold-light: var(--gold-light);
   --color-ivory: var(--ivory);
   --color-cream: var(--cream);
-  --color-wellness: var(--wellness);
-  --color-bloom: var(--bloom);
-  --color-period: var(--period);
-  --color-pulse: var(--pulse);
-  --color-calm: var(--calm);
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-dm-sans);
 }
@@ -82,7 +73,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .input-field {
-  @apply w-full rounded-xl border border-forest/20 bg-white px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20 transition-all;
+  @apply w-full rounded-xl border border-forest/20 bg-white px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all;
 }
 
 .label-field {
