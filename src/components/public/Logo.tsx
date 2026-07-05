@@ -10,9 +10,9 @@ interface LogoProps {
 }
 
 const sizes = {
-  sm: "max-h-14 w-auto",
-  md: "max-h-[4.5rem] w-auto",
-  lg: "max-h-28 w-auto",
+  sm: "h-12 w-auto max-w-[9.5rem]",
+  md: "h-16 w-auto max-w-[12rem]",
+  lg: "h-24 w-auto max-w-[18rem]",
 };
 
 export function Logo({ className, size = "md", onDark = false }: LogoProps) {

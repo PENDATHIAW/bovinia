@@ -4,12 +4,10 @@
 
 | Fichier | Usage |
 |---------|--------|
-| `logo/bovinia-logo.png` | Header, footer, Open Graph |
-| `logo/bovinia-logo-icon.webp` | Favicon |
+| `logo/bovinia-logo.png` | Header, footer, favicon, Open Graph |
 | `hero/gamme-5-pots.webp` | Hero page d'accueil (5 rituels) |
 | `contact/contact.webp` | Bannière page Contact |
-| `products/{slug}.webp` | Pots officiels (catalogue, fiches produit) |
-| `lifestyle/{slug}.png` | Photos mise en situation (haute résolution) |
+| `lifestyle/{slug}.png` | Fiches produit + photos mise en situation |
 | `lifestyle/wellness-office.webp` | 2e photo lifestyle WELLNESS |
 
 Pour remplacer un visuel : déposez le fichier au bon chemin, puis commit + push.

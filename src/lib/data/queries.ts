@@ -159,6 +159,17 @@ export const SEED_BLOG_POSTS: BlogPost[] = [
   },
 ];
 
+function enrichProductFromSeed(row: Product): Product {
+  const seed = SEED_PRODUCTS.find((p) => p.slug === row.slug);
+  if (!seed) return row;
+
+  return {
+    ...row,
+    image: row.image?.trim() ? row.image : seed.image,
+    gallery: row.gallery?.length ? row.gallery : seed.gallery,
+  };
+}
+
 export async function getProducts(): Promise<Product[]> {
   const supabase = await createClient();
   if (!supabase) return SEED_PRODUCTS;
@@ -170,7 +181,7 @@ export async function getProducts(): Promise<Product[]> {
     .order("sort_order");
 
   if (error || !data?.length) return SEED_PRODUCTS;
-  return data as Product[];
+  return (data as Product[]).map(enrichProductFromSeed);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -188,7 +199,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   if (error || !data) {
     return SEED_PRODUCTS.find((p) => p.slug === slug) ?? null;
   }
-  return data as Product;
+  return enrichProductFromSeed(data as Product);
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
