@@ -1,6 +1,7 @@
 import type { Product } from "@/types/database";
 import { isBlockedAsset } from "@/lib/data/assetPaths";
 import { OfficialAssetImage } from "./OfficialAssetImage";
+import { SectionHeader } from "./SectionHeader";
 
 interface ProductLifestyleSectionProps {
   product: Product;
@@ -11,29 +12,42 @@ export function ProductLifestyleSection({ product }: ProductLifestyleSectionProp
     .filter((src) => !isBlockedAsset(src));
   if (images.length === 0) return null;
 
+  const [featured, ...rest] = images;
+
   return (
     <section className="mt-16">
-      <div className="mx-auto mb-8 max-w-2xl text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-gold">Rituel en image</p>
-        <h2 className="mt-2 font-serif text-3xl text-forest">{product.name} au quotidien</h2>
-        <p className="mt-3 text-foreground/70">
-          Des visuels officiels BOVINIA, sans recreation automatique ni formule confidentielle.
-        </p>
-      </div>
+      <SectionHeader
+        label="Rituel en image"
+        title={`${product.name} au quotidien`}
+        description="Visuels officiels BOVINIA — votre rituel, en situation réelle."
+      />
 
-      <div className={images.length > 1 ? "grid gap-6 md:grid-cols-2" : ""}>
-        {images.map((src, index) => (
-          <div
-            key={`${product.slug}-${index}`}
-            className="overflow-hidden rounded-3xl border border-gold/20 bg-cream shadow-lg"
-          >
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="gold-frame lg:col-span-7">
+          <div className="gold-frame-inner">
             <OfficialAssetImage
-              src={src}
-              alt={`${product.name} BOVINIA - rituel ${index + 1}`}
+              src={featured}
+              alt={`${product.name} BOVINIA — rituel principal`}
               className="mx-auto h-auto w-full object-contain"
             />
           </div>
-        ))}
+        </div>
+        {rest.length > 0 && (
+          <div className="flex flex-col gap-4 lg:col-span-5">
+            {rest.map((src, index) => (
+              <div
+                key={`${product.slug}-${index}`}
+                className="card-premium flex-1 overflow-hidden p-0"
+              >
+                <OfficialAssetImage
+                  src={src}
+                  alt={`${product.name} BOVINIA - rituel ${index + 2}`}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

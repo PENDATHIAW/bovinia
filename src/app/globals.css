@@ -69,7 +69,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-premium {
-  @apply rounded-3xl bg-white/80 backdrop-blur-sm border border-gold/20 shadow-sm transition-all hover:shadow-md hover:border-gold/40;
+  @apply rounded-3xl bg-white/80 backdrop-blur-sm border border-gold/20 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-gold/35;
+}
+
+.card-lift {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+}
+
+.gold-frame {
+  @apply relative rounded-[2rem] border border-gold/30 p-1 shadow-2xl;
+  background: linear-gradient(145deg, rgba(201, 169, 98, 0.15) 0%, rgba(245, 240, 232, 0.8) 50%, rgba(201, 169, 98, 0.1) 100%);
+}
+
+.gold-frame-inner {
+  @apply overflow-hidden rounded-[1.75rem] bg-cream;
+}
+
+.surface-cream {
+  @apply bg-cream/60;
+}
+
+.surface-ivory {
+  @apply bg-ivory/90;
 }
 
 .input-field {
@@ -120,6 +141,40 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out forwards;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 45s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 5s ease-in-out infinite;
+}
+
+.image-zoom {
+  @apply transition-transform duration-500 ease-out group-hover:scale-[1.03];
 }
 
 .prose-bovinia h2 {

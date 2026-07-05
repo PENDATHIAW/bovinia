@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { OfficialAssetImage } from "@/components/public/OfficialAssetImage";
+import { PageHero } from "@/components/public/PageHero";
 import { ASSETS } from "@/lib/data/assetPaths";
 
 export const metadata: Metadata = {
@@ -11,14 +12,18 @@ export const metadata: Metadata = {
 
 export default function NotreHistoirePage() {
   return (
-    <div className="section-padding">
-      <div className="container-bovinia max-w-4xl">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-gold">Storytelling</p>
-          <h1 className="mt-2 font-serif text-4xl text-forest md:text-5xl">Notre histoire</h1>
-        </div>
+    <>
+      <PageHero
+        label="Storytelling"
+        title="Notre histoire"
+        description="Une marque sénégalaise qui transforme le Bone Broth en rituels nutritionnels premium."
+      />
 
-        <div className="mb-12 overflow-hidden rounded-3xl border border-gold/20">
+      <div className="section-padding pt-10">
+      <div className="container-bovinia max-w-4xl">
+
+        <div className="mb-12 gold-frame">
+          <div className="gold-frame-inner">
           <OfficialAssetImage
             src={ASSETS.heroRange}
             alt="Gamme BOVINIA — 5 rituels nutritionnels"
@@ -27,6 +32,7 @@ export default function NotreHistoirePage() {
             className="w-full object-cover"
             priority
           />
+          </div>
         </div>
 
         <div className="prose-bovinia space-y-8">
@@ -123,6 +129,7 @@ export default function NotreHistoirePage() {
           </section>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

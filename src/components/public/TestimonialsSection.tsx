@@ -14,18 +14,19 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
   if (!testimonials.length) return null;
 
   return (
-    <section className="section-padding bg-cream">
+    <section className="section-padding bg-cream pattern-dots">
       <div className="container-bovinia">
         <div className="mx-auto mb-12 max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-gold">Témoignages</p>
-          <h2 className="mt-2 font-serif text-3xl text-forest md:text-4xl">
-            Ils ont adopté le rituel BOVINIA
-          </h2>
+          <p className="section-label">Témoignages</p>
+          <h2 className="section-title">Ils ont adopté le rituel BOVINIA</h2>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t) => (
-            <blockquote key={t.id} className="card-premium border-l-4 border-l-gold/40 p-6">
+            <blockquote
+              key={t.id}
+              className="card-premium card-lift border-t-2 border-t-gold/40 p-6"
+            >
               <div className="mb-4 flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-cream font-serif text-sm text-forest">
                   {initials(t.name)}

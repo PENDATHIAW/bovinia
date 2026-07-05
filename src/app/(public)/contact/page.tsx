@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MessageCircle, Mail, MapPin, ShoppingBag, ArrowRight } from "lucide-react";
 import { ContactForm } from "@/components/public/ContactForm";
+import { PageHero } from "@/components/public/PageHero";
 import { getSiteSettings } from "@/lib/data/queries";
 
 export const metadata: Metadata = {
@@ -15,65 +16,83 @@ export default async function ContactPage() {
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
 
   return (
-    <div className="section-padding">
-      <div className="container-bovinia">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <p className="section-label">Contact</p>
-          <h1 className="section-title">Parlons ensemble</h1>
-          <p className="mt-4 text-foreground/70">
-            Une question sur nos rituels, un partenariat ou une demande d&apos;export ?
-            Pour commander, passez directement par la boutique en ligne.
-          </p>
-          <Link href="/commander" className="btn-gold mt-6 inline-flex">
-            <ShoppingBag size={16} />
-            Passer commande
-            <ArrowRight size={16} />
-          </Link>
-        </div>
+    <>
+      <PageHero
+        label="Contact"
+        title="Parlons ensemble"
+        description="Une question sur nos rituels, un partenariat ou une demande d'export ? Pour commander, passez par la boutique en ligne."
+      >
+        <Link href="/commander" className="btn-gold">
+          <ShoppingBag size={16} />
+          Passer commande
+          <ArrowRight size={16} />
+        </Link>
+      </PageHero>
 
-        <div className="grid gap-12 lg:grid-cols-3">
-          <div className="space-y-6">
-            <div className="card-premium p-6">
-              <Mail className="text-gold" size={24} />
-              <h2 className="mt-3 font-serif text-lg text-forest">Email</h2>
-              <a
-                href={`mailto:${settings.contact_email}`}
-                className="mt-2 block text-sm text-forest/70 hover:text-forest"
-              >
-                {settings.contact_email}
-              </a>
+      <div className="section-padding">
+        <div className="container-bovinia">
+          <div className="grid gap-8 lg:grid-cols-3">
+            <div className="space-y-5">
+              {[
+                {
+                  icon: Mail,
+                  title: "Email",
+                  content: (
+                    <a
+                      href={`mailto:${settings.contact_email}`}
+                      className="text-sm text-forest/70 transition-colors hover:text-gold"
+                    >
+                      {settings.contact_email}
+                    </a>
+                  ),
+                },
+                {
+                  icon: MessageCircle,
+                  title: "WhatsApp",
+                  content: (
+                    <>
+                      <p className="text-xs text-foreground/50">Questions uniquement</p>
+                      <a
+                        href={whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 block text-sm text-forest/70 transition-colors hover:text-gold"
+                      >
+                        {settings.whatsapp_number}
+                      </a>
+                    </>
+                  ),
+                },
+                {
+                  icon: MapPin,
+                  title: "Localisation",
+                  content: (
+                    <p className="text-sm text-foreground/70">{settings.contact_address}</p>
+                  ),
+                },
+              ].map(({ icon: Icon, title, content }) => (
+                <div key={title} className="card-premium card-lift p-6">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/25 bg-cream">
+                    <Icon className="text-gold" size={20} />
+                  </div>
+                  <h2 className="mt-4 font-serif text-lg text-forest">{title}</h2>
+                  <div className="mt-2">{content}</div>
+                </div>
+              ))}
             </div>
-            <div className="card-premium p-6">
-              <MessageCircle className="text-gold" size={24} />
-              <h2 className="mt-3 font-serif text-lg text-forest">WhatsApp</h2>
-              <p className="mt-1 text-xs text-foreground/50">Questions uniquement — pas pour commander</p>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 block text-sm text-forest/70 hover:text-forest"
-              >
-                {settings.whatsapp_number}
-              </a>
-            </div>
-            <div className="card-premium p-6">
-              <MapPin className="text-gold" size={24} />
-              <h2 className="mt-3 font-serif text-lg text-forest">Localisation</h2>
-              <p className="mt-2 text-sm text-foreground/70">{settings.contact_address}</p>
-            </div>
-          </div>
 
-          <div className="lg:col-span-2 card-premium p-6 md:p-8">
-            <h2 className="font-serif text-xl text-forest">Envoyer un message</h2>
-            <p className="mt-2 text-sm text-foreground/60">
-              Nous répondons sous 24 à 48 h ouvrées.
-            </p>
-            <div className="mt-6">
-              <ContactForm />
+            <div className="card-premium border-l-4 border-l-gold/50 p-6 md:p-10 lg:col-span-2">
+              <h2 className="font-serif text-2xl text-forest">Envoyer un message</h2>
+              <p className="mt-2 text-sm text-foreground/60">
+                Nous répondons sous 24 à 48 h ouvrées.
+              </p>
+              <div className="mt-8">
+                <ContactForm />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

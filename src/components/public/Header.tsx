@@ -30,7 +30,7 @@ export function Header() {
   const { itemCount, openDrawer, hydrated } = useCart();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gold/15 bg-ivory/95 shadow-sm backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-gold/20 bg-ivory/95 shadow-[0_1px_24px_rgba(27,67,50,0.06)] backdrop-blur-md">
       <div className="container-bovinia flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Logo size="md" />
 

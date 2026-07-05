@@ -55,7 +55,7 @@ export function DiscoveryPacks({ products }: { products: Product[] }) {
   const bySlug = Object.fromEntries(products.map((p) => [p.slug, p]));
 
   return (
-    <section className="section-padding bg-cream">
+    <section className="section-padding bg-ivory">
       <div className="container-bovinia">
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-gold">Offres</p>

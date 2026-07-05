@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ProductCatalog } from "@/components/public/ProductCatalog";
 import { DiscoveryPacks } from "@/components/public/DiscoveryPacks";
 import { RitualFinder } from "@/components/public/RitualFinder";
+import { PageHero } from "@/components/public/PageHero";
 import { getProducts } from "@/lib/data/queries";
 import { formatPrice } from "@/lib/utils";
 
@@ -16,28 +17,19 @@ export default async function ProductsPage() {
 
   return (
     <>
-      <section className="border-b border-gold/10 bg-cream/50">
-        <div className="container-bovinia section-padding pb-10 pt-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-medium uppercase tracking-widest text-gold">Boutique</p>
-            <h1 className="mt-2 font-serif text-4xl text-forest md:text-5xl">
-              Nos rituels nutritionnels
-            </h1>
-            <p className="mt-4 text-foreground/70">
-              5 formules disponibles dès maintenant — {formatPrice(15000)} le pot · 500 g · ~30
-              portions.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        label="Boutique"
+        title="Nos rituels nutritionnels"
+        description={`5 formules premium — ${formatPrice(15000)} le pot · 500 g · ~30 portions · Bone Broth fabriqué au Sénégal.`}
+      />
 
-      <div className="section-padding pb-8">
+      <div className="section-padding pb-8 pt-10">
         <div className="container-bovinia max-w-4xl">
           <RitualFinder products={products} compact />
         </div>
       </div>
 
-      <div className="section-padding pt-0">
+      <div className="section-padding surface-cream pt-0">
         <div className="container-bovinia">
           <ProductCatalog products={products} />
         </div>

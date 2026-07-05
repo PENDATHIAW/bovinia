@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckoutFlow } from "@/components/public/CheckoutFlow";
+import { PageHero } from "@/components/public/PageHero";
 import { getProducts } from "@/lib/data/queries";
 import { formatPrice } from "@/lib/utils";
 
@@ -19,27 +20,24 @@ export default async function CommanderPage({
   const products = await getProducts();
 
   return (
-    <div className="section-padding">
-      <div className="container-bovinia max-w-3xl">
-        <div className="mx-auto mb-12 text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-gold">Boutique</p>
-          <h1 className="mt-2 font-serif text-4xl text-forest md:text-5xl">Commander</h1>
-          <p className="mt-4 text-foreground/70">
-            Tous nos rituels sont disponibles — {formatPrice(15000)} le pot · packs à partir de{" "}
-            {formatPrice(28000)}.
-          </p>
-          <p className="mt-2 text-sm text-foreground/50">
-            Ajoutez au panier depuis la boutique, puis finalisez ici.{" "}
-            <Link href="/livraison" className="text-gold underline">
-              Infos livraison
-            </Link>
-          </p>
-        </div>
+    <>
+      <PageHero
+        label="Boutique"
+        title="Commander"
+        description={`${formatPrice(15000)} le pot · packs dès ${formatPrice(28000)} · Wave, Orange Money ou livraison.`}
+      >
+        <Link href="/livraison" className="btn-secondary text-sm">
+          Infos livraison
+        </Link>
+      </PageHero>
 
-        <div className="card-premium border-l-4 border-l-gold/40 p-6 md:p-10">
-          <CheckoutFlow products={products} defaultProduct={produit} defaultPack={pack} />
+      <div className="section-padding pt-10">
+        <div className="container-bovinia max-w-3xl">
+          <div className="card-premium overflow-hidden border-l-4 border-l-gold/50 p-6 shadow-lg md:p-10">
+            <CheckoutFlow products={products} defaultProduct={produit} defaultPack={pack} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

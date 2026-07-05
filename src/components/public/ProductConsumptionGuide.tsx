@@ -41,7 +41,7 @@ export function ProductConsumptionGuide({ slug }: ProductConsumptionGuideProps) 
 
   return (
     <section className="space-y-6">
-      <div className="rounded-2xl border border-forest/15 bg-cream p-5">
+      <div className="rounded-2xl border border-gold/20 bg-cream/60 p-5">
         <div className="flex items-start gap-3">
           <TimeIcon className="mt-0.5 shrink-0 text-gold" size={22} />
           <div>
@@ -54,7 +54,7 @@ export function ProductConsumptionGuide({ slug }: ProductConsumptionGuideProps) 
 
       <div className="rounded-2xl border border-gold/30 bg-gold/10 p-5">
         <div className="flex items-start gap-3">
-          <Flame className="mt-0.5 shrink-0 text-forest" size={22} />
+          <Flame className="mt-0.5 shrink-0 text-gold" size={22} />
           <div>
             <h2 className="font-serif text-lg text-forest">Consommation au chaud</h2>
             <p className="mt-2 text-sm leading-relaxed text-foreground/75">
@@ -64,7 +64,7 @@ export function ProductConsumptionGuide({ slug }: ProductConsumptionGuideProps) 
         </div>
       </div>
 
-      <div className="card-premium p-6">
+      <div className="card-premium border-l-4 border-l-gold/40 p-6">
         <h2 className="font-serif text-xl text-forest">Comment le déguster ?</h2>
         <p className="mt-1 text-sm text-foreground/60">
           {UNIVERSAL_PREPARATION.portion} · {UNIVERSAL_PREPARATION.liquid} ·{" "}

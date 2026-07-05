@@ -47,7 +47,12 @@ export function RitualFinder({ products, compact = false }: RitualFinderProps) {
 
   if (result && product && summary) {
     return (
-      <div className={cn("rounded-3xl border border-gold/25 bg-cream/50 p-6 md:p-10", compact && "p-6")}>
+      <div
+        className={cn(
+          "overflow-hidden rounded-[2rem] border border-gold/30 bg-gradient-to-br from-ivory via-cream to-ivory p-6 shadow-lg md:p-10",
+          compact && "p-6"
+        )}
+      >
         <div className="flex items-center gap-2 text-gold">
           <Sparkles size={18} />
           <p className="text-sm font-medium uppercase tracking-widest">Votre rituel</p>
@@ -75,7 +80,12 @@ export function RitualFinder({ products, compact = false }: RitualFinderProps) {
   }
 
   return (
-    <div className={cn("rounded-3xl border border-gold/25 bg-cream/50 p-6 md:p-10", compact && "p-6")}>
+    <div
+      className={cn(
+        "overflow-hidden rounded-[2rem] border border-gold/25 bg-gradient-to-br from-cream/80 to-ivory p-6 shadow-md md:p-10",
+        compact && "p-6"
+      )}
+    >
       {!compact && (
         <div className="mb-8 text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-gold">Guide personnalisé</p>
@@ -106,7 +116,7 @@ export function RitualFinder({ products, compact = false }: RitualFinderProps) {
             key={option.id}
             type="button"
             onClick={() => selectOption(currentQuestion.id, option.id)}
-            className="rounded-2xl border border-gold/20 bg-ivory px-5 py-4 text-left text-sm text-forest transition-all hover:border-gold hover:bg-gold/5"
+            className="rounded-2xl border border-gold/20 bg-ivory px-5 py-4 text-left text-sm text-forest shadow-sm transition-all hover:border-gold hover:bg-gold/5 hover:shadow-md"
           >
             {option.label}
           </button>

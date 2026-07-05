@@ -11,7 +11,7 @@ export function FAQAccordion({ faqs }: { faqs: FAQ[] }) {
   return (
     <div className="space-y-3">
       {faqs.map((faq) => (
-        <div key={faq.id} className="card-premium overflow-hidden">
+        <div key={faq.id} className="card-premium overflow-hidden transition-shadow hover:shadow-md">
           <button
             type="button"
             className="flex w-full items-center justify-between gap-4 p-5 text-left"

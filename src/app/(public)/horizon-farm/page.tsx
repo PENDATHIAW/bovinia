@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Recycle, Shield, TrendingUp, Globe, Leaf } from "lucide-react";
 import { OfficialAssetImage } from "@/components/public/OfficialAssetImage";
+import { PageHero } from "@/components/public/PageHero";
 import { ASSETS } from "@/lib/data/assetPaths";
 
 export const metadata: Metadata = {
@@ -35,17 +36,15 @@ const LIFESTYLE_STRIPS = [
 
 export default function HorizonFarmPage() {
   return (
-    <div className="section-padding">
+    <>
+      <PageHero
+        label="Traçabilité"
+        title="Horizon Farm & Chaîne de valeur"
+        description="De l'élevage à votre rituel quotidien — une chaîne maîtrisée et transparente."
+      />
+
+      <div className="section-padding pt-10">
       <div className="container-bovinia">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-gold">Traçabilité</p>
-          <h1 className="mt-2 font-serif text-4xl text-forest md:text-5xl">
-            Horizon Farm & Chaîne de valeur
-          </h1>
-          <p className="mt-4 text-foreground/70">
-            De l&apos;élevage à votre rituel quotidien, une chaîne maîtrisée et transparente.
-          </p>
-        </div>
 
         <div className="mb-12 grid gap-4 sm:grid-cols-3">
           {LIFESTYLE_STRIPS.map((img) => (
@@ -101,6 +100,7 @@ export default function HorizonFarmPage() {
           </Link>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
