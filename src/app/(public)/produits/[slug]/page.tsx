@@ -152,6 +152,14 @@ export default async function ProductDetailPage({ params }: Props) {
           <ProductLifestyleSection product={product} />
 
           <div id="mode-emploi" className="mt-12 max-w-3xl scroll-mt-36">
+            <div className="mb-4 flex flex-wrap gap-3">
+              <Link href="/preparation" className="text-sm font-medium text-gold hover:underline">
+                Guide complet de préparation →
+              </Link>
+              <Link href="/comparateur" className="text-sm font-medium text-forest/60 hover:text-forest">
+                Comparer les rituels
+              </Link>
+            </div>
             <ProductConsumptionGuide slug={product.slug} />
           </div>
 

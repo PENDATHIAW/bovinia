@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/produits", label: "Boutique" },
+  { href: "/comparateur", label: "Comparer" },
+  { href: "/preparation", label: "Préparer" },
   { href: "/quel-rituel", label: "Quel rituel ?" },
-  { href: "/notre-histoire", label: "Notre histoire" },
-  { href: "/horizon-farm", label: "Horizon Farm" },
   { href: "/blog", label: "Conseils" },
   { href: "/contact", label: "Contact" },
 ];
@@ -20,6 +20,9 @@ const NAV_LINKS = [
 function isActive(pathname: string, href: string) {
   if (href === "/produits") {
     return pathname === "/produits" || pathname.startsWith("/produits/");
+  }
+  if (href === "/comparateur") {
+    return pathname === "/comparateur";
   }
   return pathname === href || pathname.startsWith(`${href}/`);
 }

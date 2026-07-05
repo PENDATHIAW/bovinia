@@ -6,6 +6,8 @@ import { getSiteSettings } from "@/lib/data/queries";
 
 const FOOTER_LINKS = [
   { href: "/produits", label: "Boutique" },
+  { href: "/comparateur", label: "Comparer les rituels" },
+  { href: "/preparation", label: "Comment préparer" },
   { href: "/quel-rituel", label: "Quel rituel ?" },
   { href: "/commander", label: "Commander" },
   { href: "/livraison", label: "Livraison" },

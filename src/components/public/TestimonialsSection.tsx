@@ -64,8 +64,7 @@ export function TestimonialsSection({
         </div>
         {showDisclaimer && (
           <p className="mt-8 text-center text-xs text-foreground/45">
-            Sélection d&apos;avis clients — témoignages illustratifs remplaçables par vos retours
-            authentiques.
+            Sélection d&apos;avis illustratifs par rituel — remplaçables par vos retours authentiques.
           </p>
         )}
       </div>

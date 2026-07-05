@@ -1,17 +1,17 @@
 import type { Testimonial } from "@/types/database";
 
 /**
- * Témoignages seed — certains sont illustratifs en attendant les vrais retours clients.
- * Remplaçables via l'admin Supabase ou en mettant à jour ce fichier.
+ * Témoignages illustratifs — formulés selon les problématiques ciblées par chaque rituel.
+ * À remplacer par de vrais retours clients via l'admin.
  */
 export const SEED_TESTIMONIALS: Testimonial[] = [
-  // WELLNESS
+  // WELLNESS — digestion, énergie matinale, bien-être quotidien, complément naturel
   {
     id: "w1",
     name: "Aminata D.",
     city: "Dakar",
     rating: 5,
-    text: "J'adore le goût tropical de WELLNESS. C'est devenu mon rituel du matin — chaud, facile et vraiment gourmand.",
+    text: "Je me levais fatiguée malgré 8 h de sommeil. Depuis WELLNESS le matin, j'ai plus d'élan pour démarrer la journée — sans café en excès.",
     product_id: "wellness",
     product_name: "WELLNESS",
     is_visible: true,
@@ -22,7 +22,7 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Ibrahima T.",
     city: "Dakar",
     rating: 5,
-    text: "Je le prends avant le bureau. En smoothie frais l'été, en eau chaude l'hiver — très pratique.",
+    text: "J'avais souvent l'estomac lourd après le déjeuner. Le rituel matin à l'eau chaude m'aide à mieux digérer au quotidien.",
     product_id: "wellness",
     product_name: "WELLNESS",
     is_visible: true,
@@ -33,19 +33,19 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Coumba F.",
     city: "Rufisque",
     rating: 5,
-    text: "Le goût ananas-mandarine masque bien le Bone Broth. Ma famille a adopté le rituel du matin.",
+    text: "Je cherchais une alternative locale aux compléments importés trop chers. WELLNESS couvre mon besoin de routine bien-être naturelle.",
     product_id: "wellness",
     product_name: "WELLNESS",
     is_visible: true,
     created_at: "2026-02-20T00:00:00.000Z",
   },
-  // BLOOM
+  // BLOOM — grossesse, post-partum, nutrition douce, nausées
   {
     id: "b1",
     name: "Fatou S.",
     city: "Thiès",
     rating: 5,
-    text: "BLOOM m'accompagne depuis ma grossesse. Doux, crémeux — je le prends au lait chaud l'après-midi.",
+    text: "Enceinte de 6 mois, les nausées du matin me gênaient. BLOOM au lait chaud passe bien et ne m'agresse pas l'estomac.",
     product_id: "bloom",
     product_name: "BLOOM",
     is_visible: true,
@@ -56,7 +56,7 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Aïssatou M.",
     city: "Dakar",
     rating: 5,
-    text: "Post-partum, c'est devenu mon allié nutrition. Saveur mangue-coco très réconfortante.",
+    text: "Post-partum, j'étais épuisée et je cherchais du réconfort nutritionnel. Le goût mangue-coco de BLOOM m'a aidée à tenir mes journées.",
     product_id: "bloom",
     product_name: "BLOOM",
     is_visible: true,
@@ -67,19 +67,19 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Ndeye P.",
     city: "Saint-Louis",
     rating: 5,
-    text: "Ma sage-femme m'avait recommandé une alimentation naturelle. BLOOM s'intègre parfaitement à ma routine.",
+    text: "En allaitement, je voulais éviter les poudres chimiques. BLOOM est devenu ma collation douce de l'après-midi.",
     product_id: "bloom",
     product_name: "BLOOM",
     is_visible: true,
     created_at: "2026-03-01T00:00:00.000Z",
   },
-  // PERIOD!
+  // PERIOD! — confort cycle, règles, ballonnements, fatigue prémenstruelle
   {
     id: "p1",
     name: "Marième N.",
     city: "Dakar",
     rating: 5,
-    text: "PERIOD! m'accompagne pendant mes règles. Je le prends chaud le soir, c'est devenu un réflexe.",
+    text: "Avant mes règles, je suis souvent ballonnée. La tisane chaude PERIOD! le soir m'apporte un vrai confort ces jours-là.",
     product_id: "period",
     product_name: "PERIOD!",
     is_visible: true,
@@ -90,7 +90,7 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Rokhaya D.",
     city: "Mbour",
     rating: 5,
-    text: "Les saveurs gingembre-cannelle sont apaisantes. Je le combine avec CALM le soir pendant le cycle.",
+    text: "Pendant le cycle, je manque d'énergie. PERIOD! le matin en boisson tiède m'aide à traverser la semaine plus sereinement.",
     product_id: "period",
     product_name: "PERIOD!",
     is_visible: true,
@@ -100,20 +100,20 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     id: "p3",
     name: "Sophie L.",
     city: "Dakar",
-    rating: 4,
-    text: "Rituel réconfortant en tisane chaude. J'apprécie la douceur et la régularité du produit.",
+    rating: 5,
+    text: "Je voulais un rituel naturel pour mes règles, sans promesses miracles. Le bissap-cannelle chaud est devenu mon réflexe prémenstruel.",
     product_id: "period",
     product_name: "PERIOD!",
     is_visible: true,
     created_at: "2026-03-05T00:00:00.000Z",
   },
-  // PULSE
+  // PULSE — sport, récupération, énergie avant effort, vitalité
   {
     id: "pu1",
     name: "Moussa K.",
     city: "Saint-Louis",
     rating: 5,
-    text: "PULSE est parfait après mes séances de sport. Le gingembre apporte une touche dynamique.",
+    text: "Après mes séances de musculation, j'avais des courbatures qui duraient. PULSE en shaker post-effort fait partie de ma récup.",
     product_id: "pulse",
     product_name: "PULSE",
     is_visible: true,
@@ -124,7 +124,7 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Omar B.",
     city: "Dakar",
     rating: 5,
-    text: "Avant le foot le dimanche, c'est mon boost naturel. Goût fruité, pas chimique.",
+    text: "Avant le foot du dimanche, je manquais de punch. PULSE en eau fraîche 30 min avant le match — plus de boisson énergisante chimique.",
     product_id: "pulse",
     product_name: "PULSE",
     is_visible: true,
@@ -135,19 +135,19 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Awa N.",
     city: "Thiès",
     rating: 5,
-    text: "Je cours le matin — PULSE en eau fraîche avant l'effort, parfait pour moi.",
+    text: "Journées de boulot intenses + course le soir. PULSE le matin me donne la vitalité pour tenir sans m'effondrer à 16 h.",
     product_id: "pulse",
     product_name: "PULSE",
     is_visible: true,
     created_at: "2026-02-28T00:00:00.000Z",
   },
-  // CALM
+  // CALM — sommeil, stress du soir, détente, récupération mentale
   {
     id: "c1",
     name: "Khady B.",
     city: "Mbour",
     rating: 5,
-    text: "CALM le soir avant de dormir — une routine apaisante. Vanille et cannelle, très doux.",
+    text: "Je peinais à décrocher le soir après les écrans. CALM en lait chaud 1 h avant le coucher m'aide à m'apaiser.",
     product_id: "calm",
     product_name: "CALM",
     is_visible: true,
@@ -158,7 +158,7 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Mame Diarra S.",
     city: "Dakar",
     rating: 5,
-    text: "En lait chaud le soir, c'est mon moment pour décompresser après la journée.",
+    text: "Le stress du travail me suivait jusqu'au lit. Le rituel verveine-camomille chaud est devenu mon signal « journée terminée ».",
     product_id: "calm",
     product_name: "CALM",
     is_visible: true,
@@ -169,7 +169,7 @@ export const SEED_TESTIMONIALS: Testimonial[] = [
     name: "Yacine F.",
     city: "Rufisque",
     rating: 5,
-    text: "Le pack découverte m'a fait découvrir CALM — maintenant c'est mon rituel du soir fixe.",
+    text: "Sommeil léger et réveils nocturnes. CALM le soir ne remplace pas un médecin, mais ma routine du soir est plus sereine.",
     product_id: "calm",
     product_name: "CALM",
     is_visible: true,

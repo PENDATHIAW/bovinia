@@ -65,8 +65,8 @@ export function ProductTestimonials({
 
       {showDisclaimer && (
         <p className="mt-6 text-center text-xs text-foreground/45">
-          Témoignages illustratifs en attendant vos retours authentiques — remplaceables à tout
-          moment depuis l&apos;administration.
+          Avis illustratifs alignés sur les usages typiques de chaque rituel — remplaçables par vos
+          retours clients authentiques.
         </p>
       )}
     </section>

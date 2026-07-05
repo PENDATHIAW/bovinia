@@ -135,6 +135,17 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <Link href="/comparateur" className="btn-secondary text-sm">
+              Comparer les rituels
+            </Link>
+            <Link href="/preparation" className="btn-secondary text-sm">
+              Comment préparer
+            </Link>
+            <Link href="/quel-rituel" className="btn-secondary text-sm">
+              Quel rituel pour moi ?
+            </Link>
+          </div>
         </div>
       </section>
 
