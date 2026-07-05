@@ -55,7 +55,7 @@ export default async function ProductDetailPage({ params }: Props) {
         </Link>
 
         <div className="grid gap-12 lg:grid-cols-2">
-          <ProductPotImage product={product} size="lg" className="w-full" />
+          <ProductPotImage product={product} size="lg" className="w-full" priority />
 
           <div>
             <p className="text-sm font-medium uppercase tracking-widest text-gold">{product.mission}</p>

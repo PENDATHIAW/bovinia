@@ -1,14 +1,12 @@
 # Assets BOVINIA
 
-Envoyez vos visuels **directement dans le chat Cursor** — pas besoin de les renommer ni de préciser lequel est lequel.
+**Règle importante :** ces fichiers sont les seuls visuels du site. Ne jamais les recréer en SVG, CSS ou code.
 
-L’agent les place automatiquement :
+| Fichier | Usage |
+|---------|--------|
+| `logo/bovinia-logo.png` | Header, footer, Open Graph |
+| `logo/bovinia-logo-icon.png` | Favicon |
+| `products/{slug}.png` | Pots officiels (catalogue, fiches produit) |
+| `lifestyle/{slug}.png` | Photos mise en situation |
 
-| Contenu repéré | Destination |
-|----------------|-------------|
-| Logo or (B + tête de bœuf) | `logo/bovinia-logo.png` |
-| Pot / packaging seul | `products/{wellness,bloom,period,pulse,calm}.png` |
-| Photo lifestyle (contexte, tasse…) | `lifestyle/{wellness,bloom,period,pulse,calm}.png` |
-| Visuel gamme (5 pots) | `products/gamme.png` + accueil |
-
-Vous pouvez aussi glisser-déposer les fichiers dans ce dossier `public/assets/` depuis l’explorateur Cursor.
+Pour ajouter ou remplacer un visuel : déposez le PNG au bon chemin (ou envoyez-le dans le chat Cursor).
