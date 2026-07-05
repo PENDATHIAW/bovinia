@@ -73,10 +73,10 @@ export function DiscoveryPacks({ products }: { products: Product[] }) {
                   <h3 className="font-serif text-xl text-forest">{pack.name}</h3>
                   <p className="mt-2 text-sm text-foreground/70">{pack.description}</p>
 
-                  <div className="mt-4 flex justify-center gap-2">
+                  <div className="mt-4 flex flex-wrap justify-center gap-3">
                     {packProducts.map((p) => (
-                      <div key={p.slug} className="w-16">
-                        <ProductPotImage product={p} size="sm" className="!h-24 !p-2" />
+                      <div key={p.slug} className="w-20 shrink-0">
+                        <ProductPotImage product={p} size="sm" />
                       </div>
                     ))}
                   </div>

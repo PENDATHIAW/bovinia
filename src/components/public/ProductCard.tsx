@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { PRODUCT_COLORS } from "@/types/database";
 import type { Product } from "@/types/database";
 import { ProductPotImage } from "./ProductPotImage";
 import { formatPrice } from "@/lib/utils";
@@ -13,7 +11,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, showOrder = true }: ProductCardProps) {
-  const colors = PRODUCT_COLORS[product.color_theme] ?? PRODUCT_COLORS.wellness;
   const orderable = isProductOrderable(product.status);
 
   return (
@@ -21,7 +18,7 @@ export function ProductCard({ product, showOrder = true }: ProductCardProps) {
       <ProductPotImage
         product={product}
         size="md"
-        className={cn(colors.bg, "!rounded-none !rounded-t-3xl")}
+        className="!rounded-none !rounded-t-3xl !bg-cream/40"
       />
 
       <div className="flex flex-1 flex-col p-6">

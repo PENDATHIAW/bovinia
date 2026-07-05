@@ -1,11 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types/database";
+import { OfficialAssetImage } from "./OfficialAssetImage";
 
 export function HeroShowcase({ products }: { products: Product[] }) {
   return (
-    <div className="relative mx-auto flex max-w-lg items-end justify-center gap-2 sm:gap-3 lg:max-w-none">
+    <div className="relative flex items-end justify-center gap-3 sm:gap-4">
       {products.map((product, i) => {
         if (!product.image) return null;
 
@@ -14,19 +14,18 @@ export function HeroShowcase({ products }: { products: Product[] }) {
             key={product.id}
             href={`/produits/${product.slug}`}
             className={cn(
-              "group relative transition-all duration-300 hover:-translate-y-3 hover:z-10",
-              i === 2 && "z-[2] scale-110"
+              "transition-transform duration-300 hover:-translate-y-2 hover:scale-105",
+              i === 2 && "z-10 scale-110"
             )}
-            style={{ transform: `rotate(${(i - 2) * 3}deg)` }}
           >
-            <Image
+            <OfficialAssetImage
               src={product.image}
               alt={product.name}
-              width={i === 2 ? 130 : 100}
-              height={i === 2 ? 170 : 130}
               priority={i === 2}
-              className="h-auto w-auto object-contain drop-shadow-2xl transition-transform group-hover:scale-105"
-              style={{ width: i === 2 ? 130 : 100, height: "auto" }}
+              className={cn(
+                "h-auto object-contain drop-shadow-2xl",
+                i === 2 ? "max-h-52 sm:max-h-64" : "max-h-40 sm:max-h-52"
+              )}
             />
           </Link>
         );

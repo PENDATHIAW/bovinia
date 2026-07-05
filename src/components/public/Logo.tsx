@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { OfficialAssetImage } from "./OfficialAssetImage";
 
 interface LogoProps {
   className?: string;
@@ -9,15 +9,13 @@ interface LogoProps {
 }
 
 const sizes = {
-  sm: { width: 140, height: 88, className: "max-w-[120px]" },
-  md: { width: 180, height: 110, className: "max-w-[160px]" },
-  lg: { width: 240, height: 145, className: "max-w-[220px]" },
+  sm: "max-h-14 w-auto",
+  md: "max-h-[4.5rem] w-auto",
+  lg: "max-h-28 w-auto",
 };
 
-/** Logo officiel PNG uniquement. */
+/** Logo officiel PNG uniquement — /assets/logo/bovinia-logo.png */
 export function Logo({ className, size = "md", onDark = false }: LogoProps) {
-  const { width, height, className: imgClass } = sizes[size];
-
   return (
     <Link
       href="/"
@@ -27,13 +25,11 @@ export function Logo({ className, size = "md", onDark = false }: LogoProps) {
         className
       )}
     >
-      <Image
+      <OfficialAssetImage
         src="/assets/logo/bovinia-logo.png"
         alt="BOVINIA — Powered by Bone Broth"
-        width={width}
-        height={height}
-        priority={size !== "sm"}
-        className={cn("h-auto object-contain", imgClass)}
+        priority
+        className={cn("h-auto object-contain", sizes[size])}
       />
     </Link>
   );
@@ -41,11 +37,9 @@ export function Logo({ className, size = "md", onDark = false }: LogoProps) {
 
 export function LogoIcon({ className }: { className?: string }) {
   return (
-    <Image
+    <OfficialAssetImage
       src="/assets/logo/bovinia-logo-icon.png"
       alt="BOVINIA"
-      width={40}
-      height={40}
       className={cn("h-10 w-10 object-contain", className)}
     />
   );

@@ -1,11 +1,11 @@
-import Image from "next/image";
 import type { Product } from "@/types/database";
+import { OfficialAssetImage } from "./OfficialAssetImage";
 
 interface ProductLifestyleSectionProps {
   product: Product;
 }
 
-/** Photo lifestyle officielle uniquement — pas de reconstitution visuelle. */
+/** Photo lifestyle officielle — fichier PNG entier, sans recadrage. */
 export function ProductLifestyleSection({ product }: ProductLifestyleSectionProps) {
   const lifestyleSrc = product.gallery[0];
   if (!lifestyleSrc) return null;
@@ -20,14 +20,11 @@ export function ProductLifestyleSection({ product }: ProductLifestyleSectionProp
         </p>
       </div>
 
-      <div className="overflow-hidden rounded-3xl border border-gold/20 shadow-lg">
-        <Image
+      <div className="overflow-hidden rounded-3xl border border-gold/20 bg-cream shadow-lg">
+        <OfficialAssetImage
           src={lifestyleSrc}
           alt={`${product.name} BOVINIA — mise en situation`}
-          width={1200}
-          height={800}
-          className="h-auto w-full object-cover"
-          sizes="(max-width: 1024px) 100vw, 1200px"
+          className="mx-auto h-auto w-full max-w-full object-contain"
         />
       </div>
     </section>
