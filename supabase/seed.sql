@@ -31,7 +31,7 @@ INSERT INTO faqs (question, answer, sort_order) VALUES
 ('Est-ce adapté aux femmes enceintes ?', 'BLOOM a été conçu pour accompagner les femmes enceintes. Consultez votre professionnel de santé.', 4),
 ('Combien de fois par jour peut-on en prendre ?', 'Une à deux portions par jour suffisent généralement.', 5),
 ('Les produits contiennent-ils du sel ou des sucres ajoutés ?', 'Non. Sans sel ajouté, sans sucres ajoutés, sans colorants ni conservateurs artificiels. Riche en collagène, fabriqué au Sénégal.', 6),
-('Où acheter BOVINIA ?', 'Commandez directement sur bovinia.sn/commander. Nous vous contactons pour confirmer et organiser la livraison (Wave, Orange Money ou paiement à la livraison).', 7),
+('Où acheter BOVINIA ?', 'Commandez sur bovinia.sn/commander : panier, livraison, paiement — confirmation immédiate sur le site + email récapitulatif.', 7),
 ('Est-ce disponible à l''international ?', 'Notre ambition est exportable. Contactez-nous pour l''export.', 8);
 
 INSERT INTO testimonials (name, city, rating, text, product_name, is_visible) VALUES

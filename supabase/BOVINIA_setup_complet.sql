@@ -295,7 +295,7 @@ VALUES (
   1,
   'Nourrir votre corps, naturellement.',
   'BOVINIA transforme la puissance naturelle du Bone Broth en cinq rituels gourmands et modernes, conçus pour accompagner le corps au quotidien.',
-  'Découvrir la gamme',
+  'Découvrir la boutique',
   'Commander',
   '+221771234567',
   'contact@bovinia.sn',
@@ -306,6 +306,14 @@ VALUES (
   'BOVINIA transforme le Bone Broth en rituels nutritionnels gourmands. 5 formules premium fabriquées au Sénégal.',
   'Nourrir votre corps, naturellement.'
 ) ON CONFLICT (id) DO NOTHING;
+
+-- Mettre à jour les textes boutique si déjà seedé
+UPDATE site_settings SET
+  hero_cta_primary = 'Découvrir la boutique',
+  hero_cta_secondary = 'Commander',
+  hero_title = 'Cinq rituels. Une base : le Bone Broth.',
+  hero_subtitle = 'BOVINIA transforme la puissance du bouillon d''os en boissons gourmandes et modernes — enrichies de fruits et plantes africains, fabriquées au Sénégal, prêtes à commander.'
+WHERE id = 1;
 
 INSERT INTO products (name, slug, mission, short_description, long_description, target_audience, usage_moment, preparation_methods, dominant_flavors, main_ingredients, price, stock, status, category, color_theme, sort_order) VALUES
 ('WELLNESS', 'wellness', 'Bien-être quotidien', 'Un rituel frais et tropical pensé pour accompagner la digestion, l''énergie quotidienne et le bien-être général.', 'WELLNESS est votre compagnon du quotidien : une formule gourmande à base de Bone Broth premium, enrichie d''ananas, mandarine et menthe.', 'Adultes actifs, personnes cherchant une routine nutritionnelle naturelle.', 'Matin ou journée.', ARRAY['Eau fraîche','Smoothie','Eau tempérée'], ARRAY['Ananas','Mandarine','Menthe'], ARRAY['Poudre de Bone Broth','Baobab','Kinkeliba','Ananas','Mandarine','Menthe'], 15000, 100, 'visible', 'bien-etre', 'wellness', 1),
@@ -321,7 +329,7 @@ INSERT INTO faqs (question, answer, sort_order) VALUES
 ('Est-ce adapté aux femmes enceintes ?', 'BLOOM a été conçu pour accompagner les femmes enceintes. Consultez votre professionnel de santé.', 4),
 ('Combien de fois par jour peut-on en prendre ?', 'Une à deux portions par jour suffisent généralement.', 5),
 ('Les produits contiennent-ils du sel ou des sucres ajoutés ?', 'Non. Sans sel ajouté, sans sucres ajoutés, sans colorants ni conservateurs artificiels. Riche en collagène, fabriqué au Sénégal.', 6),
-('Où acheter BOVINIA ?', 'Commandez directement sur bovinia.sn/commander. Nous vous contactons pour confirmer et organiser la livraison (Wave, Orange Money ou paiement à la livraison).', 7),
+('Où acheter BOVINIA ?', 'Commandez sur bovinia.sn/commander : panier, livraison, paiement — confirmation immédiate sur le site + email récapitulatif.', 7),
 ('Est-ce disponible à l''international ?', 'Notre ambition est exportable. Contactez-nous pour l''export.', 8);
 
 INSERT INTO testimonials (name, city, rating, text, product_name, is_visible) VALUES
@@ -340,3 +348,12 @@ INSERT INTO blog_posts (title, slug, excerpt, content, category, status, author,
 
 -- UPDATE profiles SET role = 'super_admin' WHERE email = 'votre@email.com';
 -- SELECT id, email, role FROM profiles;
+
+-- ============================================================
+-- PARTIE D — CHECKOUT + EMAILS (exécuter après A+B, ou voir 002_checkout_orders.sql)
+-- ============================================================
+-- Copier-coller le contenu de supabase/migrations/002_checkout_orders.sql
+-- Puis configurer Resend :
+-- UPDATE private.app_config SET value = 're_VOTRE_CLE' WHERE key = 'resend_api_key';
+-- UPDATE private.app_config SET value = 'votre@email.com' WHERE key = 'shop_email';
+-- UPDATE private.app_config SET value = 'BOVINIA <onboarding@resend.dev>' WHERE key = 'from_email';
