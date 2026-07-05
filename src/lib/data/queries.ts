@@ -163,10 +163,11 @@ function enrichProductFromSeed(row: Product): Product {
   const seed = SEED_PRODUCTS.find((p) => p.slug === row.slug);
   if (!seed) return row;
 
+  // Toujours utiliser les visuels du repo — la base Supabase peut contenir d'anciennes URLs cassées.
   return {
     ...row,
-    image: row.image?.trim() ? row.image : seed.image,
-    gallery: row.gallery?.length ? row.gallery : seed.gallery,
+    image: seed.image,
+    gallery: seed.gallery,
   };
 }
 

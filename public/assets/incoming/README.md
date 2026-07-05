@@ -1,21 +1,30 @@
-# ⚠️ Remplacer par VOS fichiers officiels
+# Déposez VOS fichiers ici — ils remplaceront les visuels au prochain déploiement
 
-Les images dans ce dossier **doivent être vos PNG/JPG réels** — jamais recréées en code.
+Glissez vos PNG/JPG **avec exactement ces noms** :
 
-## Glissez vos fichiers ici (depuis Cursor sur votre Mac)
+| Nom du fichier | Remplace |
+|----------------|----------|
+| `bovinia-logo.png` | Logo header / footer |
+| `bovinia-logo-icon.png` | Favicon |
+| `wellness.png` | Pot WELLNESS (boutique) |
+| `bloom.png` | Pot BLOOM |
+| `period.png` | Pot PERIOD! |
+| `pulse.png` | Pot PULSE |
+| `calm.png` | Pot CALM |
+| `wellness-lifestyle.png` | Photo lifestyle WELLNESS |
+| `bloom-lifestyle.png` | Photo lifestyle BLOOM |
+| `period-lifestyle.png` | Photo lifestyle PERIOD! |
+| `pulse-lifestyle.png` | Photo lifestyle PULSE |
+| `calm-lifestyle.png` | Photo lifestyle CALM |
+| `gamme-5-pots.png` | Hero page d'accueil |
+| `contact.png` | Bannière Contact |
 
-| Votre fichier | Renommer / copier vers |
-|---------------|------------------------|
-| Logo BOVINIA | `../logo/bovinia-logo.png` |
-| Icône logo (carré) | `../logo/bovinia-logo-icon.png` |
-| Pot WELLNESS | `../products/wellness.png` |
-| Pot BLOOM | `../products/bloom.png` |
-| Pot PERIOD! | `../products/period.png` |
-| Pot PULSE | `../products/pulse.png` |
-| Pot CALM | `../products/calm.png` |
-| Photo lifestyle WELLNESS | `../lifestyle/wellness.png` |
-| … | `../lifestyle/{slug}.png` |
+## Comment envoyer vos fichiers (2 minutes)
 
-**Important :** les photos envoyées dans le chat Cursor **ne remplacent pas** automatiquement ces fichiers sur le serveur. Il faut les **glisser dans ce dossier projet** puis commit + push (ou me redemander après les avoir déposées ici).
+1. Allez sur **https://github.com/PENDATHIAW/bovinia**
+2. Ouvrez le dossier `public/assets/incoming/`
+3. Cliquez **Add file → Upload files**
+4. Glissez vos PNG avec les noms ci-dessus
+5. **Commit** — le site se met à jour automatiquement
 
-Après dépôt : `git add public/assets && git commit -m "Visuels officiels BOVINIA" && git push`
+Les photos envoyées dans le chat Cursor **ne vont pas** dans le projet automatiquement.
