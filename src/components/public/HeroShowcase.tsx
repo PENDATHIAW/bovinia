@@ -1,35 +1,34 @@
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { OFFICIAL_IMAGES } from "@/lib/data/officialImages";
 import type { Product } from "@/types/database";
 import { OfficialAssetImage } from "./OfficialAssetImage";
 
 export function HeroShowcase({ products }: { products: Product[] }) {
   return (
-    <div className="relative flex items-end justify-center gap-3 sm:gap-4">
-      {products.map((product, i) => {
-        if (!product.image) return null;
+    <div className="relative">
+      <Link
+        href="/produits"
+        className="group block overflow-hidden rounded-[2rem] border border-gold/20 bg-cream shadow-2xl transition-transform duration-300 hover:-translate-y-1"
+      >
+        <OfficialAssetImage
+          src={OFFICIAL_IMAGES.heroRange}
+          alt="BOVINIA — les 5 rituels nutritionnels"
+          priority
+          className="h-auto w-full object-contain"
+        />
+      </Link>
 
-        return (
+      <div className="mt-4 flex flex-wrap justify-center gap-2">
+        {products.map((product) => (
           <Link
             key={product.id}
             href={`/produits/${product.slug}`}
-            className={cn(
-              "transition-transform duration-300 hover:-translate-y-2 hover:scale-105",
-              i === 2 && "z-10 scale-110"
-            )}
+            className="rounded-full border border-gold/25 bg-white/80 px-3 py-1 text-xs font-medium text-forest shadow-sm transition-colors hover:bg-gold/10"
           >
-            <OfficialAssetImage
-              src={product.image}
-              alt={product.name}
-              priority={i === 2}
-              className={cn(
-                "h-auto object-contain drop-shadow-2xl",
-                i === 2 ? "max-h-52 sm:max-h-64" : "max-h-40 sm:max-h-52"
-              )}
-            />
+            {product.name}
           </Link>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 }
