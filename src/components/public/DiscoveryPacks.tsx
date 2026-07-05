@@ -87,10 +87,10 @@ export function DiscoveryPacks({ products }: { products: Product[] }) {
                   </p>
 
                   <Link
-                    href={`/precommande?pack=${pack.id}`}
+                    href={`/commander?pack=${pack.id}`}
                     className="btn-primary mt-5 text-center text-sm"
                   >
-                    Précommander ce pack
+                    Commander ce pack
                   </Link>
                 </div>
               </article>

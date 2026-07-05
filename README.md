@@ -17,16 +17,16 @@ Site complet comprenant une interface client premium et un CMS admin sécurisé.
 - Page d'accueil premium avec toutes les sections demandées
 - Catalogue produits avec filtres
 - Fiches produit détaillées (5 rituels : WELLNESS, BLOOM, PERIOD!, PULSE, CALM)
-- Pages : Notre histoire, Horizon Farm, Blog, Contact, Précommande
+- Pages : Notre histoire, Horizon Farm, Blog, Contact, Boutique (`/produits`), Commander (`/commander`)
 - FAQ, témoignages dynamiques
-- Formulaires : contact, précommande/waitlist
+- Formulaires : contact, commande, newsletter
 - SEO : metadata, sitemap, robots.txt
 - Architecture i18n prête (FR par défaut, EN à venir)
 
 ### Interface admin (`/admin`)
 - Authentification Supabase (email + mot de passe)
 - Dashboard avec statistiques
-- Gestion produits, précommandes, commandes
+- Gestion produits, commandes clients
 - Blog, FAQ, témoignages
 - Messages contact, newsletter
 - Paramètres du site (hero, contact, SEO, réseaux)
@@ -148,7 +148,7 @@ Le site fonctionne **sans Supabase** en mode démo (données seed). Ajoutez les 
 | super_admin | Accès complet |
 | admin | Gestion contenu + commandes |
 | editor | Contenu (blog, FAQ, témoignages) |
-| order_manager | Précommandes et commandes |
+| order_manager | Commandes clients |
 
 ## Paiement (à venir)
 

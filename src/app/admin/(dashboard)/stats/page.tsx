@@ -36,7 +36,7 @@ export default async function AdminStatsPage() {
       </div>
 
       <div className="mt-8 rounded-xl border border-gray-200 bg-white p-6">
-        <h2 className="font-serif text-lg text-forest">Précommandes par produit</h2>
+        <h2 className="font-serif text-lg text-forest">Commandes par produit</h2>
         {stats.topProducts.length === 0 ? (
           <p className="mt-4 text-sm text-gray-500">Pas encore de données.</p>
         ) : (
@@ -44,7 +44,7 @@ export default async function AdminStatsPage() {
             {stats.topProducts.map((p) => (
               <li key={p.name} className="flex justify-between text-sm">
                 <span>{p.name}</span>
-                <span className="font-medium">{p.count} précommande(s)</span>
+                <span className="font-medium">{p.count} commande(s)</span>
               </li>
             ))}
           </ul>

@@ -36,6 +36,10 @@ const newsletterSchema = z.object({
 
 type ActionResult = { success: boolean; error?: string };
 
+export async function submitOrder(formData: FormData): Promise<ActionResult> {
+  return submitPreorder(formData);
+}
+
 export async function submitPreorder(formData: FormData): Promise<ActionResult> {
   if (formData.get("website")) {
     return { success: true };
@@ -60,7 +64,7 @@ export async function submitPreorder(formData: FormData): Promise<ActionResult> 
 
   const supabase = await createServiceClient();
   if (!supabase) {
-    console.log("[Preorder fallback]", parsed.data);
+    console.log("[Order fallback]", parsed.data);
     return { success: true };
   }
 
@@ -70,8 +74,8 @@ export async function submitPreorder(formData: FormData): Promise<ActionResult> 
   });
 
   if (error) {
-    console.error("Preorder error:", error);
-    return { success: false, error: "Impossible d'enregistrer votre précommande." };
+    console.error("Order error:", error);
+    return { success: false, error: "Impossible d'enregistrer votre commande." };
   }
 
   revalidatePath("/admin/preorders");

@@ -53,7 +53,7 @@ export function ProductEditForm({ product }: { product: Product }) {
             <select name="status" defaultValue={product.status} className="input-field">
               <option value="draft">Brouillon</option>
               <option value="visible">Visible</option>
-              <option value="preorder">Précommande</option>
+              <option value="preorder">Disponible (legacy)</option>
               <option value="out_of_stock">Rupture</option>
               <option value="coming_soon">Bientôt disponible</option>
             </select>

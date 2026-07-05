@@ -19,7 +19,7 @@ export function PreordersTable({ preorders }: { preorders: Preorder[] }) {
   if (preorders.length === 0) {
     return (
       <div className="mt-6 rounded-xl border border-gray-200 bg-white p-8 text-center text-gray-500">
-        Aucune précommande pour le moment.
+        Aucune commande pour le moment.
       </div>
     );
   }
@@ -67,7 +67,7 @@ export function PreordersTable({ preorders }: { preorders: Preorder[] }) {
               </td>
               <td className="px-4 py-3">
                 <a
-                  href={`https://wa.me/${p.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Bonjour ${p.full_name}, concernant votre précommande BOVINIA ${p.product_name}...`)}`}
+                  href={`https://wa.me/${p.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Bonjour ${p.full_name}, concernant votre commande BOVINIA ${p.product_name}...`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-green-600 hover:underline text-xs"

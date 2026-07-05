@@ -8,6 +8,7 @@ import { ProductLifestyleSection } from "@/components/public/ProductLifestyleSec
 import { ProductConsumptionGuide } from "@/components/public/ProductConsumptionGuide";
 import { formatPrice } from "@/lib/utils";
 import { USAGE_TIME_BY_SLUG } from "@/lib/data/consumption";
+import { getProductAvailabilityLabel, isProductOrderable } from "@/lib/product-availability";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -39,6 +40,7 @@ export default async function ProductDetailPage({ params }: Props) {
   if (!product) notFound();
 
   const usageTime = USAGE_TIME_BY_SLUG[product.slug];
+  const orderable = isProductOrderable(product.status);
   const whatsappUrl = `https://wa.me/${settings.whatsapp_number.replace(/\D/g, "")}?text=${encodeURIComponent(`Bonjour, j'ai une question sur ${product.name} BOVINIA.`)}`;
 
   return (
@@ -75,7 +77,9 @@ export default async function ProductDetailPage({ params }: Props) {
             {product.price && (
               <p className="mt-4 font-serif text-2xl text-forest">{formatPrice(product.price)}</p>
             )}
-            <p className="mt-1 text-sm text-foreground/50">Format : 500 g · ~30 portions · Précommande</p>
+            <p className="mt-1 text-sm text-foreground/50">
+              Format : 500 g · ~30 portions · {getProductAvailabilityLabel(product.status)}
+            </p>
 
             <p className="mt-6 leading-relaxed text-foreground/70">{product.long_description}</p>
 
@@ -105,9 +109,11 @@ export default async function ProductDetailPage({ params }: Props) {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={`/precommande?produit=${product.slug}`} className="btn-gold">
-                Précommander
-              </Link>
+              {orderable && (
+                <Link href={`/commander?produit=${product.slug}`} className="btn-gold">
+                  Commander
+                </Link>
+              )}
               <a
                 href={whatsappUrl}
                 target="_blank"

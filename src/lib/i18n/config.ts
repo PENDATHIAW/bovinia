@@ -19,7 +19,7 @@ export const dictionaries = {
       horizon: "Horizon Farm",
       blog: "Conseils",
       contact: "Contact",
-      preorder: "Précommander",
+      preorder: "Commander",
     },
   },
   en: {
@@ -29,7 +29,7 @@ export const dictionaries = {
       horizon: "Horizon Farm",
       blog: "Tips",
       contact: "Contact",
-      preorder: "Pre-order",
+      preorder: "Order",
     },
   },
 } as const;

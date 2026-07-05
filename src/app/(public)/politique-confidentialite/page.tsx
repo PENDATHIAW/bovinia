@@ -16,12 +16,12 @@ export default function PolitiqueConfidentialitePage() {
         <h2 className="mt-8 font-serif text-2xl text-forest">Données collectées</h2>
         <p className="text-foreground/70">
           Nous collectons les données que vous nous transmettez volontairement via nos formulaires
-          (contact, précommande, newsletter) : nom, email, téléphone, ville et préférences.
+          (contact, commande, newsletter) : nom, email, téléphone, ville et préférences.
         </p>
         <h2 className="mt-8 font-serif text-2xl text-forest">Utilisation des données</h2>
         <p className="text-foreground/70">
-          Vos données sont utilisées pour répondre à vos demandes, gérer les précommandes,
-          vous informer du lancement et améliorer nos services. Elles ne sont pas vendues à des tiers.
+          Vos données sont utilisées pour répondre à vos demandes, traiter vos commandes,
+          organiser la livraison et améliorer nos services. Elles ne sont pas vendues à des tiers.
         </p>
         <h2 className="mt-8 font-serif text-2xl text-forest">Vos droits</h2>
         <p className="text-foreground/70">

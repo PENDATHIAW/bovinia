@@ -7,7 +7,8 @@ import { Logo } from "./Logo";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { href: "/produits", label: "Nos rituels" },
+  { href: "/produits", label: "Boutique" },
+  { href: "/commander", label: "Commander" },
   { href: "/notre-histoire", label: "Notre histoire" },
   { href: "/horizon-farm", label: "Horizon Farm" },
   { href: "/blog", label: "Conseils" },
@@ -35,8 +36,12 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Link href="/precommande" className="btn-primary text-sm">
-            Précommander
+          <Link href="/produits" className="btn-secondary text-sm">
+            Voir la gamme
+          </Link>
+          <Link href="/commander" className="btn-primary text-sm">
+            <ShoppingBag size={16} />
+            Commander
           </Link>
         </div>
 
@@ -68,12 +73,12 @@ export function Header() {
             </Link>
           ))}
           <Link
-            href="/precommande"
+            href="/commander"
             className="btn-primary mt-2 text-center"
             onClick={() => setOpen(false)}
           >
             <ShoppingBag size={16} />
-            Précommander
+            Commander
           </Link>
         </nav>
       </div>

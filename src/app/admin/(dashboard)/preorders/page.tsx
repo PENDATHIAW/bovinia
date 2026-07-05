@@ -6,8 +6,8 @@ export default async function AdminPreordersPage() {
 
   return (
     <div>
-      <h1 className="font-serif text-3xl text-forest">Précommandes</h1>
-      <p className="mt-1 text-sm text-gray-500">{preorders.length} inscription(s) waitlist</p>
+      <h1 className="font-serif text-3xl text-forest">Commandes clients</h1>
+      <p className="mt-1 text-sm text-gray-500">{preorders.length} commande(s) reçue(s)</p>
       <PreordersTable preorders={preorders} />
     </div>
   );

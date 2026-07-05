@@ -8,12 +8,17 @@ export default async function AdminOrdersPage() {
     <div>
       <h1 className="font-serif text-3xl text-forest">Commandes</h1>
       <p className="mt-1 text-sm text-gray-500">
-        Structure e-commerce prête — paiement Wave, Orange Money, carte et livraison à venir.
+        Commandes avec paiement en ligne (Wave, Orange Money, carte) — les commandes via formulaire
+        sont gérées dans Commandes clients.
       </p>
 
       {orders.length === 0 ? (
         <div className="mt-6 rounded-xl border border-gray-200 bg-white p-8 text-center text-gray-500">
-          Aucune commande pour le moment. Les commandes apparaîtront ici lors de l&apos;activation du paiement.
+          Aucune commande payée en ligne pour le moment. Consultez{" "}
+          <a href="/admin/preorders" className="text-forest underline">
+            Commandes clients
+          </a>{" "}
+          pour les demandes reçues via le site.
         </div>
       ) : (
         <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 bg-white">

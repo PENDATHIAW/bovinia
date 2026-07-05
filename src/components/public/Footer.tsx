@@ -4,11 +4,11 @@ import { Logo } from "./Logo";
 import { getSiteSettings } from "@/lib/data/queries";
 
 const FOOTER_LINKS = [
-  { href: "/produits", label: "Nos rituels" },
+  { href: "/produits", label: "Boutique" },
+  { href: "/commander", label: "Commander" },
   { href: "/notre-histoire", label: "Notre histoire" },
   { href: "/horizon-farm", label: "Horizon Farm" },
   { href: "/blog", label: "Conseils" },
-  { href: "/precommande", label: "Précommander" },
   { href: "/contact", label: "Contact" },
   { href: "/mentions-legales", label: "Mentions légales" },
   { href: "/politique-confidentialite", label: "Confidentialité" },

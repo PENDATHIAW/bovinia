@@ -13,7 +13,7 @@ import {
 import { ProductCard } from "./ProductCard";
 import { FAQAccordion } from "./FAQAccordion";
 import { TestimonialsSection } from "./TestimonialsSection";
-import { PreorderForm } from "./PreorderForm";
+import { OrderForm } from "./OrderForm";
 import { DiscoveryPacks } from "./DiscoveryPacks";
 import type { FAQ, Product, SiteSettings, Testimonial } from "@/types/database";
 
@@ -68,7 +68,7 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
                   {settings.hero_cta_primary}
                   <ArrowRight size={16} />
                 </Link>
-                <Link href="/precommande" className="btn-secondary">
+                <Link href="/commander" className="btn-secondary">
                   {settings.hero_cta_secondary}
                 </Link>
               </div>
@@ -136,7 +136,7 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
             <p className="text-sm font-medium uppercase tracking-widest text-gold">5 rituels</p>
             <h2 className="mt-2 font-serif text-3xl text-forest md:text-4xl">Notre gamme</h2>
             <p className="mt-4 text-foreground/70">
-              5 formules uniques pour accompagner votre corps au quotidien.
+              5 formules uniques, disponibles dès maintenant.
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -252,22 +252,22 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
 
       <DiscoveryPacks products={products} />
 
-      {/* Précommande */}
-      <section id="precommande" className="section-padding">
+      {/* Commander */}
+      <section id="commander" className="section-padding">
         <div className="container-bovinia">
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
-              <p className="text-sm font-medium uppercase tracking-widest text-gold">Lancement</p>
+              <p className="text-sm font-medium uppercase tracking-widest text-gold">Boutique</p>
               <h2 className="mt-2 font-serif text-3xl text-forest md:text-4xl">
-                Soyez parmi les premiers
+                Commandez vos rituels
               </h2>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Inscrivez-vous à notre waitlist pour être informé(e) du lancement et bénéficier
-                d&apos;un accès prioritaire aux 5 rituels BOVINIA.
+                Tous nos produits sont disponibles. Remplissez le formulaire — nous vous contactons
+                pour confirmer la commande et la livraison.
               </p>
             </div>
             <div className="card-premium p-6 md:p-8">
-              <PreorderForm products={products} compact />
+              <OrderForm products={products} compact />
             </div>
           </div>
         </div>

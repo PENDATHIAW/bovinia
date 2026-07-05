@@ -7,7 +7,7 @@ export default async function AdminDashboardPage() {
   const stats = await getAdminStats();
 
   const cards = [
-    { label: "Précommandes", value: stats.preorders, icon: ClipboardList, href: "/admin/preorders", color: "text-blue-600" },
+    { label: "Commandes clients", value: stats.preorders, icon: ClipboardList, href: "/admin/preorders", color: "text-blue-600" },
     { label: "Messages", value: stats.contacts, icon: Mail, href: "/admin/contacts", color: "text-green-600" },
     { label: "Newsletter", value: stats.newsletter, icon: Users, href: "/admin/newsletter", color: "text-purple-600" },
     { label: "Produits", value: stats.products, icon: Package, href: "/admin/products", color: "text-forest" },
@@ -38,7 +38,7 @@ export default async function AdminDashboardPage() {
         <div className="rounded-xl border border-gray-200 bg-white p-6">
           <h2 className="font-serif text-lg text-forest">Produits les plus demandés</h2>
           {stats.topProducts.length === 0 ? (
-            <p className="mt-4 text-sm text-gray-500">Aucune précommande pour le moment.</p>
+            <p className="mt-4 text-sm text-gray-500">Aucune commande pour le moment.</p>
           ) : (
             <ul className="mt-4 space-y-2">
               {stats.topProducts.map((p) => (

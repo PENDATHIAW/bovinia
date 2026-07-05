@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/horizon-farm",
     "/blog",
     "/contact",
-    "/precommande",
+    "/commander",
     "/mentions-legales",
     "/politique-confidentialite",
   ].map((path) => ({

@@ -13,7 +13,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   hero_subtitle:
     "BOVINIA transforme la puissance naturelle du Bone Broth en cinq rituels gourmands et modernes, conçus pour accompagner le corps au quotidien.",
   hero_cta_primary: "Découvrir la gamme",
-  hero_cta_secondary: "Précommander",
+  hero_cta_secondary: "Commander",
   whatsapp_number: "+221771234567",
   contact_email: "contact@bovinia.sn",
   contact_address: "Dakar, Sénégal",
@@ -85,7 +85,7 @@ export const SEED_FAQS: FAQ[] = [
     id: "7",
     question: "Où acheter BOVINIA ?",
     answer:
-      "BOVINIA est actuellement en phase de précommande. Inscrivez-vous sur notre waitlist pour être informé(e) du lancement et des points de vente.",
+      "Commandez directement sur bovinia.sn/commander ou via le bouton Commander sur chaque produit. Nous vous contactons pour confirmer et organiser la livraison (Wave, Orange Money ou paiement à la livraison).",
     sort_order: 7,
     is_active: true,
     created_at: new Date().toISOString(),
