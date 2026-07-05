@@ -209,7 +209,7 @@ export const SEED_PRODUCTS: Product[] = [
       "Cannelle",
     ],
     warnings:
-      "Aliment fonctionnel — ne remplace pas un avis médical. Contient camomille et verveine : déconseillé pendant la grossesse et l'allaitement sans avis médical. Ne promet pas de traiter l'insomnie ou le stress.",
+      "Aliment fonctionnel — ne remplace pas un avis médical. Non recommandé aux femmes enceintes et allaitantes.",
     price: 15000,
     compare_at_price: null,
     stock: 100,

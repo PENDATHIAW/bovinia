@@ -28,8 +28,7 @@ export const DISCOVERY_PACKS = [
   {
     id: "maternite",
     name: "Rituel Maternité",
-    description:
-      "BLOOM (grossesse & post-partum) et WELLNESS — sans CALM, dont certaines plantes sont déconseillées en grossesse.",
+    description: "BLOOM et WELLNESS — grossesse et post-partum.",
     slugs: ["bloom", "wellness"],
     price: 28000,
   },

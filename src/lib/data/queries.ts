@@ -58,7 +58,7 @@ export const SEED_FAQS: FAQ[] = [
     id: "4",
     question: "Est-ce adapté aux femmes enceintes ?",
     answer:
-      "BLOOM accompagne les femmes enceintes (grossesse) et en post-partum. CALM contient camomille et verveine et n'est pas recommandé pendant la grossesse — le pack Maternité associe BLOOM et WELLNESS. Consultez toujours votre professionnel de santé.",
+      "BLOOM accompagne les femmes enceintes et en post-partum. Consultez votre professionnel de santé avant d'intégrer tout nouveau produit à votre alimentation.",
     sort_order: 4,
     is_active: true,
     created_at: new Date().toISOString(),
