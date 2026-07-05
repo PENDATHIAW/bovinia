@@ -1,7 +1,7 @@
 import { ASSETS } from "@/lib/data/assetPaths";
 import { OfficialAssetImage } from "./OfficialAssetImage";
 
-const STRIP = [
+const DEFAULT_STRIP = [
   { src: ASSETS.lifestyle.wellnessOffice, alt: "WELLNESS au bureau" },
   { src: ASSETS.lifestyle.wellnessFresh, alt: "WELLNESS en cuisine" },
   { src: ASSETS.lifestyle.bloom, alt: "BLOOM rituel maternité" },
@@ -10,8 +10,19 @@ const STRIP = [
   { src: ASSETS.lifestyle.calm, alt: "CALM soirée" },
 ];
 
-export function LifestyleMarquee() {
-  const items = [...STRIP, ...STRIP];
+interface LifestyleMarqueeProps {
+  /** Images supplémentaires lues depuis public/assets/auto/marquee/ */
+  extraItems?: { src: string; alt: string }[];
+}
+
+export function LifestyleMarquee({ extraItems = [] }: LifestyleMarqueeProps) {
+  const seen = new Set<string>();
+  const strip = [...DEFAULT_STRIP, ...extraItems].filter((item) => {
+    if (seen.has(item.src)) return false;
+    seen.add(item.src);
+    return true;
+  });
+  const items = [...strip, ...strip];
 
   return (
     <section className="overflow-hidden border-y border-gold/15 bg-forest py-6" aria-hidden>
@@ -23,7 +34,7 @@ export function LifestyleMarquee() {
           >
             <OfficialAssetImage
               src={item.src}
-              alt=""
+              alt={item.alt}
               className="h-full w-full object-cover opacity-90"
             />
           </div>

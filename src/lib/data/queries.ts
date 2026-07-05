@@ -11,6 +11,7 @@ import {
   getFeaturedTestimonials,
   getTestimonialsForProduct as filterTestimonialsByProduct,
 } from "@/lib/data/testimonials";
+import { mergeProductGallery } from "@/lib/data/discoverAssets";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
@@ -157,6 +158,13 @@ export const SEED_BLOG_POSTS: BlogPost[] = [
   },
 ];
 
+function withAutoGallery(product: Product): Product {
+  return {
+    ...product,
+    gallery: mergeProductGallery(product.gallery ?? [], product.slug),
+  };
+}
+
 function enrichProductFromSeed(row: Product): Product {
   const seed = SEED_PRODUCTS.find((p) => p.slug === row.slug);
   if (!seed) return row;
@@ -179,14 +187,15 @@ export async function getProducts(): Promise<Product[]> {
     .in("status", ["visible", "preorder", "coming_soon"])
     .order("sort_order");
 
-  if (error || !data?.length) return SEED_PRODUCTS;
-  return (data as Product[]).map(enrichProductFromSeed);
+  if (error || !data?.length) return SEED_PRODUCTS.map(withAutoGallery);
+  return (data as Product[]).map(enrichProductFromSeed).map(withAutoGallery);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   const supabase = await createClient();
   if (!supabase) {
-    return SEED_PRODUCTS.find((p) => p.slug === slug) ?? null;
+    const product = SEED_PRODUCTS.find((p) => p.slug === slug) ?? null;
+    return product ? withAutoGallery(product) : null;
   }
 
   const { data, error } = await supabase
@@ -196,9 +205,10 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     .single();
 
   if (error || !data) {
-    return SEED_PRODUCTS.find((p) => p.slug === slug) ?? null;
+    const product = SEED_PRODUCTS.find((p) => p.slug === slug) ?? null;
+    return product ? withAutoGallery(product) : null;
   }
-  return enrichProductFromSeed(data as Product);
+  return withAutoGallery(enrichProductFromSeed(data as Product));
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
