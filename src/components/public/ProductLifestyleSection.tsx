@@ -1,4 +1,5 @@
 import type { Product } from "@/types/database";
+import { isBlockedAsset } from "@/lib/data/assetPaths";
 import { OfficialAssetImage } from "./OfficialAssetImage";
 
 interface ProductLifestyleSectionProps {
@@ -6,7 +7,8 @@ interface ProductLifestyleSectionProps {
 }
 
 export function ProductLifestyleSection({ product }: ProductLifestyleSectionProps) {
-  const images = product.gallery.length > 0 ? product.gallery : product.image ? [product.image] : [];
+  const images = (product.gallery.length > 0 ? product.gallery : product.image ? [product.image] : [])
+    .filter((src) => !isBlockedAsset(src));
   if (images.length === 0) return null;
 
   return (

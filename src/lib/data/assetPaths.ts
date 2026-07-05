@@ -1,9 +1,8 @@
-/** Chemins publics des visuels officiels BOVINIA (fichiers dans /public/assets). */
+/** Chemins publics des visuels officiels BOVINIA — fichiers dans /public/assets uniquement. */
 export const ASSETS = {
   logo: "/assets/logo/bovinia-logo.png",
   logoIcon: "/assets/logo/bovinia-logo-icon.png",
-  heroRange: "/assets/hero/gamme-5-pots.webp",
-  contact: "/assets/contact/contact.webp",
+  heroRange: "/assets/brand/hero-range.jpg",
   products: {
     wellness: "/assets/products/wellness.png",
     bloom: "/assets/products/bloom.png",
@@ -12,16 +11,16 @@ export const ASSETS = {
     calm: "/assets/products/calm.png",
   },
   lifestyle: {
-    wellness: "/assets/lifestyle/wellness.png",
-    wellnessOffice: "/assets/lifestyle/wellness-office.webp",
-    bloom: "/assets/lifestyle/bloom.png",
-    period: "/assets/lifestyle/period.png",
-    pulse: "/assets/lifestyle/pulse.png",
-    calm: "/assets/lifestyle/calm.png",
+    wellnessOffice: "/assets/lifestyle/wellness-office.jpg",
+    wellnessFresh: "/assets/lifestyle/wellness-fresh.jpg",
+    bloom: "/assets/lifestyle/bloom.jpg",
+    period: "/assets/lifestyle/period.jpg",
+    pulse: "/assets/lifestyle/pulse.jpg",
+    calm: "/assets/lifestyle/calm.jpg",
   },
 } as const;
 
-/** Extensions acceptées par fichier (premier existant servi côté client). */
-export function assetUrl(basePath: string): string {
-  return basePath;
+/** Bloque toute image contenant des formules détaillées (confidentiel). */
+export function isBlockedAsset(path: string): boolean {
+  return path.includes("formulas-chart") || path.includes("formule");
 }

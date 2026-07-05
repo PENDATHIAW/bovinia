@@ -41,7 +41,7 @@ export const SEED_PRODUCTS: Product[] = [
     category: "bien-etre",
     color_theme: "wellness",
     image: ASSETS.products.wellness,
-    gallery: [ASSETS.lifestyle.wellnessOffice, ASSETS.lifestyle.wellness],
+    gallery: [ASSETS.lifestyle.wellnessOffice, ASSETS.lifestyle.wellnessFresh],
     seo_title: "WELLNESS — Rituel bien-être quotidien | BOVINIA",
     seo_description:
       "WELLNESS, le rituel BOVINIA au Bone Broth. Ananas, mandarine et menthe — chaud ou froid.",

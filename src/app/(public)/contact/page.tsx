@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MessageCircle, Mail, MapPin, ShoppingBag, ArrowRight } from "lucide-react";
 import { ContactForm } from "@/components/public/ContactForm";
-import { OfficialAssetImage } from "@/components/public/OfficialAssetImage";
 import { getSiteSettings } from "@/lib/data/queries";
-import { ASSETS } from "@/lib/data/assetPaths";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -31,14 +29,6 @@ export default async function ContactPage() {
             Passer commande
             <ArrowRight size={16} />
           </Link>
-        </div>
-
-        <div className="mb-12 overflow-hidden rounded-3xl border border-gold/20 bg-cream shadow-lg">
-          <OfficialAssetImage
-            src={ASSETS.contact}
-            alt="BOVINIA — contact et service client"
-            className="mx-auto h-auto w-full object-contain"
-          />
         </div>
 
         <div className="grid gap-12 lg:grid-cols-3">

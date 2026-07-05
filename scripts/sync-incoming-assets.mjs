@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
  * Copie les fichiers déposés dans public/assets/incoming/ vers les chemins officiels.
- * Exécuté avant chaque build — déposez vos PNG/JPG dans incoming/ puis push.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -13,33 +12,32 @@ const assets = path.join(root, "public/assets");
 
 const MAP = {
   "bovinia-logo.png": "logo/bovinia-logo.png",
-  "bovinia-logo.jpg": "logo/bovinia-logo.png",
-  "bovinia-logo.jpeg": "logo/bovinia-logo.png",
   "bovinia-logo-icon.png": "logo/bovinia-logo-icon.png",
-  "bovinia-logo-icon.webp": "logo/bovinia-logo-icon.webp",
-  "gamme-5-pots.png": "hero/gamme-5-pots.png",
-  "gamme-5-pots.webp": "hero/gamme-5-pots.webp",
-  "contact.png": "contact/contact.png",
-  "contact.webp": "contact/contact.webp",
+  "hero-range.jpg": "brand/hero-range.jpg",
   "wellness.png": "products/wellness.png",
   "bloom.png": "products/bloom.png",
   "period.png": "products/period.png",
   "pulse.png": "products/pulse.png",
   "calm.png": "products/calm.png",
-  "wellness-lifestyle.png": "lifestyle/wellness.png",
-  "bloom-lifestyle.png": "lifestyle/bloom.png",
-  "period-lifestyle.png": "lifestyle/period.png",
-  "pulse-lifestyle.png": "lifestyle/pulse.png",
-  "calm-lifestyle.png": "lifestyle/calm.png",
-  "wellness-office.png": "lifestyle/wellness-office.png",
-  "wellness-office.webp": "lifestyle/wellness-office.webp",
+  "wellness-office.jpg": "lifestyle/wellness-office.jpg",
+  "wellness-fresh.jpg": "lifestyle/wellness-fresh.jpg",
+  "bloom.jpg": "lifestyle/bloom.jpg",
+  "period.jpg": "lifestyle/period.jpg",
+  "pulse.jpg": "lifestyle/pulse.jpg",
+  "calm.jpg": "lifestyle/calm.jpg",
 };
+
+const BLOCKED = ["formulas-chart", "formule"];
 
 if (!fs.existsSync(incoming)) process.exit(0);
 
 let copied = 0;
 for (const name of fs.readdirSync(incoming)) {
   if (name.startsWith(".") || name.endsWith(".md")) continue;
+  if (BLOCKED.some((b) => name.toLowerCase().includes(b))) {
+    console.warn(`[assets] Fichier bloqué (formules): ${name}`);
+    continue;
+  }
   const destRel = MAP[name];
   if (!destRel) {
     console.warn(`[assets] Fichier ignoré (nom inconnu): ${name}`);
