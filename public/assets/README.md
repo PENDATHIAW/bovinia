@@ -1,38 +1,14 @@
 # Assets BOVINIA
 
-Placez **vos fichiers visuels tels quels** — sans modification par le code.
+Envoyez vos visuels **directement dans le chat Cursor** — pas besoin de les renommer ni de préciser lequel est lequel.
 
-## Logo
+L’agent les place automatiquement :
 
-```
-public/assets/logo/bovinia-logo.png
-public/assets/logo/bovinia-logo-icon.png   # favicon (optionnel)
-```
+| Contenu repéré | Destination |
+|----------------|-------------|
+| Logo or (B + tête de bœuf) | `logo/bovinia-logo.png` |
+| Pot / packaging seul | `products/{wellness,bloom,period,pulse,calm}.png` |
+| Photo lifestyle (contexte, tasse…) | `lifestyle/{wellness,bloom,period,pulse,calm}.png` |
+| Visuel gamme (5 pots) | `products/gamme.png` + accueil |
 
-## Pots (catalogue, fiches produit, packs)
-
-Un fichier par rituel, **exactement vos visuels packaging** :
-
-```
-public/assets/products/wellness.png
-public/assets/products/bloom.png
-public/assets/products/period.png
-public/assets/products/pulse.png
-public/assets/products/calm.png
-```
-
-## Photos lifestyle (fiches produit)
-
-Vos mises en situation (tasse chaude, contexte, etc.) :
-
-```
-public/assets/lifestyle/wellness.png
-public/assets/lifestyle/bloom.png
-public/assets/lifestyle/period.png
-public/assets/lifestyle/pulse.png
-public/assets/lifestyle/calm.png
-```
-
-Format recommandé : PNG ou JPG, min. 1200 px de large.
-
-Après remplacement, redéployez sur Vercel (push GitHub ou upload).
+Vous pouvez aussi glisser-déposer les fichiers dans ce dossier `public/assets/` depuis l’explorateur Cursor.
