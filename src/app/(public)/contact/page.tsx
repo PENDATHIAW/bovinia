@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MessageCircle, Mail, MapPin, ShoppingBag, ArrowRight } from "lucide-react";
 import { ContactForm } from "@/components/public/ContactForm";
+import { OfficialAssetImage } from "@/components/public/OfficialAssetImage";
 import { getSiteSettings } from "@/lib/data/queries";
+import { OFFICIAL_IMAGES } from "@/lib/data/officialImages";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -11,7 +13,8 @@ export const metadata: Metadata = {
 
 export default async function ContactPage() {
   const settings = await getSiteSettings();
-  const whatsappUrl = `https://wa.me/${settings.whatsapp_number.replace(/\D/g, "")}`;
+  const whatsappNumber = settings.whatsapp_number.replaceAll(" ", "").replaceAll("+", "");
+  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
 
   return (
     <div className="section-padding">
@@ -28,6 +31,14 @@ export default async function ContactPage() {
             Passer commande
             <ArrowRight size={16} />
           </Link>
+        </div>
+
+        <div className="mb-12 overflow-hidden rounded-3xl border border-gold/20 bg-cream shadow-lg">
+          <OfficialAssetImage
+            src={OFFICIAL_IMAGES.contact}
+            alt="BOVINIA — contact et service client"
+            className="mx-auto h-auto w-full object-contain"
+          />
         </div>
 
         <div className="grid gap-12 lg:grid-cols-3">
