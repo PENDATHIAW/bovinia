@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MessageCircle, ArrowLeft } from "lucide-react";
+import { MessageCircle, ArrowLeft, Flame } from "lucide-react";
 import { getProductBySlug, getProducts, getSiteSettings } from "@/lib/data/queries";
 import { ProductPotImage } from "@/components/public/ProductPotImage";
+import { ProductLifestyleSection } from "@/components/public/ProductLifestyleSection";
+import { ProductConsumptionGuide } from "@/components/public/ProductConsumptionGuide";
 import { formatPrice } from "@/lib/utils";
 
 interface Props {
@@ -40,7 +42,10 @@ export default async function ProductDetailPage({ params }: Props) {
   return (
     <div className="section-padding">
       <div className="container-bovinia">
-        <Link href="/produits" className="mb-8 inline-flex items-center gap-2 text-sm text-forest/60 hover:text-forest">
+        <Link
+          href="/produits"
+          className="mb-8 inline-flex items-center gap-2 text-sm text-forest/60 hover:text-forest"
+        >
           <ArrowLeft size={16} />
           Retour au catalogue
         </Link>
@@ -52,10 +57,16 @@ export default async function ProductDetailPage({ params }: Props) {
             <p className="text-sm font-medium uppercase tracking-widest text-gold">{product.mission}</p>
             <h1 className="mt-2 font-serif text-4xl text-forest">{product.name}</h1>
             <p className="mt-2 text-foreground/60">{product.dominant_flavors.join(" • ")}</p>
+
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold/15 px-4 py-2 text-sm text-forest">
+              <Flame size={16} className="text-gold" />
+              Se déguste chaud — et aussi frais
+            </div>
+
             {product.price && (
               <p className="mt-4 font-serif text-2xl text-forest">{formatPrice(product.price)}</p>
             )}
-            <p className="mt-1 text-sm text-foreground/50">Format : 500 g · Statut : Précommande</p>
+            <p className="mt-1 text-sm text-foreground/50">Format : 500 g · ~30 portions · Précommande</p>
 
             <p className="mt-6 leading-relaxed text-foreground/70">{product.long_description}</p>
 
@@ -67,12 +78,6 @@ export default async function ProductDetailPage({ params }: Props) {
               <div className="card-premium p-5">
                 <h2 className="font-serif text-lg text-forest">Quand le consommer ?</h2>
                 <p className="mt-2 text-sm text-foreground/70">{product.usage_moment}</p>
-              </div>
-              <div className="card-premium p-5">
-                <h2 className="font-serif text-lg text-forest">Comment le préparer ?</h2>
-                <p className="mt-2 text-sm text-foreground/70">
-                  {product.preparation_methods.join(" · ")}
-                </p>
               </div>
               <div className="card-premium p-5">
                 <h2 className="font-serif text-lg text-forest">Ingrédients principaux</h2>
@@ -94,12 +99,23 @@ export default async function ProductDetailPage({ params }: Props) {
               <Link href={`/precommande?produit=${product.slug}`} className="btn-gold">
                 Précommander
               </Link>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+              >
                 <MessageCircle size={16} />
                 Poser une question
               </a>
             </div>
           </div>
+        </div>
+
+        <ProductLifestyleSection product={product} />
+
+        <div className="mt-12 max-w-3xl">
+          <ProductConsumptionGuide slug={product.slug} />
         </div>
       </div>
     </div>

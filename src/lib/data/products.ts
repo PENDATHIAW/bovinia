@@ -1,5 +1,13 @@
 import type { Product } from "@/types/database";
 
+const HOT_PREP = [
+  "Eau chaude (rituel recommandé)",
+  "Eau tiède",
+  "Eau fraîche",
+  "Lait ou lait végétal",
+  "Smoothie",
+];
+
 export const SEED_PRODUCTS: Product[] = [
   {
     id: "wellness",
@@ -7,12 +15,12 @@ export const SEED_PRODUCTS: Product[] = [
     slug: "wellness",
     mission: "Bien-être quotidien",
     short_description:
-      "Rituel du matin et base quotidienne à l'ananas, mandarine et menthe — pour accompagner digestion, énergie, concentration et bien-être général.",
+      "Rituel du matin à l'ananas, mandarine et menthe — en boisson chaude ou fraîche, pour accompagner digestion, énergie et bien-être général.",
     long_description:
-      "WELLNESS est le produit signature de la gamme : une base quotidienne à saveur de jus tropical frais. Enrichi en baobab, kinkeliba et Bone Broth premium, il peut accompagner le confort digestif, l'énergie du quotidien, la satiété et le bien-être peau, cheveux et ongles — avec un goût où les fruits dominent.",
+      "WELLNESS est le produit signature de la gamme : une base quotidienne à saveur de jus tropical frais. Enrichi en baobab, kinkeliba et Bone Broth premium, il accompagne le confort digestif, l'énergie du quotidien et le bien-être peau, cheveux et ongles. À savourer chaud le matin ou frais en smoothie — les fruits dominent en bouche.",
     target_audience: "Tout public — adultes cherchant une routine nutritionnelle naturelle.",
     usage_moment: "Matin ou journée — rituel de base quotidien.",
-    preparation_methods: ["Eau fraîche", "Eau tiède", "Smoothie léger"],
+    preparation_methods: HOT_PREP,
     dominant_flavors: ["Ananas", "Mandarine", "Menthe"],
     main_ingredients: [
       "Poudre de Bone Broth",
@@ -24,7 +32,7 @@ export const SEED_PRODUCTS: Product[] = [
       "Citron",
     ],
     warnings:
-      "Ce produit est un aliment fonctionnel et ne remplace pas un avis médical. Les résultats peuvent varier selon la personne et la régularité.",
+      "Aliment fonctionnel — ne remplace pas un avis médical. Les résultats peuvent varier selon la personne et la régularité.",
     price: 15000,
     compare_at_price: null,
     stock: 100,
@@ -32,10 +40,10 @@ export const SEED_PRODUCTS: Product[] = [
     category: "bien-etre",
     color_theme: "wellness",
     image: "/assets/products/wellness.png",
-    gallery: [],
+    gallery: ["/assets/lifestyle/wellness.png"],
     seo_title: "WELLNESS — Rituel bien-être quotidien | BOVINIA",
     seo_description:
-      "WELLNESS, le rituel BOVINIA au Bone Broth pour accompagner digestion, énergie et bien-être quotidien. Ananas, mandarine et menthe.",
+      "WELLNESS, le rituel BOVINIA au Bone Broth. Ananas, mandarine et menthe — chaud ou froid.",
     sort_order: 1,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
@@ -46,12 +54,18 @@ export const SEED_PRODUCTS: Product[] = [
     slug: "bloom",
     mission: "Grossesse & post-partum",
     short_description:
-      "Smoothie tropical gourmand à la mangue, coco et vanille — pensé pour accompagner les femmes enceintes et jeunes mamans.",
+      "Smoothie tropical mangue, coco et vanille — conçu pour les femmes enceintes pendant la grossesse et après l'accouchement.",
     long_description:
-      "BLOOM est un rituel crémeux type milkshake, conçu pour accompagner les périodes de grossesse et post-partum. Il peut contribuer au confort digestif, à l'énergie quotidienne, au soutien nutritionnel et au bien-être peau, cheveux et ongles. Le gingembre est présent à dose modérée — consultez votre professionnel de santé avant utilisation.",
-    target_audience: "Femmes enceintes et jeunes mamans.",
-    usage_moment: "Matin, collation ou après-midi.",
-    preparation_methods: ["Lait", "Lait végétal", "Smoothie", "Milkshake"],
+      "BLOOM accompagne les femmes en état (grossesse) et en post-partum avec un rituel crémeux type milkshake. Il peut contribuer au confort digestif, à l'énergie quotidienne, au soutien nutritionnel et au bien-être peau, cheveux et ongles. Se déguste chaud, au lait ou en smoothie gourmand. Le gingembre est présent à dose modérée — consultez votre professionnel de santé avant utilisation.",
+    target_audience:
+      "Femmes enceintes (grossesse) et jeunes mamans (post-partum et allaitement, avis médical recommandé).",
+    usage_moment: "Matin, collation ou après-midi — pendant et après la grossesse.",
+    preparation_methods: [
+      "Eau chaude (rituel recommandé)",
+      "Lait ou lait végétal chaud",
+      "Smoothie / milkshake",
+      "Eau fraîche",
+    ],
     dominant_flavors: ["Mangue", "Coco", "Vanille"],
     main_ingredients: [
       "Poudre de Bone Broth",
@@ -64,7 +78,7 @@ export const SEED_PRODUCTS: Product[] = [
       "Vanille",
     ],
     warnings:
-      "Ce produit est un aliment fonctionnel et ne remplace pas un avis médical. Consultez votre professionnel de santé en cas de grossesse, d'allaitement ou de nausées.",
+      "Aliment fonctionnel — ne remplace pas un avis médical. Consultez votre professionnel de santé en cas de grossesse, d'allaitement ou de nausées.",
     price: 15000,
     compare_at_price: null,
     stock: 100,
@@ -72,10 +86,10 @@ export const SEED_PRODUCTS: Product[] = [
     category: "grossesse",
     color_theme: "bloom",
     image: "/assets/products/bloom.png",
-    gallery: [],
+    gallery: ["/assets/lifestyle/bloom.png"],
     seo_title: "BLOOM — Grossesse & post-partum | BOVINIA",
     seo_description:
-      "BLOOM accompagne les femmes enceintes et jeunes mamans avec une formule mangue, coco et vanille à base de Bone Broth premium.",
+      "BLOOM accompagne les femmes enceintes et jeunes mamans. Mangue, coco et vanille à base de Bone Broth premium.",
     sort_order: 2,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
@@ -86,12 +100,17 @@ export const SEED_PRODUCTS: Product[] = [
     slug: "period",
     mission: "Confort du cycle féminin",
     short_description:
-      "Bissap premium revisité, chaud ou froid — pour accompagner le confort du cycle féminin au quotidien.",
+      "Bissap premium revisité — idéal en boisson chaude fumante ou fraîche, pour accompagner le confort du cycle au quotidien.",
     long_description:
-      "PERIOD! accompagne les périodes prémenstruelles et menstruelles avec une boisson fruitée, épicée et réconfortante. Aux notes de bissap, mandarine et cannelle, enrichi en graines de courge et gingembre, ce rituel peut contribuer au confort digestif, à la gestion de la fatigue et à l'équilibre du quotidien pendant le cycle.",
+      "PERIOD! accompagne les périodes prémenstruelles et menstruelles avec une boisson fruitée, épicée et réconfortante. Aux notes de bissap, mandarine et cannelle, enrichi en graines de courge et gingembre, ce rituel peut contribuer au confort digestif et à l'équilibre du quotidien pendant le cycle. Parfait en tisane chaude le soir ou en boisson fraîche.",
     target_audience: "Femmes — période prémenstruelle ou menstruelle.",
-    usage_moment: "Quelques jours avant et pendant les règles.",
-    preparation_methods: ["Eau chaude", "Eau fraîche", "Boisson tiède"],
+    usage_moment: "Quelques jours avant et pendant les règles — chaud ou frais.",
+    preparation_methods: [
+      "Eau chaude (rituel recommandé)",
+      "Eau tiède",
+      "Eau fraîche",
+      "Boisson chaude type tisane",
+    ],
     dominant_flavors: ["Bissap", "Mandarine", "Cannelle"],
     main_ingredients: [
       "Poudre de Bone Broth",
@@ -104,7 +123,7 @@ export const SEED_PRODUCTS: Product[] = [
       "Mandarine",
     ],
     warnings:
-      "Ce produit est un aliment fonctionnel et ne remplace pas un avis médical. Il ne promet pas de traiter ou d'éliminer les douleurs menstruelles.",
+      "Aliment fonctionnel — ne remplace pas un avis médical. Ne promet pas de traiter ou d'éliminer les douleurs menstruelles.",
     price: 15000,
     compare_at_price: null,
     stock: 100,
@@ -112,10 +131,10 @@ export const SEED_PRODUCTS: Product[] = [
     category: "cycle-feminin",
     color_theme: "period",
     image: "/assets/products/period.png",
-    gallery: [],
+    gallery: ["/assets/lifestyle/period.png"],
     seo_title: "PERIOD! — Confort du cycle féminin | BOVINIA",
     seo_description:
-      "PERIOD! accompagne le confort du cycle féminin avec bissap, mandarine et cannelle. Rituel BOVINIA au Bone Broth.",
+      "PERIOD! en boisson chaude ou fraîche. Bissap, mandarine et cannelle — rituel BOVINIA au Bone Broth.",
     sort_order: 3,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
@@ -124,25 +143,29 @@ export const SEED_PRODUCTS: Product[] = [
     id: "pulse",
     name: "PULSE",
     slug: "pulse",
-    mission: "Performance & vitalité",
+    mission: "Énergie & vitalité",
     short_description:
-      "Nectar tropical mangue-orange-gingembre — pour accompagner l'énergie, l'effort, l'endurance et la récupération.",
+      "Nectar tropical mangue, orange, gingembre et baobab — chaud ou frais, pour accompagner énergie, effort et récupération.",
     long_description:
-      "PULSE est le rituel des adultes actifs et sportifs. Cette formule dynamique peut accompagner l'énergie physique, l'endurance, la concentration, le tonus et la récupération après l'effort — avec un profil gourmand où mangue et orange dominent.",
+      "PULSE est le rituel des adultes actifs. Cette formule dynamique accompagne l'énergie physique, l'endurance, la concentration et la récupération après l'effort. À préparer chaud en bouillon énergisant ou frais en shaker avant/après sport — mangue et orange dominent en bouche.",
     target_audience: "Adultes actifs, sportifs, personnes en quête de vitalité.",
     usage_moment: "Avant ou après l'effort, matin ou journée.",
-    preparation_methods: ["Eau fraîche", "Smoothie", "Avant/après sport"],
-    dominant_flavors: ["Mangue", "Orange", "Gingembre"],
+    preparation_methods: [
+      "Eau chaude (rituel recommandé)",
+      "Eau fraîche / shaker",
+      "Smoothie",
+      "Avant / après sport",
+    ],
+    dominant_flavors: ["Mangue", "Orange", "Gingembre", "Baobab"],
     main_ingredients: [
       "Poudre de Bone Broth",
       "Mangue",
-      "Banane",
       "Orange",
       "Gingembre",
       "Baobab",
+      "Banane",
     ],
-    warnings:
-      "Ce produit est un aliment fonctionnel et ne remplace pas un avis médical.",
+    warnings: "Aliment fonctionnel — ne remplace pas un avis médical.",
     price: 15000,
     compare_at_price: null,
     stock: 100,
@@ -150,10 +173,10 @@ export const SEED_PRODUCTS: Product[] = [
     category: "sport",
     color_theme: "pulse",
     image: "/assets/products/pulse.png",
-    gallery: [],
-    seo_title: "PULSE — Performance & vitalité | BOVINIA",
+    gallery: ["/assets/lifestyle/pulse.png"],
+    seo_title: "PULSE — Énergie & vitalité | BOVINIA",
     seo_description:
-      "PULSE accompagne énergie, effort et récupération. Rituel BOVINIA mangue, orange et gingembre.",
+      "PULSE accompagne énergie et récupération. Mangue, orange, gingembre et baobab — chaud ou froid.",
     sort_order: 4,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
@@ -164,13 +187,18 @@ export const SEED_PRODUCTS: Product[] = [
     slug: "calm",
     mission: "Sommeil & récupération",
     short_description:
-      "Boisson chaude du soir à la verveine, camomille et vanille — pour accompagner détente, relaxation et récupération.",
+      "Rituel du soir camomille, verveine, citronnelle et vanille — en boisson chaude réconfortante pour accompagner détente et récupération.",
     long_description:
-      "CALM est votre rituel du soir : une boisson réconfortante et apaisante qui peut accompagner la détente, favoriser un moment de relaxation, soutenir la récupération mentale et physique, et clôturer la journée en douceur. Effet cocooning avec pomme, citronnelle et cannelle en soutien.",
+      "CALM est votre rituel du soir : une boisson chaude apaisante qui accompagne la détente, la relaxation et la récupération mentale et physique. Pomme, citronnelle et cannelle complètent camomille et verveine pour un effet cocooning en fin de journée.",
     target_audience: "Adultes souhaitant une routine du soir apaisante.",
-    usage_moment: "Soir — rituel de fin de journée.",
-    preparation_methods: ["Eau chaude", "Lait chaud", "Lait végétal"],
-    dominant_flavors: ["Verveine", "Camomille", "Vanille"],
+    usage_moment: "Soir — rituel de fin de journée, de préférence chaud.",
+    preparation_methods: [
+      "Eau chaude (rituel recommandé)",
+      "Lait chaud / lait végétal",
+      "Eau tiède",
+      "Eau fraîche",
+    ],
+    dominant_flavors: ["Camomille", "Verveine", "Citronnelle", "Vanille"],
     main_ingredients: [
       "Poudre de Bone Broth",
       "Pomme",
@@ -181,7 +209,7 @@ export const SEED_PRODUCTS: Product[] = [
       "Cannelle",
     ],
     warnings:
-      "Ce produit est un aliment fonctionnel et ne remplace pas un avis médical. Il ne promet pas de traiter l'insomnie ou le stress.",
+      "Aliment fonctionnel — ne remplace pas un avis médical. Contient camomille et verveine : déconseillé pendant la grossesse et l'allaitement sans avis médical. Ne promet pas de traiter l'insomnie ou le stress.",
     price: 15000,
     compare_at_price: null,
     stock: 100,
@@ -189,10 +217,10 @@ export const SEED_PRODUCTS: Product[] = [
     category: "sommeil",
     color_theme: "calm",
     image: "/assets/products/calm.png",
-    gallery: [],
+    gallery: ["/assets/lifestyle/calm.png"],
     seo_title: "CALM — Sommeil & récupération | BOVINIA",
     seo_description:
-      "CALM, rituel du soir BOVINIA pour accompagner détente et récupération. Verveine, camomille et vanille.",
+      "CALM, rituel du soir BOVINIA en boisson chaude. Camomille, verveine, citronnelle et vanille.",
     sort_order: 5,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),

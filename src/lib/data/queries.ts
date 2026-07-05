@@ -49,7 +49,7 @@ export const SEED_FAQS: FAQ[] = [
     id: "3",
     question: "Comment consommer les produits ?",
     answer:
-      "Mélangez une portion de 15 à 17 g (environ 1 cuillère doseuse) dans 200 ml d'eau chaude ou froide, de lait, du lait végétal ou un smoothie. Chaque pot de 500 g offre environ 30 portions. Consultez la fiche produit pour le mode de consommation recommandé.",
+      "Tous nos rituels se préparent à l'eau chaude — c'est le mode recommandé. Mélangez 15 à 17 g dans 200 ml d'eau chaude, tiède ou froide, de lait, lait végétal ou en smoothie. Chaque pot de 500 g offre environ 30 portions.",
     sort_order: 3,
     is_active: true,
     created_at: new Date().toISOString(),
@@ -58,7 +58,7 @@ export const SEED_FAQS: FAQ[] = [
     id: "4",
     question: "Est-ce adapté aux femmes enceintes ?",
     answer:
-      "BLOOM a été conçu pour accompagner les femmes enceintes et jeunes mamans. Nous recommandons toutefois de consulter votre professionnel de santé avant d'intégrer tout nouveau produit à votre alimentation.",
+      "BLOOM accompagne les femmes enceintes (grossesse) et en post-partum. CALM contient camomille et verveine et n'est pas recommandé pendant la grossesse — le pack Maternité associe BLOOM et WELLNESS. Consultez toujours votre professionnel de santé.",
     sort_order: 4,
     is_active: true,
     created_at: new Date().toISOString(),

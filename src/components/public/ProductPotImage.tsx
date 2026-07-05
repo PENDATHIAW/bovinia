@@ -1,47 +1,36 @@
-import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { PRODUCT_COLORS } from "@/types/database";
 import type { Product } from "@/types/database";
+import { BoviniaPotLabel, getPotAccent } from "./BoviniaPotLabel";
 
 interface ProductPotImageProps {
-  product: Pick<Product, "name" | "mission" | "color_theme" | "image">;
+  product: Pick<Product, "name" | "mission" | "color_theme" | "dominant_flavors" | "image">;
   size?: "sm" | "md" | "lg";
   className?: string;
 }
 
 const sizeMap = {
-  sm: { width: 120, height: 160, container: "h-40" },
-  md: { width: 200, height: 260, container: "h-64" },
-  lg: { width: 280, height: 360, container: "h-80" },
+  sm: { container: "h-44", pot: "h-36" },
+  md: { container: "h-64", pot: "h-52" },
+  lg: { container: "h-80 md:h-96", pot: "h-72 md:h-80" },
 };
 
+/** Pot officiel BOVINIA — packaging cylindrique 500 g */
 export function ProductPotImage({ product, size = "md", className }: ProductPotImageProps) {
-  const colors = PRODUCT_COLORS[product.color_theme] ?? PRODUCT_COLORS.wellness;
-  const { width, height, container } = sizeMap[size];
+  const { container, pot } = sizeMap[size];
+  const accent = getPotAccent(product.color_theme);
 
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center rounded-3xl p-6",
+        "relative flex items-end justify-center rounded-3xl px-4 pb-2 pt-8",
         container,
         className
       )}
-      style={{ backgroundColor: colors.accent + "18" }}
+      style={{
+        background: `linear-gradient(180deg, ${accent}12 0%, ${accent}28 100%)`,
+      }}
     >
-      {product.image ? (
-        <Image
-          src={product.image}
-          alt={`${product.name} — ${product.mission}`}
-          width={width}
-          height={height}
-          className="h-full w-auto object-contain drop-shadow-xl transition-transform duration-300 group-hover:-translate-y-2"
-        />
-      ) : (
-        <div
-          className="h-full w-24 rounded-t-3xl rounded-b-xl shadow-xl"
-          style={{ backgroundColor: colors.accent }}
-        />
-      )}
+      <BoviniaPotLabel product={product} className={pot} />
     </div>
   );
 }

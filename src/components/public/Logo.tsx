@@ -1,23 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { BoviniaLogoMark } from "./BoviniaLogoMark";
 
 interface LogoProps {
   className?: string;
   size?: "sm" | "md" | "lg";
-  /** Affiche le logo sur fond ivoire (footer vert foncé) */
   onDark?: boolean;
 }
 
-/** Logo officiel BOVINIA — ratio ~3:2 (1536×1024) */
 const sizes = {
-  sm: { width: 120, height: 80 },
-  md: { width: 160, height: 107 },
-  lg: { width: 220, height: 147 },
+  sm: { width: 140, height: 88, svg: "max-w-[120px]" },
+  md: { width: 180, height: 110, svg: "max-w-[160px]" },
+  lg: { width: 240, height: 145, svg: "max-w-[220px]" },
 };
 
 export function Logo({ className, size = "md", onDark = false }: LogoProps) {
-  const { width, height } = sizes[size];
+  const { width, height, svg } = sizes[size];
 
   return (
     <Link
@@ -34,9 +33,13 @@ export function Logo({ className, size = "md", onDark = false }: LogoProps) {
         width={width}
         height={height}
         priority={size !== "sm"}
-        className="h-auto w-auto object-contain"
-        style={{ maxWidth: width, maxHeight: height }}
+        className={cn("h-auto object-contain", svg)}
       />
     </Link>
   );
+}
+
+/** Variante SVG pour favicon / petits espaces */
+export function LogoIcon({ className }: { className?: string }) {
+  return <BoviniaLogoMark variant="icon" className={cn("w-10", className)} />;
 }

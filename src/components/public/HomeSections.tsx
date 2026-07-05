@@ -35,11 +35,11 @@ const COMMITMENTS = [
 ];
 
 const CONSUMPTION = [
-  { product: "WELLNESS", methods: "Eau fraîche, eau tiède ou smoothie léger" },
-  { product: "BLOOM", methods: "Lait, lait végétal, smoothie ou milkshake" },
-  { product: "PERIOD!", methods: "Eau chaude ou fraîche" },
-  { product: "PULSE", methods: "Eau fraîche, smoothie, avant/après sport" },
-  { product: "CALM", methods: "Eau chaude, lait ou lait végétal le soir" },
+  { product: "WELLNESS", methods: "Eau chaude, tiède ou fraîche · smoothie" },
+  { product: "BLOOM", methods: "Chaud, lait, smoothie — grossesse & post-partum" },
+  { product: "PERIOD!", methods: "Eau chaude (tisane) ou fraîche" },
+  { product: "PULSE", methods: "Chaud ou frais · avant/après sport" },
+  { product: "CALM", methods: "Eau chaude ou lait chaud le soir" },
 ];
 
 export function HomeSections({ products, faqs, testimonials, settings }: HomeSectionsProps) {
@@ -215,7 +215,8 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
             <p className="text-sm font-medium uppercase tracking-widest text-gold">Mode d&apos;emploi</p>
             <h2 className="mt-2 font-serif text-3xl text-forest md:text-4xl">Comment consommer ?</h2>
             <p className="mt-4 text-foreground/70">
-              15–17 g par portion · ~30 portions par pot · 200 ml de liquide · Mélangez et savourez
+              15–17 g par portion · ~30 portions par pot · 200 ml de liquide ·{" "}
+              <strong className="font-medium text-forest">tous les rituels se dégustent au chaud</strong>
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
