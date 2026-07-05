@@ -1,15 +1,18 @@
 # Assets BOVINIA
 
-Déposez vos fichiers **directement** ici — pas ailleurs.
+Visuels officiels dans `logo/` (fichiers uploadés depuis captures).
 
-| Dossier / fichier | Usage |
-|-------------------|--------|
-| `logo/bovinia-logo.png` | Logo site |
-| `logo/bovinia-logo-icon.png` | Favicon |
-| `brand/hero-range.jpg` | Hero accueil |
-| `products/wellness.png` … `calm.png` | Pots produits |
-| `lifestyle/*.jpg` | Photos mise en situation |
+Le mapping UUID → usage est dans `src/lib/data/assetPaths.ts`.
 
-Puis **commit + push** sur GitHub. Le site lit ces fichiers tels quels.
+| Usage | Fichier |
+|-------|---------|
+| Logo | `1E8C3793-...png` |
+| Hero gamme | `B730BCA1-...png` |
+| Pot WELLNESS | `2F591EDD-...png` |
+| Pot BLOOM | `70D3599F-...png` |
+| Pot PERIOD! | `7356386B-...png` |
+| Pot PULSE | `B77F36A7-...png` |
+| Pot CALM | `F5D170C8-...png` |
+| Lifestyle | voir assetPaths.ts |
 
-**Interdit :** `formulas-chart` et images avec formules détaillées.
+**Interdit :** images formulas-chart / formules détaillées.
