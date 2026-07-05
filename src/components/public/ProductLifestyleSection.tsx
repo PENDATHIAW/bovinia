@@ -15,7 +15,7 @@ export function ProductLifestyleSection({ product }: ProductLifestyleSectionProp
   const [featured, ...rest] = images;
 
   return (
-    <section className="mt-16">
+    <section id="images" className="mt-16 scroll-mt-36">
       <SectionHeader
         label="Rituel en image"
         title={`${product.name} au quotidien`}

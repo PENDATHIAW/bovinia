@@ -10,7 +10,15 @@ function initials(name: string) {
     .toUpperCase();
 }
 
-export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
+interface TestimonialsSectionProps {
+  testimonials: Testimonial[];
+  showDisclaimer?: boolean;
+}
+
+export function TestimonialsSection({
+  testimonials,
+  showDisclaimer = false,
+}: TestimonialsSectionProps) {
   if (!testimonials.length) return null;
 
   return (
@@ -54,6 +62,12 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
             </blockquote>
           ))}
         </div>
+        {showDisclaimer && (
+          <p className="mt-8 text-center text-xs text-foreground/45">
+            Sélection d&apos;avis clients — témoignages illustratifs remplaçables par vos retours
+            authentiques.
+          </p>
+        )}
       </div>
     </section>
   );

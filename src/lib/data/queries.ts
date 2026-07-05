@@ -6,6 +6,11 @@ import type {
   Testimonial,
 } from "@/types/database";
 import { SEED_PRODUCTS } from "@/lib/data/products";
+import {
+  SEED_TESTIMONIALS,
+  getFeaturedTestimonials,
+  getTestimonialsForProduct as filterTestimonialsByProduct,
+} from "@/lib/data/testimonials";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
@@ -101,63 +106,7 @@ export const SEED_FAQS: FAQ[] = [
   },
 ];
 
-export const SEED_TESTIMONIALS: Testimonial[] = [
-  {
-    id: "1",
-    name: "Aminata D.",
-    city: "Dakar",
-    rating: 5,
-    text: "J'adore le goût tropical de WELLNESS. C'est devenu mon rituel du matin, facile et gourmand.",
-    product_id: "wellness",
-    product_name: "WELLNESS",
-    is_visible: true,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: "2",
-    name: "Fatou S.",
-    city: "Thiès",
-    rating: 5,
-    text: "BLOOM m'accompagne depuis ma grossesse. Une formule douce que j'apprécie vraiment au quotidien.",
-    product_id: "bloom",
-    product_name: "BLOOM",
-    is_visible: true,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: "3",
-    name: "Moussa K.",
-    city: "Saint-Louis",
-    rating: 5,
-    text: "PULSE est parfait après mes séances de sport. Le gingembre apporte une touche dynamique.",
-    product_id: "pulse",
-    product_name: "PULSE",
-    is_visible: true,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: "4",
-    name: "Marième N.",
-    city: "Dakar",
-    rating: 5,
-    text: "PERIOD! m'aide pendant mes règles. Je le prends chaud le soir, c'est devenu un réflexe.",
-    product_id: "period",
-    product_name: "PERIOD!",
-    is_visible: true,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: "5",
-    name: "Khady B.",
-    city: "Mbour",
-    rating: 5,
-    text: "CALM le soir avant de dormir — une routine apaisante. Le pack découverte m'a permis de tout tester.",
-    product_id: "calm",
-    product_name: "CALM",
-    is_visible: true,
-    created_at: new Date().toISOString(),
-  },
-];
+export { SEED_TESTIMONIALS } from "@/lib/data/testimonials";
 
 export const SEED_BLOG_POSTS: BlogPost[] = [
   {
@@ -260,6 +209,23 @@ export async function getTestimonials(): Promise<Testimonial[]> {
 
   if (error || !data?.length) return SEED_TESTIMONIALS;
   return data as Testimonial[];
+}
+
+/** Témoignages pour une fiche produit — DB + seed illustratif si besoin. */
+export async function getProductTestimonials(slug: string): Promise<Testimonial[]> {
+  const all = await getTestimonials();
+  const fromDb = filterTestimonialsByProduct(slug, all);
+  if (fromDb.length >= 2) return fromDb.slice(0, 3);
+
+  const fromSeed = filterTestimonialsByProduct(slug, SEED_TESTIMONIALS);
+  const ids = new Set(fromDb.map((t) => t.id));
+  return [...fromDb, ...fromSeed.filter((t) => !ids.has(t.id))].slice(0, 3);
+}
+
+export async function getFeaturedTestimonialsForHome(): Promise<Testimonial[]> {
+  const all = await getTestimonials();
+  const featured = getFeaturedTestimonials(5, all);
+  return featured.length >= 3 ? featured : getFeaturedTestimonials(5, SEED_TESTIMONIALS);
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {

@@ -2,7 +2,7 @@ import { HomeSections } from "@/components/public/HomeSections";
 import {
   getProducts,
   getFAQs,
-  getTestimonials,
+  getFeaturedTestimonialsForHome,
   getSiteSettings,
 } from "@/lib/data/queries";
 
@@ -10,7 +10,7 @@ export default async function HomePage() {
   const [products, faqs, testimonials, settings] = await Promise.all([
     getProducts(),
     getFAQs(),
-    getTestimonials(),
+    getFeaturedTestimonialsForHome(),
     getSiteSettings(),
   ]);
 

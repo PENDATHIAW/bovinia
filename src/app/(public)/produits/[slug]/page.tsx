@@ -2,13 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Flame } from "lucide-react";
-import { getProductBySlug, getProducts, getSiteSettings } from "@/lib/data/queries";
+import {
+  getProductBySlug,
+  getProducts,
+  getProductTestimonials,
+  getSiteSettings,
+} from "@/lib/data/queries";
 import { getRelatedProducts } from "@/lib/shop/relatedProducts";
 import { ProductPotImage } from "@/components/public/ProductPotImage";
 import { ProductLifestyleSection } from "@/components/public/ProductLifestyleSection";
 import { ProductConsumptionGuide } from "@/components/public/ProductConsumptionGuide";
 import { ProductDetailActions } from "@/components/public/ProductDetailActions";
+import { ProductTestimonials } from "@/components/public/ProductTestimonials";
 import { RelatedProducts } from "@/components/public/RelatedProducts";
+import { ProductPageNav } from "@/components/public/ProductPageNav";
 import { formatPrice } from "@/lib/utils";
 import { USAGE_TIME_BY_SLUG } from "@/lib/data/consumption";
 import { getProductAvailabilityLabel } from "@/lib/product-availability";
@@ -35,10 +42,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
-  const [product, allProducts, settings] = await Promise.all([
+  const [product, allProducts, settings, testimonials] = await Promise.all([
     getProductBySlug(slug),
     getProducts(),
     getSiteSettings(),
+    getProductTestimonials(slug),
   ]);
 
   if (!product) notFound();
@@ -48,86 +56,115 @@ export default async function ProductDetailPage({ params }: Props) {
   const whatsappUrl = `https://wa.me/${settings.whatsapp_number.replace(/\D/g, "")}?text=${encodeURIComponent(`Bonjour, j'ai une question sur ${product.name} BOVINIA.`)}`;
 
   return (
-    <div className="section-padding pb-28 md:pb-16">
-      <div className="container-bovinia">
-        <Link
-          href="/produits"
-          className="mb-8 inline-flex items-center gap-2 text-sm text-forest/60 hover:text-forest"
-        >
-          <ArrowLeft size={16} />
-          Retour au catalogue
-        </Link>
+    <>
+      <ProductPageNav />
 
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="gold-frame">
-            <div className="gold-frame-inner">
-              <ProductPotImage product={product} size="lg" className="w-full !rounded-none" priority />
+      <div className="section-padding pb-28 md:pb-16">
+        <div className="container-bovinia">
+          <Link
+            href="/produits"
+            className="mb-8 inline-flex items-center gap-2 text-sm text-forest/60 hover:text-forest"
+          >
+            <ArrowLeft size={16} />
+            Retour au catalogue
+          </Link>
+
+          <div id="produit" className="scroll-mt-36 grid gap-12 lg:grid-cols-2 lg:gap-16">
+            <div className="gold-frame">
+              <div className="gold-frame-inner">
+                <ProductPotImage product={product} size="lg" className="w-full !rounded-none" priority />
+              </div>
             </div>
-          </div>
 
-          <div>
-            <p className="text-sm font-medium uppercase tracking-widest text-gold">{product.mission}</p>
-            <h1 className="mt-2 font-serif text-4xl text-forest">{product.name}</h1>
-            <p className="mt-2 text-foreground/60">{product.dominant_flavors.join(" • ")}</p>
+            <div>
+              <p className="text-sm font-medium uppercase tracking-widest text-gold">{product.mission}</p>
+              <h1 className="mt-2 font-serif text-4xl text-forest">{product.name}</h1>
+              <p className="mt-2 text-foreground/60">{product.dominant_flavors.join(" • ")}</p>
 
-            <div className="mt-4 flex flex-wrap gap-2">
-              {usageTime && (
-                <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-cream px-4 py-2 text-sm font-medium text-forest">
-                  {usageTime.label}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {usageTime && (
+                  <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-cream px-4 py-2 text-sm font-medium text-forest">
+                    {usageTime.label}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-ivory px-4 py-2 text-sm text-forest">
+                  <Flame size={16} className="text-gold" />
+                  Chaud ou frais
                 </span>
+              </div>
+
+              {product.price && (
+                <p className="mt-5 font-serif text-3xl text-forest">{formatPrice(product.price)}</p>
               )}
-              <span className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-ivory px-4 py-2 text-sm text-forest">
-                <Flame size={16} className="text-gold" />
-                Se déguste chaud — et aussi frais
-              </span>
-            </div>
+              <p className="mt-1 text-sm text-foreground/50">
+                500 g · ~30 portions · {getProductAvailabilityLabel(product.status)}
+              </p>
 
-            {product.price && (
-              <p className="mt-4 font-serif text-2xl text-forest">{formatPrice(product.price)}</p>
-            )}
-            <p className="mt-1 text-sm text-foreground/50">
-              Format : 500 g · ~30 portions · {getProductAvailabilityLabel(product.status)}
-            </p>
+              <p className="mt-6 leading-relaxed text-foreground/70">{product.short_description}</p>
 
-            <p className="mt-6 leading-relaxed text-foreground/70">{product.long_description}</p>
-
-            <div className="mt-8 space-y-4">
-              <div className="card-premium border-l-4 border-l-gold/50 p-5">
-                <h2 className="font-serif text-lg text-forest">Pour qui ?</h2>
-                <p className="mt-2 text-sm text-foreground/70">{product.target_audience}</p>
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                <div className="rounded-xl border border-gold/15 bg-cream/50 p-4 text-center">
+                  <p className="text-[10px] font-medium uppercase tracking-wider text-gold">Pour qui</p>
+                  <p className="mt-1 text-xs leading-relaxed text-foreground/70 line-clamp-4">
+                    {product.target_audience}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-gold/15 bg-cream/50 p-4 text-center">
+                  <p className="text-[10px] font-medium uppercase tracking-wider text-gold">Quand</p>
+                  <p className="mt-1 text-xs leading-relaxed text-foreground/70 line-clamp-4">
+                    {product.usage_moment}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-gold/15 bg-cream/50 p-4 text-center">
+                  <p className="text-[10px] font-medium uppercase tracking-wider text-gold">Format</p>
+                  <p className="mt-1 text-xs leading-relaxed text-foreground/70">
+                    15–17 g / portion · 200 ml de liquide
+                  </p>
+                </div>
               </div>
-              <div className="card-premium border-l-4 border-l-gold/50 p-5">
-                <h2 className="font-serif text-lg text-forest">Quand le consommer ?</h2>
-                <p className="mt-2 text-sm text-foreground/70">{product.usage_moment}</p>
-              </div>
-              <div className="card-premium border-l-4 border-l-gold/50 p-5">
-                <h2 className="font-serif text-lg text-forest">Ingrédients principaux</h2>
-                <ul className="mt-2 flex flex-wrap gap-2">
-                  {product.main_ingredients.map((ing) => (
-                    <li key={ing} className="rounded-full border border-gold/20 bg-cream px-3 py-1 text-xs text-forest">
-                      {ing}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
 
-            <div className="mt-6 rounded-xl border border-gold/25 bg-cream/60 p-4 text-sm text-forest/80">
-              {product.warnings}
-            </div>
+              <details className="mt-6 group">
+                <summary className="cursor-pointer text-sm font-medium text-forest hover:text-gold">
+                  Description complète & ingrédients
+                </summary>
+                <div className="mt-4 space-y-4">
+                  <p className="text-sm leading-relaxed text-foreground/70">{product.long_description}</p>
+                  <ul className="flex flex-wrap gap-2">
+                    {product.main_ingredients.map((ing) => (
+                      <li
+                        key={ing}
+                        className="rounded-full border border-gold/20 bg-cream px-3 py-1 text-xs text-forest"
+                      >
+                        {ing}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="rounded-xl border border-gold/25 bg-cream/60 p-4 text-xs text-forest/80">
+                    {product.warnings}
+                  </div>
+                </div>
+              </details>
 
-            <ProductDetailActions product={product} whatsappUrl={whatsappUrl} />
+              <ProductDetailActions product={product} whatsappUrl={whatsappUrl} />
+            </div>
+          </div>
+
+          <ProductLifestyleSection product={product} />
+
+          <div id="mode-emploi" className="mt-12 max-w-3xl scroll-mt-36">
+            <ProductConsumptionGuide slug={product.slug} />
+          </div>
+
+          <ProductTestimonials
+            productName={product.name}
+            testimonials={testimonials}
+          />
+
+          <div id="routine" className="scroll-mt-36">
+            <RelatedProducts products={related} currentSlug={product.name} />
           </div>
         </div>
-
-        <ProductLifestyleSection product={product} />
-
-        <div className="mt-12 max-w-3xl">
-          <ProductConsumptionGuide slug={product.slug} />
-        </div>
-
-        <RelatedProducts products={related} currentSlug={product.name} />
       </div>
-    </div>
+    </>
   );
 }
