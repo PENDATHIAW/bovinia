@@ -90,7 +90,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .gradient-hero {
-  background: linear-gradient(135deg, #FAF7F2 0%, #F5F0E8 50%, #EDE8DC 100%);
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(201, 169, 98, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 10% 80%, rgba(27, 67, 50, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #FAF7F2 0%, #F5F0E8 45%, #EDE8DC 100%);
+}
+
+.pattern-dots {
+  background-image: radial-gradient(rgba(27, 67, 50, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.section-label {
+  @apply text-sm font-medium uppercase tracking-[0.2em] text-gold;
+}
+
+.section-title {
+  @apply mt-2 font-serif text-3xl text-forest md:text-4xl;
 }
 
 .text-gradient-gold {

@@ -1,7 +1,9 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { BoviniaLogoMark } from "./BoviniaLogoMark";
+import { LogoImage } from "./ProductImage";
 
 interface LogoProps {
   className?: string;
@@ -27,19 +29,19 @@ export function Logo({ className, size = "md", onDark = false }: LogoProps) {
         className
       )}
     >
-      <Image
+      <LogoImage
         src="/assets/logo/bovinia-logo.png"
         alt="BOVINIA — Powered by Bone Broth"
         width={width}
         height={height}
         priority={size !== "sm"}
         className={cn("h-auto object-contain", svg)}
+        fallback={<BoviniaLogoMark className={svg} gold={onDark ? "#C9A962" : "#C9A962"} />}
       />
     </Link>
   );
 }
 
-/** Variante SVG pour favicon / petits espaces */
 export function LogoIcon({ className }: { className?: string }) {
   return <BoviniaLogoMark variant="icon" className={cn("w-10", className)} />;
 }

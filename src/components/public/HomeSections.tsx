@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   Leaf,
   Droplets,
@@ -9,11 +8,14 @@ import {
   Sparkles,
   ArrowRight,
   Heart,
+  ShoppingBag,
 } from "lucide-react";
 import { ProductCard } from "./ProductCard";
 import { FAQAccordion } from "./FAQAccordion";
 import { TestimonialsSection } from "./TestimonialsSection";
 import { DiscoveryPacks } from "./DiscoveryPacks";
+import { HeroShowcase } from "./HeroShowcase";
+import { formatPrice } from "@/lib/utils";
 import type { FAQ, Product, SiteSettings, Testimonial } from "@/types/database";
 
 interface HomeSectionsProps {
@@ -45,55 +47,51 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
   return (
     <>
       {/* Hero */}
-      <section className="gradient-hero relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-gold" />
-          <div className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-forest" />
+      <section className="gradient-hero pattern-dots relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-gold/10 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-forest/10 blur-3xl" />
         </div>
-        <div className="container-bovinia section-padding relative">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div className="container-bovinia section-padding relative pb-12 md:pb-16">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="animate-fade-in-up">
-              <p className="text-sm font-medium uppercase tracking-widest text-gold">
-                Nutrition fonctionnelle · Sénégal
-              </p>
-              <h1 className="mt-4 font-serif text-4xl leading-tight text-forest md:text-5xl lg:text-6xl">
+              <p className="section-label">Nutrition fonctionnelle · Sénégal</p>
+              <h1 className="mt-4 font-serif text-4xl leading-[1.1] text-forest md:text-5xl lg:text-[3.25rem]">
                 {settings.hero_title}
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-foreground/70">
                 {settings.hero_subtitle}
               </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                {[
+                  { label: "15 000 FCFA", sub: "le pot" },
+                  { label: "500 g", sub: "~30 portions" },
+                  { label: "5 rituels", sub: "disponibles" },
+                ].map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="rounded-2xl border border-gold/25 bg-white/70 px-4 py-2.5 backdrop-blur-sm"
+                  >
+                    <p className="font-serif text-lg text-forest">{stat.label}</p>
+                    <p className="text-xs text-foreground/50">{stat.sub}</p>
+                  </div>
+                ))}
+              </div>
+
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link href="/produits" className="btn-primary">
                   {settings.hero_cta_primary}
                   <ArrowRight size={16} />
                 </Link>
-                <Link href="/commander" className="btn-secondary">
+                <Link href="/commander" className="btn-gold">
+                  <ShoppingBag size={16} />
                   {settings.hero_cta_secondary}
                 </Link>
               </div>
             </div>
 
-            <div className="relative flex justify-center">
-              <div className="flex flex-wrap items-end justify-center gap-2 sm:gap-3">
-                {products.map((p) => (
-                  <Link
-                    key={p.id}
-                    href={`/produits/${p.slug}`}
-                    className="transition-transform hover:-translate-y-2"
-                  >
-                    {p.image ? (
-                      <Image
-                        src={p.image}
-                        alt={p.name}
-                        width={100}
-                        height={130}
-                        className="h-24 w-auto object-contain drop-shadow-lg sm:h-32"
-                      />
-                    ) : null}
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <HeroShowcase products={products} />
           </div>
         </div>
       </section>
@@ -132,10 +130,11 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
       <section className="section-padding bg-cream">
         <div className="container-bovinia">
           <div className="mx-auto mb-12 max-w-2xl text-center">
-            <p className="text-sm font-medium uppercase tracking-widest text-gold">5 rituels</p>
-            <h2 className="mt-2 font-serif text-3xl text-forest md:text-4xl">Notre gamme</h2>
+            <p className="section-label">Boutique</p>
+            <h2 className="section-title">Notre gamme</h2>
             <p className="mt-4 text-foreground/70">
-              5 formules uniques, disponibles dès maintenant.
+              5 rituels disponibles — {formatPrice(15000)} le pot · Bone Broth premium, fruits et
+              plantes africains.
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -269,10 +268,13 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
                 <ArrowRight size={16} />
               </Link>
             </div>
-            <div className="card-premium flex flex-col items-center justify-center p-8 text-center">
-              <p className="font-serif text-2xl text-forest">15 000 FCFA</p>
-              <p className="mt-1 text-sm text-foreground/60">le pot · livraison dès 2 000 FCFA</p>
+            <div className="card-premium flex flex-col items-center justify-center p-8 text-center ring-2 ring-gold/20">
+              <p className="font-serif text-3xl text-forest">{formatPrice(15000)}</p>
+              <p className="mt-1 text-sm text-foreground/60">le pot · 500 g · ~30 portions</p>
               <p className="mt-4 text-sm text-foreground/50">
+                Livraison {formatPrice(2000)} · offerte dès {formatPrice(50000)}
+              </p>
+              <p className="mt-2 text-xs text-foreground/45">
                 Wave · Orange Money · Paiement à la livraison
               </p>
             </div>

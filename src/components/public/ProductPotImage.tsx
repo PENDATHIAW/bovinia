@@ -1,7 +1,10 @@
-import Image from "next/image";
+"use client";
+
 import { cn } from "@/lib/utils";
 import { PRODUCT_COLORS } from "@/types/database";
 import type { Product } from "@/types/database";
+import { ProductImage } from "./ProductImage";
+import { ProductPotPlaceholder } from "./ProductPotPlaceholder";
 
 interface ProductPotImageProps {
   product: Pick<Product, "name" | "mission" | "color_theme" | "image">;
@@ -19,6 +22,16 @@ export function ProductPotImage({ product, size = "md", className }: ProductPotI
   const colors = PRODUCT_COLORS[product.color_theme] ?? PRODUCT_COLORS.wellness;
   const { width, height, container } = sizeMap[size];
 
+  const placeholder = (
+    <ProductPotPlaceholder
+      name={product.name}
+      mission={product.mission}
+      colorTheme={product.color_theme}
+      size={size}
+      className="h-full w-full !rounded-3xl"
+    />
+  );
+
   return (
     <div
       className={cn(
@@ -26,17 +39,16 @@ export function ProductPotImage({ product, size = "md", className }: ProductPotI
         container,
         className
       )}
-      style={{ backgroundColor: `${colors.accent}12` }}
+      style={{ backgroundColor: `${colors.accent}08` }}
     >
-      {product.image ? (
-        <Image
-          src={product.image}
-          alt={`${product.name} — ${product.mission}`}
-          width={width}
-          height={height}
-          className="h-full w-auto max-w-full object-contain drop-shadow-xl"
-        />
-      ) : null}
+      <ProductImage
+        src={product.image}
+        alt={`${product.name} — ${product.mission}`}
+        width={width}
+        height={height}
+        className="h-full w-auto max-w-full object-contain drop-shadow-xl"
+        fallback={placeholder}
+      />
     </div>
   );
 }

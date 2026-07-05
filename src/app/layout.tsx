@@ -43,8 +43,7 @@ export const metadata: Metadata = {
     images: ["/assets/logo/bovinia-logo.png"],
   },
   icons: {
-    icon: "/assets/logo/bovinia-logo-icon.png",
-    apple: "/assets/logo/bovinia-logo-icon.png",
+    icon: "/icon",
   },
   robots: { index: true, follow: true },
 };

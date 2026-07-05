@@ -9,10 +9,10 @@ import { SEED_PRODUCTS } from "@/lib/data/products";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  hero_title: "Nourrir votre corps, naturellement.",
+  hero_title: "Cinq rituels. Une base : le Bone Broth.",
   hero_subtitle:
-    "BOVINIA transforme la puissance naturelle du Bone Broth en cinq rituels gourmands et modernes, conçus pour accompagner le corps au quotidien.",
-  hero_cta_primary: "Découvrir la gamme",
+    "BOVINIA transforme la puissance du bouillon d'os en boissons gourmandes et modernes — enrichies de fruits et plantes africains, fabriquées au Sénégal, prêtes à commander.",
+  hero_cta_primary: "Découvrir la boutique",
   hero_cta_secondary: "Commander",
   whatsapp_number: "+221771234567",
   contact_email: "contact@bovinia.sn",
@@ -23,7 +23,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   site_title: "BOVINIA — Nutrition fonctionnelle powered by Bone Broth",
   site_description:
     "BOVINIA transforme le Bone Broth en rituels nutritionnels gourmands. 5 formules premium fabriquées au Sénégal.",
-  footer_tagline: "Nourrir votre corps, naturellement.",
+  footer_tagline: "Cinq rituels gourmands. Une base : le Bone Broth. Fabriqué au Sénégal.",
 };
 
 export const SEED_FAQS: FAQ[] = [

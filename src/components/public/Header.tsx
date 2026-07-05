@@ -19,7 +19,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gold/10 bg-ivory/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-gold/15 bg-ivory/95 shadow-sm backdrop-blur-md">
       <div className="container-bovinia flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Logo size="sm" />
 

@@ -5,13 +5,13 @@ export function DemoBanner() {
   if (isSupabaseConfigured()) return null;
 
   return (
-    <div className="border-b border-gold/30 bg-gold/10 px-4 py-2.5 text-center text-sm text-forest">
-      <span className="font-medium">Mode démo</span>
+    <div className="border-b border-forest/10 bg-forest px-4 py-2.5 text-center text-sm text-ivory/90">
+      <span className="font-medium text-gold">Boutique BOVINIA</span>
       {" — "}
-      Site consultable sans base de données. Les formulaires ne sont pas enregistrés.
+      Parcourez la gamme et passez commande. La confirmation s&apos;affiche directement sur le site.
       {" "}
-      <Link href="/admin" className="underline underline-offset-2 hover:text-gold">
-        Aperçu admin
+      <Link href="/commander" className="underline underline-offset-2 hover:text-gold">
+        Commander
       </Link>
     </div>
   );
