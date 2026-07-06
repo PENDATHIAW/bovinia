@@ -1,0 +1,9 @@
+# Déposez vos visuels ici — sans rien renommer
+
+Le site les reconnaît automatiquement (fichiers officiels UUID ou nom contenant wellness, bloom, pulse…).
+
+```bash
+npm run organize:images
+```
+
+Puis commit + push. Ce dossier peut rester vide après organisation.

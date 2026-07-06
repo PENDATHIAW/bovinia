@@ -1,38 +1,36 @@
-# Dossier products — toutes vos images BOVINIA
+# Images BOVINIA — zéro configuration
 
-## Structure
+## Une seule action
+
+Déposez **tous vos visuels** dans :
 
 ```
-products/
-├── brand/          → logo.png, hero-gamme.png
-├── pots/           → wellness.png, bloom.png… (photo du pot)
-├── lifestyle/      → un dossier par rituel, plusieurs visuels OK
-│   ├── wellness/   → 01-bureau.png, 02-cuisine.png, 03-….
-│   ├── bloom/
-│   ├── period/
-│   ├── pulse/
-│   └── calm/
-└── inbox/          → déposez ici, puis: npm run organize:images
+public/assets/products/drop/
 ```
 
-Guide illustrations : [`lifestyle/README.md`](./lifestyle/README.md)
+Pas de sous-dossiers. Pas de renommage obligatoire pour les fichiers officiels BOVINIA.
 
-## Ajouter des illustrations (plusieurs par produit)
+Puis (optionnel si vous voulez ranger) :
 
-1. Copiez dans `lifestyle/wellness/` (ou bloom, pulse…)  
-   Nommez `03-plage.jpg`, `04-bureau.png` — le **01, 02** fixe l'ordre.
-2. **Ou** déposez dans `inbox/` avec le nom du rituel et lancez :
-   ```bash
-   npm run organize:images
-   ```
-3. **Commit + push** pour Vercel.
+```bash
+npm run organize:images
+git add public/assets/products/
+git commit -m "Nouveaux visuels"
+git push
+```
 
-## Où sur le site
+**Le site scanne aussi automatiquement** tout ce qui est déjà dans `products/`, `assets/lifestyle/` et les fichiers UUID — vous n'avez rien d'autre à faire côté code.
 
-| Type | Emplacement |
-|------|-------------|
-| Pot | Fiche produit (haut), cartes boutique |
-| Illustrations | Section « Rituel en image » sur chaque fiche |
-| 1ère illustration | Aperçu fond des cartes boutique + bandeau accueil |
+## Ce que le site fait tout seul
 
-Slugs : `wellness`, `bloom`, `period`, `pulse`, `calm`
+- Reconnaît chaque visuel officiel (pot WELLNESS, scène BLOOM grossesse, PULSE sport…)
+- Assigne au bon rituel
+- Affiche **plusieurs illustrations** par fiche produit
+- Adapte la mise en page (grille intelligente)
+
+## Pots vs illustrations
+
+| Type | Exemple | Où ça va |
+|------|---------|----------|
+| Pot seul (fond neutre) | `2F591EDD-….png` | Photo produit boutique |
+| Scène lifestyle | `FCE578D3-….png`, `wellness-office.jpg` | Galerie « Rituel en image » |
