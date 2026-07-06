@@ -20,6 +20,7 @@ import { BrandManifesto } from "./BrandManifesto";
 import { BoneBrothEducation } from "./BoneBrothEducation";
 import { SectionAnchorNav } from "./SectionAnchorNav";
 import { ConversionStrip } from "./ConversionStrip";
+import { BONE_BROTH_INTRO } from "@/lib/data/boneBrothCopy";
 import { ASSETS } from "@/lib/data/assetPaths";
 import { formatPrice } from "@/lib/utils";
 import type { FAQ, Product, SiteSettings, Testimonial } from "@/types/database";
@@ -59,13 +60,15 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
         <div className="container-bovinia section-padding relative pb-10 md:pb-14">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="animate-fade-in-up">
-              <p className="section-label">Nutrition fonctionnelle · Sénégal</p>
-              <h1 className="mt-4 font-serif text-4xl leading-[1.08] text-forest md:text-5xl lg:text-[3.35rem]">
-                {settings.hero_title}
+              <p className="section-label">{BONE_BROTH_INTRO.label}</p>
+              <h1 className="mt-4 font-serif text-4xl leading-[1.08] text-forest md:text-5xl lg:text-[3.15rem]">
+                {BONE_BROTH_INTRO.title}
               </h1>
-              <p className="mt-6 text-lg leading-relaxed text-foreground/70">
-                {settings.hero_subtitle}
-              </p>
+              <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/70 md:text-lg">
+                {BONE_BROTH_INTRO.paragraphs.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                ))}
+              </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 {[
