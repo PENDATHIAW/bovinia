@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { ProductCatalog } from "@/components/public/ProductCatalog";
 import { DiscoveryPacks } from "@/components/public/DiscoveryPacks";
 import { RitualFinder } from "@/components/public/RitualFinder";
-import { PageHero } from "@/components/public/PageHero";
+import { BoutiqueHero } from "@/components/public/BoutiqueHero";
 import { getProducts } from "@/lib/data/queries";
-import { formatPrice } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Boutique — Nos rituels",
@@ -17,11 +16,7 @@ export default async function ProductsPage() {
 
   return (
     <>
-      <PageHero
-        label="Boutique"
-        title="Nos rituels nutritionnels"
-        description={`5 formules premium — ${formatPrice(15000)} le pot · 500 g · ~30 portions · Bone Broth fabriqué au Sénégal.`}
-      />
+      <BoutiqueHero />
 
       <div className="section-padding pb-8 pt-10">
         <div className="container-bovinia max-w-4xl">

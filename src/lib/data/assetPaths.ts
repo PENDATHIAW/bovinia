@@ -36,7 +36,7 @@ export const ASSETS = {
   lifestyle: {
     wellnessOffice: "/assets/products/lifestyle/wellness/01-bureau.webp",
     wellnessFresh: "/assets/products/lifestyle/wellness/02-cuisine.webp",
-    bloom: "/assets/products/lifestyle/bloom/01-grossesse.webp",
+    bloom: "/assets/products/lifestyle/bloom/01-grossesse.png",
     period: "/assets/products/lifestyle/period/01-rituel.webp",
     pulse: "/assets/products/lifestyle/pulse/01-sport.webp",
     calm: "/assets/products/lifestyle/calm/01-soir.webp",

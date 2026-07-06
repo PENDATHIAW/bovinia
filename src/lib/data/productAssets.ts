@@ -24,9 +24,14 @@ const SCAN_ROOT = "assets/products";
 const LIFESTYLE_ROOT = `${SCAN_ROOT}/lifestyle`;
 const MAX_GALLERY = 4;
 
+const PNG_ONLY_LIFESTYLE = /\/lifestyle\/(bloom\/01-grossesse|calm\/02-preparation)/i;
+
 /** Préfère WebP si disponible */
 export function preferWebp(src: string): string {
   if (!src.startsWith("/")) return src;
+  if (PNG_ONLY_LIFESTYLE.test(src)) {
+    return src.replace(/\.webp$/i, ".png");
+  }
   const webp = src.replace(/\.(png|jpe?g)$/i, ".webp");
   const rel = webp.slice(1);
   if (fs.existsSync(path.join(PUBLIC_DIR, rel))) return webp;

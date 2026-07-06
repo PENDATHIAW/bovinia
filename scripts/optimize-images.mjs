@@ -29,6 +29,7 @@ let saved = 0;
 for (const file of files) {
   const basename = path.basename(file);
   if (/\s+\d+\.[^.]+$/i.test(basename)) continue;
+  if (/01-grossesse|02-preparation/.test(file)) continue;
 
   const before = fs.statSync(file).size;
   if (before < 1024) {
