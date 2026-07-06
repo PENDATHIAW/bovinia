@@ -26,7 +26,7 @@ export function ProductCardMedia({ product, size = "md", className }: ProductCar
       />
       {hasGallery && (
         <span className="absolute bottom-3 right-3 z-20 rounded-full border border-gold/30 bg-ivory/90 px-2.5 py-1 text-[10px] font-medium text-forest shadow-sm">
-          +{product.gallery.length} visuels
+          Voir comment préparer
         </span>
       )}
     </div>

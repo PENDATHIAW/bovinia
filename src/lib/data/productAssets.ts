@@ -2,7 +2,6 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import {
-  ASSETS,
   getProductPotFallback,
   getProductPotPath,
   isBlockedAsset,
@@ -13,7 +12,6 @@ import {
 import {
   classifyAssetPath,
   isDuplicateVariant,
-  isIllustrationPath,
   isPotPathRole,
   normalizeAssetBasename,
 } from "@/lib/data/assetRegistry";
@@ -23,15 +21,8 @@ export const PRODUCT_SLUGS = ["wellness", "bloom", "period", "pulse", "calm"] as
 
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const SCAN_ROOT = "assets/products";
+const LIFESTYLE_ROOT = `${SCAN_ROOT}/lifestyle`;
 const MAX_GALLERY = 4;
-
-const DEFAULT_LIFESTYLE: Record<ProductSlug, string[]> = {
-  wellness: [ASSETS.lifestyle.wellnessOffice, ASSETS.lifestyle.wellnessFresh],
-  bloom: [ASSETS.lifestyle.bloom],
-  period: [ASSETS.lifestyle.period],
-  pulse: [ASSETS.lifestyle.pulse],
-  calm: [ASSETS.lifestyle.calm],
-};
 
 /** Préfère WebP si disponible */
 export function preferWebp(src: string): string {
@@ -81,51 +72,60 @@ export function sortIllustrationPaths(urls: string[]): string[] {
     });
 }
 
-function scanProductAssets(): string[] {
-  return listPublicImagesRecursive(SCAN_ROOT).filter((src) => {
+/** Galerie = uniquement le dossier lifestyle/{slug}/ (pas de mélange entre rituels) */
+function scanLifestyleFolder(slug: ProductSlug): string[] {
+  const folder = `${LIFESTYLE_ROOT}/${slug}`;
+  const abs = path.join(PUBLIC_DIR, folder);
+  if (!fs.existsSync(abs)) return [];
+
+  return listPublicImagesRecursive(folder).filter((src) => {
     const rel = src.replace(/^\//, "");
-    if (rel.includes("/brand/")) return false;
-    if (rel.endsWith(".json") || rel.endsWith(".md")) return false;
-    if (rel.includes("/drop/") || rel.includes("/inbox/")) return false;
+    const { role } = classifyAssetPath(rel);
+    if (role === "pot" || isPotAsset(src)) return false;
     return true;
   });
 }
 
-function buildAssetIndex() {
+function scanPotAssets(): Partial<Record<ProductSlug, string>> {
   const pots: Partial<Record<ProductSlug, string>> = {};
-  const galleries: Record<ProductSlug, string[]> = {
-    wellness: [],
-    bloom: [],
-    period: [],
-    pulse: [],
-    calm: [],
-  };
 
-  for (const src of dedupe(scanProductAssets())) {
+  for (const src of dedupe(listPublicImagesRecursive(SCAN_ROOT))) {
     const rel = src.replace(/^\//, "");
+    if (rel.includes("/brand/") || rel.includes("/drop/") || rel.includes("/inbox/")) continue;
+    if (rel.includes(`/lifestyle/`)) continue;
+
     const { slug, role } = classifyAssetPath(rel);
     if (!slug) continue;
 
     const optimized = preferWebp(src);
-
     if (role === "pot" || isPotPathRole(rel)) {
       pots[slug] = optimized;
-      continue;
-    }
-
-    if ((role === "lifestyle" || isIllustrationPath(rel)) && !isPotAsset(src)) {
-      galleries[slug].push(optimized);
     }
   }
 
   for (const slug of PRODUCT_SLUGS) {
-    galleries[slug] = sortIllustrationPaths(
-      dedupe([...galleries[slug], ...DEFAULT_LIFESTYLE[slug]])
-    ).slice(0, MAX_GALLERY);
-
     if (!pots[slug]) {
-      pots[slug] = preferWebp(getProductPotPath(slug)) || getProductPotFallback(slug);
+      const potFolder = `${SCAN_ROOT}/pots/${slug}.webp`;
+      const potFolderPng = `${SCAN_ROOT}/pots/${slug}.png`;
+      if (fs.existsSync(path.join(PUBLIC_DIR, potFolder))) {
+        pots[slug] = `/${potFolder}`;
+      } else if (fs.existsSync(path.join(PUBLIC_DIR, potFolderPng))) {
+        pots[slug] = preferWebp(`/${potFolderPng}`);
+      } else {
+        pots[slug] = preferWebp(getProductPotPath(slug)) || getProductPotFallback(slug);
+      }
     }
+  }
+
+  return pots;
+}
+
+function buildAssetIndex() {
+  const pots = scanPotAssets();
+  const galleries = {} as Record<ProductSlug, string[]>;
+
+  for (const slug of PRODUCT_SLUGS) {
+    galleries[slug] = sortIllustrationPaths(dedupe(scanLifestyleFolder(slug))).slice(0, MAX_GALLERY);
   }
 
   return { pots, galleries };
@@ -151,12 +151,10 @@ export function resolveProductImage(slug: string): string {
   return getProductPotUrl(slug);
 }
 
-export function resolveProductGallery(slug: string, seedGallery: string[] = []): string[] {
-  const lifestyleOnly = seedGallery.filter((src) => !isPotAsset(src)).map(preferWebp);
-  return sortIllustrationPaths(dedupe([...lifestyleOnly, ...getProductLifestyleUrls(slug)])).slice(
-    0,
-    MAX_GALLERY
-  );
+export function resolveProductGallery(slug: string, _seedGallery: string[] = []): string[] {
+  const folderGallery = getProductLifestyleUrls(slug);
+  if (folderGallery.length > 0) return folderGallery;
+  return [];
 }
 
 export function getProductIllustrationPreview(slug: string): string | null {

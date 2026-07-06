@@ -1,13 +1,13 @@
 {
-  "_comment": "Mappings pour les visuels UUID non reconnus automatiquement. slug: wellness|bloom|period|pulse|calm — role: pot|lifestyle",
-  "0AF4C615-C05A-48A1-B933-6FDD7ED85278": { "slug": "wellness", "role": "lifestyle" },
-  "0D6F7E40-62E3-472C-B35A-2DFA520D1C8E": { "slug": "wellness", "role": "lifestyle" },
-  "2C051937-BD66-42BA-A31C-B6C5D6522DF5": { "slug": "bloom", "role": "lifestyle" },
-  "3ADAE51F-EC2A-4D46-8973-0418C276B200": { "slug": "bloom", "role": "lifestyle" },
-  "8A24B62A-D270-44CE-A5FE-EADF480D4018": { "slug": "period", "role": "lifestyle" },
+  "_comment": "Classification des visuels UUID à la racine de products/. slug: wellness|bloom|period|pulse|calm — role: pot|lifestyle",
+  "0AF4C615-C05A-48A1-B933-6FDD7ED85278": { "slug": "bloom", "role": "lifestyle" },
+  "0D6F7E40-62E3-472C-B35A-2DFA520D1C8E": { "slug": "calm", "role": "lifestyle" },
+  "2C051937-BD66-42BA-A31C-B6C5D6522DF5": { "slug": "calm", "role": "pot" },
+  "3ADAE51F-EC2A-4D46-8973-0418C276B200": { "slug": "period", "role": "pot" },
+  "8A24B62A-D270-44CE-A5FE-EADF480D4018": { "slug": "pulse", "role": "lifestyle" },
   "A4A84F6E-EFC6-487F-ACBD-3635F5B10A19": { "slug": "period", "role": "lifestyle" },
-  "C3A9C219-9077-4297-8879-5569F35CDF69": { "slug": "pulse", "role": "lifestyle" },
-  "D7A586F5-13DF-4A54-B6DF-9A5075905229": { "slug": "pulse", "role": "lifestyle" },
-  "E8283047-52EB-4E85-B773-409CF2562E6F": { "slug": "calm", "role": "lifestyle" },
-  "EEE4DD60-CAAF-4FD0-9321-E48252F67CA8": { "slug": "calm", "role": "lifestyle" }
+  "C3A9C219-9077-4297-8879-5569F35CDF69": { "slug": "pulse", "role": "pot" },
+  "D7A586F5-13DF-4A54-B6DF-9A5075905229": { "slug": "calm", "role": "lifestyle" },
+  "E8283047-52EB-4E85-B773-409CF2562E6F": { "slug": "bloom", "role": "pot" },
+  "EEE4DD60-CAAF-4FD0-9321-E48252F67CA8": { "slug": "wellness", "role": "pot" }
 }
