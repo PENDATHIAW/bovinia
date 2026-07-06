@@ -34,8 +34,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-gold/20 bg-ivory/95 shadow-[0_1px_24px_rgba(27,67,50,0.06)] backdrop-blur-md">
-      <div className="container-bovinia flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Logo size="md" />
+      <div className="container-bovinia flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+        <Logo size="xl" />
 
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => (

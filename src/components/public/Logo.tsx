@@ -5,7 +5,7 @@ import { OfficialAssetImage } from "./OfficialAssetImage";
 
 interface LogoProps {
   className?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
   onDark?: boolean;
 }
 
@@ -13,6 +13,7 @@ const sizes = {
   sm: "h-12 w-auto max-w-[9.5rem]",
   md: "h-16 w-auto max-w-[12rem]",
   lg: "h-24 w-auto max-w-[18rem]",
+  xl: "h-20 w-auto max-w-[20rem] sm:h-28 sm:max-w-[28rem]",
 };
 
 export function Logo({ className, size = "md", onDark = false }: LogoProps) {

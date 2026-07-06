@@ -23,15 +23,16 @@ export function BoutiqueHero({
       <div className="container-bovinia relative px-4 pb-12 pt-8 sm:px-6 md:pb-16 md:pt-10 lg:px-8">
         {/* Visuel des 5 pots — plein cadre, sans marge intérieure */}
         <div className="gold-frame mx-auto w-full max-w-6xl">
-          <div className="gold-frame-inner relative aspect-[2/1] min-h-[220px] w-full sm:min-h-[300px] md:min-h-[380px] lg:min-h-[460px]">
+          <div className="gold-frame-inner w-full">
             <OfficialAssetImage
               src={ASSETS.heroRange}
               fallbackSrc={LEGACY_ASSETS.heroRange}
               alt="BOVINIA — les 5 rituels : WELLNESS, BLOOM, PERIOD!, PULSE et CALM"
               priority
-              fill
+              width={1448}
+              height={1086}
               sizes="(max-width: 1280px) 100vw, 1152px"
-              className="object-cover object-center"
+              className="h-auto w-full object-contain"
             />
           </div>
         </div>
