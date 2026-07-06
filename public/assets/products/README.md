@@ -1,36 +1,60 @@
-# Images BOVINIA — zéro configuration
+# Images BOVINIA
 
-## Une seule action
+## Déposer vos visuels
 
-Déposez **tous vos visuels** dans :
+Copiez **tous** les fichiers `.png` / `.jpg` directement ici :
 
 ```
-public/assets/products/drop/
+public/assets/products/
 ```
 
-Pas de sous-dossiers. Pas de renommage obligatoire pour les fichiers officiels BOVINIA.
+Pas besoin de sous-dossiers. Les noms UUID officiels sont reconnus automatiquement.
 
-Puis (optionnel si vous voulez ranger) :
+## Mettre en ligne (GitHub)
+
+GitHub **n'accepte plus le mot de passe** du compte. Utilisez l'une de ces méthodes :
+
+### Option A — GitHub CLI (le plus simple sur Mac)
 
 ```bash
-npm run organize:images
-git add public/assets/products/
-git commit -m "Nouveaux visuels"
-git push
+brew install gh
+gh auth login
+cd ~/Downloads/bovinia
+git pull origin main
+git push origin main
 ```
 
-**Le site scanne aussi automatiquement** tout ce qui est déjà dans `products/`, `assets/lifestyle/` et les fichiers UUID — vous n'avez rien d'autre à faire côté code.
+### Option B — Token personnel
 
-## Ce que le site fait tout seul
+1. Sur GitHub : **Settings → Developer settings → Personal access tokens → Generate**
+2. Cochez au minimum `repo`
+3. Copiez le token, puis :
 
-- Reconnaît chaque visuel officiel (pot WELLNESS, scène BLOOM grossesse, PULSE sport…)
-- Assigne au bon rituel
-- Affiche **plusieurs illustrations** par fiche produit
-- Adapte la mise en page (grille intelligente)
+```bash
+cd ~/Downloads/bovinia
+git pull origin main
+git push https://VOTRE_TOKEN@github.com/PENDATHIAW/bovinia.git main
+```
 
-## Pots vs illustrations
+### Option C — SSH
 
-| Type | Exemple | Où ça va |
-|------|---------|----------|
-| Pot seul (fond neutre) | `2F591EDD-….png` | Photo produit boutique |
-| Scène lifestyle | `FCE578D3-….png`, `wellness-office.jpg` | Galerie « Rituel en image » |
+```bash
+ssh-keygen -t ed25519 -C "pendathiaw1995@gmail.com"
+# Ajoutez ~/.ssh/id_ed25519.pub sur GitHub → Settings → SSH keys
+git remote set-url origin git@github.com:PENDATHIAW/bovinia.git
+git pull origin main
+git push origin main
+```
+
+## Après le push
+
+Vercel redéploie automatiquement en 1–2 minutes.  
+Rafraîchissez le site avec **Cmd+Shift+R**.
+
+## Fichiers « UUID 2.png »
+
+Les doublons macOS (`fichier 2.png`) sont ignorés — gardez seulement la version sans ` 2`.
+
+## Nouveaux UUID inconnus
+
+Ajoutez-les dans `asset-manifest.json` à côté de ce fichier.

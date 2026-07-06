@@ -1,3 +1,6 @@
+import "server-only";
+import fs from "fs";
+import path from "path";
 import type { ProductSlug } from "@/lib/data/assetPaths";
 
 export type AssetRole = "pot" | "lifestyle" | "logo" | "hero" | "unknown";
@@ -25,10 +28,48 @@ const UUID_CATALOG: Record<string, ClassifiedAsset> = {
 };
 
 const SLUGS: ProductSlug[] = ["wellness", "bloom", "period", "pulse", "calm"];
+const PUBLIC_DIR = path.join(process.cwd(), "public");
+const MANIFEST_PATH = path.join(PUBLIC_DIR, "assets/products/asset-manifest.json");
 
-function uuidFromBasename(name: string): string | null {
-  const base = name.replace(/\.[^.]+$/, "").toUpperCase();
-  return UUID_CATALOG[base] ? base : null;
+let manifestCache: Record<string, ClassifiedAsset> | null = null;
+
+function loadUserManifest(): Record<string, ClassifiedAsset> {
+  if (manifestCache) return manifestCache;
+  try {
+    if (!fs.existsSync(MANIFEST_PATH)) {
+      manifestCache = {};
+      return manifestCache;
+    }
+    const raw = JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8")) as Record<
+      string,
+      ClassifiedAsset | string
+    >;
+    manifestCache = {};
+    for (const [key, value] of Object.entries(raw)) {
+      if (key.startsWith("_")) continue;
+      if (value && typeof value === "object" && "role" in value) {
+        manifestCache[key.toUpperCase()] = value;
+      }
+    }
+    return manifestCache;
+  } catch {
+    manifestCache = {};
+    return manifestCache;
+  }
+}
+
+/** Normalise « UUID 2.png » → « UUID » */
+export function normalizeAssetBasename(filename: string): string {
+  return filename
+    .replace(/\.[^.]+$/, "")
+    .replace(/\s+\d+$/, "")
+    .trim()
+    .toUpperCase();
+}
+
+function lookupCatalog(filename: string): ClassifiedAsset | null {
+  const key = normalizeAssetBasename(filename);
+  return UUID_CATALOG[key] ?? loadUserManifest()[key] ?? null;
 }
 
 function slugFromPath(relativePath: string): ProductSlug | null {
@@ -36,7 +77,6 @@ function slugFromPath(relativePath: string): ProductSlug | null {
   for (const slug of SLUGS) {
     if (lower.includes(`/${slug}/`) || lower.includes(`/${slug}.`)) return slug;
     if (lower.includes(`/${slug}-`) || lower.includes(`_${slug}_`)) return slug;
-    if (lower.includes(`${slug}-`) && lower.includes("/lifestyle/")) return slug;
   }
   const base = lower.split("/").pop() ?? "";
   for (const slug of SLUGS) {
@@ -57,13 +97,17 @@ function isPotPath(relativePath: string): boolean {
   );
 }
 
-/** Classifie n'importe quel chemin d'image sous public/assets/ */
+/** Doublons macOS « fichier 2.png » */
+export function isDuplicateVariant(filename: string): boolean {
+  return /\s+\d+\.[^.]+$/i.test(filename);
+}
+
 export function classifyAssetPath(relativePath: string): ClassifiedAsset {
   const normalized = relativePath.replace(/^\//, "");
   const basename = normalized.split("/").pop() ?? "";
 
-  const uuid = uuidFromBasename(basename);
-  if (uuid) return UUID_CATALOG[uuid];
+  const catalog = lookupCatalog(basename);
+  if (catalog) return catalog;
 
   if (normalized.includes("/brand/logo")) return { slug: null, role: "logo" };
   if (normalized.includes("/brand/hero") || basename.includes("hero-gamme") || basename.includes("hero-range")) {
@@ -87,11 +131,9 @@ export function classifyAssetPath(relativePath: string): ClassifiedAsset {
 }
 
 export function isIllustrationPath(relativePath: string): boolean {
-  const { role } = classifyAssetPath(relativePath);
-  return role === "lifestyle";
+  return classifyAssetPath(relativePath).role === "lifestyle";
 }
 
 export function isPotPathRole(relativePath: string): boolean {
-  const { role } = classifyAssetPath(relativePath);
-  return role === "pot";
+  return classifyAssetPath(relativePath).role === "pot";
 }

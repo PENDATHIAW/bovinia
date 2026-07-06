@@ -10,8 +10,10 @@ import {
 } from "@/lib/data/assetPaths";
 import {
   classifyAssetPath,
+  isDuplicateVariant,
   isIllustrationPath,
   isPotPathRole,
+  normalizeAssetBasename,
 } from "@/lib/data/assetRegistry";
 import {
   altFromFilename,
@@ -60,9 +62,20 @@ export function sortIllustrationPaths(urls: string[]): string[] {
 
 function dedupe(urls: string[]): string[] {
   const seen = new Set<string>();
+  const seenBase = new Set<string>();
+
   return urls.filter((u) => {
-    if (!u || seen.has(u) || isBlockedAsset(u)) return false;
+    if (!u || isBlockedAsset(u)) return false;
+
+    const basename = u.split("/").pop() ?? "";
+    if (isDuplicateVariant(basename)) return false;
+
+    const baseKey = normalizeAssetBasename(basename);
+    if (seenBase.has(baseKey)) return false;
+
+    if (seen.has(u)) return false;
     seen.add(u);
+    seenBase.add(baseKey);
     return true;
   });
 }
@@ -82,6 +95,8 @@ function scanAllAssetUrls(): string[] {
       }
       if (rel.includes("/brand/")) return false;
       if (rel.includes("/incoming/")) return false;
+      if (rel.endsWith("asset-manifest.json")) return false;
+      if (rel.endsWith("README.md")) return false;
       return true;
     })
   );

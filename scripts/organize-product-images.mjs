@@ -28,7 +28,7 @@ const UUID_CATALOG = {
 };
 
 function classify(name) {
-  const base = name.replace(/\.[^.]+$/, "").toUpperCase();
+  const base = name.replace(/\.[^.]+$/, "").replace(/\s+\d+$/, "").trim().toUpperCase();
   if (UUID_CATALOG[base]) return UUID_CATALOG[base];
 
   const lower = name.toLowerCase();
