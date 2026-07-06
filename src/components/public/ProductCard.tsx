@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Product } from "@/types/database";
-import { ProductPotImage } from "./ProductPotImage";
+import { ProductCardMedia } from "./ProductCardMedia";
 import { AddToCartButton } from "./AddToCartButton";
 import { formatPrice } from "@/lib/utils";
 import { getProductAvailabilityLabel, isProductOrderable } from "@/lib/product-availability";
@@ -18,10 +18,10 @@ export function ProductCard({ product, showOrder = true }: ProductCardProps) {
     <article className="card-premium card-lift group flex flex-col overflow-hidden">
       <div className="relative overflow-hidden">
         <div className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <ProductPotImage
+        <ProductCardMedia
           product={product}
           size="md"
-          className="image-zoom !rounded-none !rounded-t-3xl !bg-cream/40"
+          className="image-zoom !rounded-none !rounded-t-3xl"
         />
       </div>
 

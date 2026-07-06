@@ -1,6 +1,6 @@
 /**
  * Chemins des visuels BOVINIA — dossier public/assets/products/
- * LEGACY_* = secours si products/ indisponible (déploiement partiel, cache, etc.)
+ * LEGACY_* = secours si products/ indisponible
  */
 export const LEGACY_ASSETS = {
   logo: "/assets/logo/1E8C3793-1C36-4FB3-8A32-3E510719EDAB.png",
@@ -35,12 +35,12 @@ export const ASSETS = {
     calm: "/assets/products/pots/calm.png",
   },
   lifestyle: {
-    wellnessOffice: "/assets/products/lifestyle/wellness-bureau.png",
-    wellnessFresh: "/assets/products/lifestyle/wellness-cuisine.png",
-    bloom: "/assets/products/lifestyle/bloom-grossesse.png",
-    period: "/assets/products/lifestyle/period-rituel.png",
-    pulse: "/assets/products/lifestyle/pulse-sport.png",
-    calm: "/assets/products/lifestyle/calm-soir.png",
+    wellnessOffice: "/assets/products/lifestyle/wellness/01-bureau.png",
+    wellnessFresh: "/assets/products/lifestyle/wellness/02-cuisine.png",
+    bloom: "/assets/products/lifestyle/bloom/01-grossesse.png",
+    period: "/assets/products/lifestyle/period/01-rituel.png",
+    pulse: "/assets/products/lifestyle/pulse/01-sport.png",
+    calm: "/assets/products/lifestyle/calm/01-soir.png",
   },
 } as const;
 
@@ -54,7 +54,22 @@ export function getProductPotFallback(slug: string): string {
   return LEGACY_ASSETS.products[slug as ProductSlug] ?? "";
 }
 
-/** Bloque toute image contenant des formules détaillées (confidentiel). */
+export function isPotAsset(src: string): boolean {
+  return src.includes("/pots/") || isPotFilename(src);
+}
+
+function isPotFilename(name: string): boolean {
+  const lower = name.toLowerCase();
+  return (
+    lower.includes("-pot") ||
+    lower.includes("_pot") ||
+    lower.endsWith("pot.png") ||
+    lower.endsWith("pot.jpg") ||
+    lower.includes("packshot")
+  );
+}
+
+/** Bloque formules détaillées (confidentiel). */
 export function isBlockedAsset(path: string): boolean {
   const lower = path.toLowerCase();
   return lower.includes("formulas-chart") || lower.includes("formule");

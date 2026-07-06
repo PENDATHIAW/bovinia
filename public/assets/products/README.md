@@ -1,57 +1,38 @@
 # Dossier products — toutes vos images BOVINIA
 
-Déposez vos visuels ici. Le site les place automatiquement.
-
-## Structure (déjà remplie)
+## Structure
 
 ```
 products/
-├── brand/
-│   ├── logo.png          → Logo site (header, footer)
-│   └── hero-gamme.png    → Hero accueil (5 pots)
-├── pots/
-│   ├── wellness.png      → Photo pot WELLNESS (boutique, fiche)
-│   ├── bloom.png         → Photo pot BLOOM
-│   ├── period.png        → Photo pot PERIOD!
-│   ├── pulse.png         → Photo pot PULSE
-│   └── calm.png          → Photo pot CALM
-├── lifestyle/
-│   ├── wellness-bureau.png    → Galerie WELLNESS + bandeau
-│   ├── wellness-cuisine.png   → Galerie WELLNESS
-│   ├── bloom-grossesse.png    → Galerie BLOOM
-│   ├── period-rituel.png      → Galerie PERIOD!
-│   ├── pulse-sport.png        → Galerie PULSE
-│   └── calm-soir.png          → Galerie CALM
-└── inbox/                → Nouvelles images : on devine le rituel via le nom
+├── brand/          → logo.png, hero-gamme.png
+├── pots/           → wellness.png, bloom.png… (photo du pot)
+├── lifestyle/      → un dossier par rituel, plusieurs visuels OK
+│   ├── wellness/   → 01-bureau.png, 02-cuisine.png, 03-….
+│   ├── bloom/
+│   ├── period/
+│   ├── pulse/
+│   └── calm/
+└── inbox/          → déposez ici, puis: npm run organize:images
 ```
 
-## Ajouter une nouvelle image
+Guide illustrations : [`lifestyle/README.md`](./lifestyle/README.md)
 
-### Option simple — dossier `inbox/`
+## Ajouter des illustrations (plusieurs par produit)
 
-Nommez le fichier avec le **nom du rituel** :
+1. Copiez dans `lifestyle/wellness/` (ou bloom, pulse…)  
+   Nommez `03-plage.jpg`, `04-bureau.png` — le **01, 02** fixe l'ordre.
+2. **Ou** déposez dans `inbox/` avec le nom du rituel et lancez :
+   ```bash
+   npm run organize:images
+   ```
+3. **Commit + push** pour Vercel.
 
-| Nom du fichier | Où ça va |
-|----------------|----------|
-| `wellness-matin.jpg` | Galerie WELLNESS |
-| `pulse-salle-sport.png` | Galerie PULSE |
-| `calm-chambre.png` | Galerie CALM |
-| `bloom-pot.jpg` | Photo pot BLOOM |
+## Où sur le site
 
-### Option précise — bon sous-dossier
-
-| Dossier | Usage |
-|---------|--------|
-| `pots/{slug}.png` | Remplace la photo du pot |
-| `lifestyle/{slug}-description.png` | Ajoute à la galerie du rituel |
-| `brand/logo.png` | Remplace le logo |
-| `brand/hero-gamme.png` | Remplace le hero gamme |
+| Type | Emplacement |
+|------|-------------|
+| Pot | Fiche produit (haut), cartes boutique |
+| Illustrations | Section « Rituel en image » sur chaque fiche |
+| 1ère illustration | Aperçu fond des cartes boutique + bandeau accueil |
 
 Slugs : `wellness`, `bloom`, `period`, `pulse`, `calm`
-
-## Déploiement
-
-- **Local** : copiez → rafraîchissez la page
-- **Vercel** : commit + push Git
-
-Formats : `.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`
