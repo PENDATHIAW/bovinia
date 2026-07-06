@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { pngFallbackForWebp } from "@/lib/data/assetPaths";
 
 interface OfficialAssetImageProps {
   src: string;
@@ -10,21 +12,20 @@ interface OfficialAssetImageProps {
   priority?: boolean;
   width?: number;
   height?: number;
-  /** URL de secours si le fichier principal est introuvable (404) */
+  fill?: boolean;
+  sizes?: string;
   fallbackSrc?: string;
 }
 
-/**
- * Affichage direct du fichier PNG/JPG dans public/assets.
- * Bascule automatiquement sur fallbackSrc en cas d'erreur de chargement.
- */
 export function OfficialAssetImage({
   src,
   alt,
   className,
   priority = false,
-  width,
-  height,
+  width = 800,
+  height = 1000,
+  fill = false,
+  sizes = "(max-width: 768px) 100vw, 50vw",
   fallbackSrc,
 }: OfficialAssetImageProps) {
   const [currentSrc, setCurrentSrc] = useState(src);
@@ -35,22 +36,43 @@ export function OfficialAssetImage({
     setUsedFallback(false);
   }, [src]);
 
+  const handleError = () => {
+    if (usedFallback) return;
+    const pngFromWebp = pngFallbackForWebp(currentSrc);
+    if (pngFromWebp && currentSrc !== pngFromWebp) {
+      setCurrentSrc(pngFromWebp);
+      return;
+    }
+    if (fallbackSrc && currentSrc !== fallbackSrc) {
+      setCurrentSrc(fallbackSrc);
+      setUsedFallback(true);
+    }
+  };
+
+  if (fill) {
+    return (
+      <Image
+        src={currentSrc}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes={sizes}
+        className={cn(className)}
+        onError={handleError}
+      />
+    );
+  }
+
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src={currentSrc}
       alt={alt}
       width={width}
       height={height}
-      loading={priority ? "eager" : "lazy"}
-      decoding="async"
+      priority={priority}
+      sizes={sizes}
       className={cn(className)}
-      onError={() => {
-        if (!usedFallback && fallbackSrc && currentSrc !== fallbackSrc) {
-          setCurrentSrc(fallbackSrc);
-          setUsedFallback(true);
-        }
-      }}
+      onError={handleError}
     />
   );
 }

@@ -1,4 +1,5 @@
 import "server-only";
+import fs from "fs";
 import path from "path";
 import {
   ASSETS,
@@ -6,6 +7,7 @@ import {
   getProductPotPath,
   isBlockedAsset,
   isPotAsset,
+  pngFallbackForWebp,
   type ProductSlug,
 } from "@/lib/data/assetPaths";
 import {
@@ -15,19 +17,13 @@ import {
   isPotPathRole,
   normalizeAssetBasename,
 } from "@/lib/data/assetRegistry";
-import {
-  altFromFilename,
-  listPublicImagesRecursive,
-} from "@/lib/data/discoverAssets";
+import { altFromFilename, listPublicImagesRecursive } from "@/lib/data/discoverAssets";
 
 export const PRODUCT_SLUGS = ["wellness", "bloom", "period", "pulse", "calm"] as const;
 
-const SCAN_ROOTS = [
-  "assets/products",
-  "assets/lifestyle",
-  "assets/auto/gallery",
-  "assets",
-] as const;
+const PUBLIC_DIR = path.join(process.cwd(), "public");
+const SCAN_ROOT = "assets/products";
+const MAX_GALLERY = 4;
 
 const DEFAULT_LIFESTYLE: Record<ProductSlug, string[]> = {
   wellness: [ASSETS.lifestyle.wellnessOffice, ASSETS.lifestyle.wellnessFresh],
@@ -37,27 +33,22 @@ const DEFAULT_LIFESTYLE: Record<ProductSlug, string[]> = {
   calm: [ASSETS.lifestyle.calm],
 };
 
-/** Score de priorité — products/ > lifestyle/ > logo UUID */
-function pathPriority(src: string): number {
-  if (src.includes("/products/lifestyle/")) return 0;
-  if (src.includes("/products/pots/")) return 1;
-  if (src.includes("/products/inbox/")) return 2;
-  if (src.includes("/products/")) return 3;
-  if (src.includes("/assets/lifestyle/")) return 4;
-  if (src.includes("/assets/logo/")) return 6;
-  if (src.includes("/assets/")) return 5;
-  return 10;
+/** Préfère WebP si disponible */
+export function preferWebp(src: string): string {
+  if (!src.startsWith("/")) return src;
+  const webp = src.replace(/\.(png|jpe?g)$/i, ".webp");
+  const rel = webp.slice(1);
+  if (fs.existsSync(path.join(PUBLIC_DIR, rel))) return webp;
+  return src;
 }
 
-export function sortIllustrationPaths(urls: string[]): string[] {
-  return [...urls].sort((a, b) => {
-    const prio = pathPriority(a) - pathPriority(b);
-    if (prio !== 0) return prio;
-    const numA = parseInt(path.basename(a).match(/^(\d+)/)?.[1] ?? "99", 10);
-    const numB = parseInt(path.basename(b).match(/^(\d+)/)?.[1] ?? "99", 10);
-    if (numA !== numB) return numA - numB;
-    return a.localeCompare(b, "fr");
-  });
+function fileSize(src: string): number {
+  try {
+    const rel = src.replace(/^\//, "");
+    return fs.statSync(path.join(PUBLIC_DIR, rel)).size;
+  } catch {
+    return 999_999_999;
+  }
 }
 
 function dedupe(urls: string[]): string[] {
@@ -66,13 +57,10 @@ function dedupe(urls: string[]): string[] {
 
   return urls.filter((u) => {
     if (!u || isBlockedAsset(u)) return false;
-
     const basename = u.split("/").pop() ?? "";
     if (isDuplicateVariant(basename)) return false;
-
     const baseKey = normalizeAssetBasename(basename);
     if (seenBase.has(baseKey)) return false;
-
     if (seen.has(u)) return false;
     seen.add(u);
     seenBase.add(baseKey);
@@ -80,26 +68,27 @@ function dedupe(urls: string[]): string[] {
   });
 }
 
-/** Scan automatique de tous les visuels BOVINIA */
-function scanAllAssetUrls(): string[] {
-  const all: string[] = [];
-  for (const root of SCAN_ROOTS) {
-    all.push(...listPublicImagesRecursive(root));
-  }
-  return dedupe(
-    all.filter((src) => {
-      const rel = src.replace(/^\//, "");
-      if (rel.includes("/logo/") && !rel.includes("bovinia-logo")) {
-        const { role } = classifyAssetPath(rel);
-        return role === "pot" || role === "lifestyle";
-      }
-      if (rel.includes("/brand/")) return false;
-      if (rel.includes("/incoming/")) return false;
-      if (rel.endsWith("asset-manifest.json")) return false;
-      if (rel.endsWith("README.md")) return false;
-      return true;
-    })
-  );
+export function sortIllustrationPaths(urls: string[]): string[] {
+  return [...urls]
+    .map(preferWebp)
+    .sort((a, b) => {
+      const sizeDiff = fileSize(a) - fileSize(b);
+      if (Math.abs(sizeDiff) > 50_000) return sizeDiff;
+      const numA = parseInt(path.basename(a).match(/^(\d+)/)?.[1] ?? "99", 10);
+      const numB = parseInt(path.basename(b).match(/^(\d+)/)?.[1] ?? "99", 10);
+      if (numA !== numB) return numA - numB;
+      return a.localeCompare(b, "fr");
+    });
+}
+
+function scanProductAssets(): string[] {
+  return listPublicImagesRecursive(SCAN_ROOT).filter((src) => {
+    const rel = src.replace(/^\//, "");
+    if (rel.includes("/brand/")) return false;
+    if (rel.endsWith(".json") || rel.endsWith(".md")) return false;
+    if (rel.includes("/drop/") || rel.includes("/inbox/")) return false;
+    return true;
+  });
 }
 
 function buildAssetIndex() {
@@ -112,31 +101,30 @@ function buildAssetIndex() {
     calm: [],
   };
 
-  for (const src of scanAllAssetUrls()) {
+  for (const src of dedupe(scanProductAssets())) {
     const rel = src.replace(/^\//, "");
     const { slug, role } = classifyAssetPath(rel);
     if (!slug) continue;
 
+    const optimized = preferWebp(src);
+
     if (role === "pot" || isPotPathRole(rel)) {
-      if (!pots[slug] || pathPriority(src) < pathPriority(pots[slug]!)) {
-        pots[slug] = src;
-      }
+      pots[slug] = optimized;
       continue;
     }
 
-    if (role === "lifestyle" || isIllustrationPath(rel)) {
-      if (!isPotAsset(src)) galleries[slug].push(src);
+    if ((role === "lifestyle" || isIllustrationPath(rel)) && !isPotAsset(src)) {
+      galleries[slug].push(optimized);
     }
   }
 
   for (const slug of PRODUCT_SLUGS) {
     galleries[slug] = sortIllustrationPaths(
       dedupe([...galleries[slug], ...DEFAULT_LIFESTYLE[slug]])
-    );
+    ).slice(0, MAX_GALLERY);
+
     if (!pots[slug]) {
-      const canonical = getProductPotPath(slug);
-      if (canonical) pots[slug] = canonical;
-      else pots[slug] = getProductPotFallback(slug);
+      pots[slug] = preferWebp(getProductPotPath(slug)) || getProductPotFallback(slug);
     }
   }
 
@@ -152,12 +140,11 @@ function getIndex() {
 
 export function getProductPotUrl(slug: string): string {
   const { pots } = getIndex();
-  return pots[slug as ProductSlug] ?? getProductPotPath(slug) ?? getProductPotFallback(slug);
+  return pots[slug as ProductSlug] ?? preferWebp(getProductPotPath(slug)) ?? getProductPotFallback(slug);
 }
 
 export function getProductLifestyleUrls(slug: string): string[] {
-  const { galleries } = getIndex();
-  return galleries[slug as ProductSlug] ?? [];
+  return getIndex().galleries[slug as ProductSlug] ?? [];
 }
 
 export function resolveProductImage(slug: string): string {
@@ -165,32 +152,22 @@ export function resolveProductImage(slug: string): string {
 }
 
 export function resolveProductGallery(slug: string, seedGallery: string[] = []): string[] {
-  const lifestyleOnly = seedGallery.filter((src) => !isPotAsset(src));
-  return sortIllustrationPaths(
-    dedupe([...lifestyleOnly, ...getProductLifestyleUrls(slug)])
+  const lifestyleOnly = seedGallery.filter((src) => !isPotAsset(src)).map(preferWebp);
+  return sortIllustrationPaths(dedupe([...lifestyleOnly, ...getProductLifestyleUrls(slug)])).slice(
+    0,
+    MAX_GALLERY
   );
-}
-
-export function getAllProductLifestyleMarquee(): { src: string; alt: string; slug?: string }[] {
-  const items: { src: string; alt: string; slug?: string }[] = [];
-  const seen = new Set<string>();
-
-  for (const slug of PRODUCT_SLUGS) {
-    for (const src of getProductLifestyleUrls(slug)) {
-      if (seen.has(src)) continue;
-      seen.add(src);
-      items.push({ src, alt: `${slug.toUpperCase()} — ${altFromFilename(src)}`, slug });
-    }
-  }
-
-  return items;
 }
 
 export function getProductIllustrationPreview(slug: string): string | null {
   return getProductLifestyleUrls(slug)[0] ?? null;
 }
 
-/** Invalide le cache (dev hot reload) */
+export function getPotPngFallback(slug: string): string | undefined {
+  const webp = getProductPotUrl(slug);
+  return pngFallbackForWebp(webp) ?? getProductPotFallback(slug);
+}
+
 export function refreshAssetIndex() {
   cache = null;
 }

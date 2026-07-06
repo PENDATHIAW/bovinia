@@ -1,6 +1,5 @@
 /**
- * Chemins des visuels BOVINIA — dossier public/assets/products/
- * LEGACY_* = secours si products/ indisponible
+ * Chemins des visuels BOVINIA — versions WebP légères (chargement rapide)
  */
 export const LEGACY_ASSETS = {
   logo: "/assets/logo/1E8C3793-1C36-4FB3-8A32-3E510719EDAB.png",
@@ -24,23 +23,23 @@ export const LEGACY_ASSETS = {
 } as const;
 
 export const ASSETS = {
-  logo: "/assets/products/brand/logo.png",
+  logo: "/assets/products/brand/logo.webp",
   logoIcon: "/assets/logo/bovinia-logo-icon.png",
-  heroRange: "/assets/products/brand/hero-gamme.png",
+  heroRange: "/assets/products/brand/hero-gamme.webp",
   products: {
-    wellness: "/assets/products/pots/wellness.png",
-    bloom: "/assets/products/pots/bloom.png",
-    period: "/assets/products/pots/period.png",
-    pulse: "/assets/products/pots/pulse.png",
-    calm: "/assets/products/pots/calm.png",
+    wellness: "/assets/products/pots/wellness.webp",
+    bloom: "/assets/products/pots/bloom.webp",
+    period: "/assets/products/pots/period.webp",
+    pulse: "/assets/products/pots/pulse.webp",
+    calm: "/assets/products/pots/calm.webp",
   },
   lifestyle: {
-    wellnessOffice: "/assets/products/lifestyle/wellness/01-bureau.png",
-    wellnessFresh: "/assets/products/lifestyle/wellness/02-cuisine.png",
-    bloom: "/assets/products/lifestyle/bloom/01-grossesse.png",
-    period: "/assets/products/lifestyle/period/01-rituel.png",
-    pulse: "/assets/products/lifestyle/pulse/01-sport.png",
-    calm: "/assets/products/lifestyle/calm/01-soir.png",
+    wellnessOffice: "/assets/products/lifestyle/wellness/01-bureau.webp",
+    wellnessFresh: "/assets/products/lifestyle/wellness/02-cuisine.webp",
+    bloom: "/assets/products/lifestyle/bloom/01-grossesse.webp",
+    period: "/assets/products/lifestyle/period/01-rituel.webp",
+    pulse: "/assets/products/lifestyle/pulse/01-sport.webp",
+    calm: "/assets/products/lifestyle/calm/01-soir.webp",
   },
 } as const;
 
@@ -63,14 +62,19 @@ function isPotFilename(name: string): boolean {
   return (
     lower.includes("-pot") ||
     lower.includes("_pot") ||
+    lower.endsWith("pot.webp") ||
     lower.endsWith("pot.png") ||
-    lower.endsWith("pot.jpg") ||
     lower.includes("packshot")
   );
 }
 
-/** Bloque formules détaillées (confidentiel). */
 export function isBlockedAsset(path: string): boolean {
   const lower = path.toLowerCase();
   return lower.includes("formulas-chart") || lower.includes("formule");
+}
+
+/** PNG/JPG de secours pour un chemin WebP */
+export function pngFallbackForWebp(src: string): string | undefined {
+  if (!src.endsWith(".webp")) return undefined;
+  return src.replace(/\.webp$/i, ".png");
 }

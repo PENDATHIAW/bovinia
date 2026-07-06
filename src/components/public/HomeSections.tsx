@@ -46,16 +46,9 @@ interface HomeSectionsProps {
   faqs: FAQ[];
   testimonials: Testimonial[];
   settings: SiteSettings;
-  marqueeImages?: { src: string; alt: string }[];
 }
 
-export function HomeSections({
-  products,
-  faqs,
-  testimonials,
-  settings,
-  marqueeImages = [],
-}: HomeSectionsProps) {
+export function HomeSections({ products, faqs, testimonials, settings }: HomeSectionsProps) {
   return (
     <>
       {/* Hero */}
@@ -108,7 +101,7 @@ export function HomeSections({
         </div>
       </section>
 
-      <LifestyleMarquee extraItems={marqueeImages} />
+      <LifestyleMarquee />
       <ConversionStrip />
       <SectionAnchorNav links={HOME_ANCHORS} />
 

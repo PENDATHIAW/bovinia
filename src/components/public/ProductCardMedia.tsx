@@ -1,6 +1,5 @@
 import type { Product } from "@/types/database";
 import { ProductPotImage } from "./ProductPotImage";
-import { OfficialAssetImage } from "./OfficialAssetImage";
 import { cn } from "@/lib/utils";
 
 interface ProductCardMediaProps {
@@ -14,25 +13,12 @@ const sizeClasses = {
   md: "max-h-72",
 };
 
-/**
- * Carte produit : pot en premier plan + aperçu lifestyle en arrière-plan si disponible.
- */
+/** Carte produit — pot uniquement (léger, pas de double image). */
 export function ProductCardMedia({ product, size = "md", className }: ProductCardMediaProps) {
-  const illustration = product.gallery[0] ?? null;
   const hasGallery = product.gallery.length > 1;
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
-      {illustration && (
-        <div className="absolute inset-0">
-          <OfficialAssetImage
-            src={illustration}
-            alt=""
-            className="h-full w-full object-cover opacity-25 blur-[1px] scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-cream/60 via-cream/40 to-cream/80" />
-        </div>
-      )}
+    <div className={cn("relative overflow-hidden bg-cream/40", className)}>
       <ProductPotImage
         product={product}
         size={size}

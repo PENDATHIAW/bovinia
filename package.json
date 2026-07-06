@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "setup:supabase": "bash scripts/setup-supabase.sh",
-    "organize:images": "node scripts/organize-product-images.mjs"
+    "organize:images": "node scripts/organize-product-images.mjs",
+    "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
@@ -30,6 +31,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
