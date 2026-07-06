@@ -10,7 +10,7 @@ export const GALLERY_INTRO: Record<ProductSlug, string> = {
   wellness:
     "WELLNESS s'adapte à votre journée : chaud le matin dans une tasse (eau chaude ou tiède), ou frais en verre avec de l'eau glacée et une paille — une cuillère de poudre suffit.",
   bloom:
-    "BLOOM se savoure chaud, au lait ou lait végétal tiède — idéal en milkshake doux le matin ou l'après-midi pendant la grossesse et le post-partum.",
+    "BLOOM accompagne la grossesse et le post-partum : une cuillère dans une tasse d'eau chaude ou de lait tiède — un rituel doux le matin ou l'après-midi.",
   period:
     "PERIOD! se prépare en infusion chaude : une dose dans une tasse, eau frémissante, quelques minutes de pause — un rituel cocooning pour le confort du cycle.",
   pulse:
@@ -26,8 +26,8 @@ const CAPTION_PATTERNS: Record<ProductSlug, { match: RegExp; meta: GalleryImageM
     { match: /cuisine|fresh|froid|02-/, meta: { caption: "En cuisine — frais, eau glacée et paille", preparation: "froid" } },
   ],
   bloom: [
-    { match: /grossesse|01-/, meta: { caption: "Grossesse & post-partum — moment cocooning au chaud", preparation: "chaud" } },
-    { match: /lifestyle|02-/, meta: { caption: "Rituel doux — lait tiède ou smoothie gourmand", preparation: "chaud" } },
+    { match: /grossesse|01-/, meta: { caption: "Grossesse — une tasse chaude, douceur au ventre", preparation: "chaud" } },
+    { match: /maman|bebe|post-partum|02-/, meta: { caption: "Post-partum — rituel cocooning avec bébé, boisson chaude", preparation: "chaud" } },
   ],
   period: [
     { match: /rituel|01-/, meta: { caption: "Mon rituel — tasse chaude, eau frémissante", preparation: "chaud" } },
