@@ -4,10 +4,10 @@ import { SectionAnchorNav } from "./SectionAnchorNav";
 
 const PRODUCT_ANCHORS = [
   { id: "produit", label: "Le produit" },
-  { id: "images", label: "En images" },
+  { id: "images", label: "Comment préparer" },
   { id: "mode-emploi", label: "Mode d'emploi" },
   { id: "avis", label: "Avis" },
-  { id: "routine", label: "Routine" },
+  { id: "routine", label: "Associer" },
 ];
 
 export function ProductPageNav() {

@@ -27,10 +27,9 @@ import type { FAQ, Product, SiteSettings, Testimonial } from "@/types/database";
 const HOME_ANCHORS = [
   { id: "gamme", label: "Gamme" },
   { id: "packs", label: "Packs" },
-  { id: "quiz", label: "Quel rituel ?" },
-  { id: "bone-broth", label: "Bone Broth" },
   { id: "commander", label: "Commander" },
   { id: "temoignages", label: "Avis" },
+  { id: "quiz", label: "Quel rituel ?" },
   { id: "faq", label: "FAQ" },
 ];
 
@@ -156,14 +155,7 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
         <DiscoveryPacks products={products} />
       </div>
 
-      {/* Quiz */}
-      <section id="quiz" className="section-padding scroll-mt-36">
-        <div className="container-bovinia max-w-4xl">
-          <RitualFinder products={products} />
-        </div>
-      </section>
-
-      {/* Commander */}
+      {/* Commander — conversion rapide */}
       <section id="commander" className="section-padding scroll-mt-36">
         <div className="container-bovinia">
           <div className="overflow-hidden rounded-[2rem] border border-gold/25 bg-gradient-to-br from-cream via-ivory to-cream shadow-lg">
@@ -204,18 +196,25 @@ export function HomeSections({ products, faqs, testimonials, settings }: HomeSec
         </div>
       </section>
 
-      <BrandManifesto />
+      <div id="temoignages" className="scroll-mt-36">
+        <TestimonialsSection testimonials={testimonials} showDisclaimer />
+      </div>
 
-      {/* Bone Broth — éducation */}
-      <section id="bone-broth" className="section-padding scroll-mt-36">
+      {/* Quiz — après la preuve sociale */}
+      <section id="quiz" className="section-padding scroll-mt-36">
+        <div className="container-bovinia max-w-4xl">
+          <RitualFinder products={products} />
+        </div>
+      </section>
+
+      {/* Bone Broth — éducation (second plan) */}
+      <section id="bone-broth" className="section-padding border-t border-gold/10 scroll-mt-36">
         <div className="container-bovinia">
           <BoneBrothEducation />
         </div>
       </section>
 
-      <div id="temoignages" className="scroll-mt-36">
-        <TestimonialsSection testimonials={testimonials} showDisclaimer />
-      </div>
+      <BrandManifesto />
 
       <section id="faq" className="section-padding surface-cream scroll-mt-36">
         <div className="container-bovinia">

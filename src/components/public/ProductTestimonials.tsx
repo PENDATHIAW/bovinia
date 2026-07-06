@@ -1,5 +1,6 @@
 import { Star, BadgeCheck } from "lucide-react";
 import type { Testimonial } from "@/types/database";
+import { getProductTestimonialCopy } from "@/lib/data/testimonialCopy";
 
 function initials(name: string) {
   return name
@@ -11,30 +12,32 @@ function initials(name: string) {
 }
 
 interface ProductTestimonialsProps {
+  productSlug: string;
   productName: string;
   testimonials: Testimonial[];
   showDisclaimer?: boolean;
 }
 
 export function ProductTestimonials({
+  productSlug,
   productName,
   testimonials,
   showDisclaimer = true,
 }: ProductTestimonialsProps) {
   if (!testimonials.length) return null;
 
+  const { title, description } = getProductTestimonialCopy(productSlug, productName);
+
   return (
     <section id="avis" className="mt-16 scroll-mt-36 border-t border-gold/15 pt-12">
       <div className="mb-8">
         <p className="section-label">Témoignages</p>
-        <h2 className="section-title">Ce qu&apos;en disent nos clientes et clients</h2>
-        <p className="mt-3 max-w-2xl text-sm text-foreground/60">
-          Retours sur {productName} — routines réelles, goûts et moments de consommation.
-        </p>
+        <h2 className="section-title">{title}</h2>
+        <p className="mt-3 max-w-2xl text-sm text-foreground/60">{description}</p>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {testimonials.map((t) => (
+      <div className="grid gap-5 md:grid-cols-2">
+        {testimonials.slice(0, 4).map((t) => (
           <blockquote
             key={t.id}
             className="card-premium flex flex-col border-t-2 border-t-gold/40 p-5"

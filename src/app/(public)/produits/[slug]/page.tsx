@@ -14,6 +14,7 @@ import { ProductLifestyleSection } from "@/components/public/ProductLifestyleSec
 import { ProductConsumptionGuide } from "@/components/public/ProductConsumptionGuide";
 import { ProductDetailActions } from "@/components/public/ProductDetailActions";
 import { ProductTestimonials } from "@/components/public/ProductTestimonials";
+import { ProductPersuasionBand } from "@/components/public/ProductPersuasionBand";
 import { RelatedProducts } from "@/components/public/RelatedProducts";
 import { ProductPageNav } from "@/components/public/ProductPageNav";
 import { formatPrice } from "@/lib/utils";
@@ -102,25 +103,13 @@ export default async function ProductDetailPage({ params }: Props) {
 
               <p className="mt-6 leading-relaxed text-foreground/70">{product.short_description}</p>
 
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-xl border border-gold/15 bg-cream/50 p-4 text-center">
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-gold">Pour qui</p>
-                  <p className="mt-1 text-xs leading-relaxed text-foreground/70 line-clamp-4">
-                    {product.target_audience}
-                  </p>
-                </div>
-                <div className="rounded-xl border border-gold/15 bg-cream/50 p-4 text-center">
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-gold">Quand</p>
-                  <p className="mt-1 text-xs leading-relaxed text-foreground/70 line-clamp-4">
-                    {product.usage_moment}
-                  </p>
-                </div>
-                <div className="rounded-xl border border-gold/15 bg-cream/50 p-4 text-center">
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-gold">Format</p>
-                  <p className="mt-1 text-xs leading-relaxed text-foreground/70">
-                    15–17 g / portion · 200 ml de liquide
-                  </p>
-                </div>
+              <div className="mt-6 rounded-xl border border-gold/15 bg-cream/40 p-4 text-sm leading-relaxed text-foreground/70">
+                <p>
+                  <span className="font-medium text-forest">Pour qui —</span> {product.target_audience}
+                </p>
+                <p className="mt-2">
+                  <span className="font-medium text-forest">Quand —</span> {product.usage_moment}
+                </p>
               </div>
 
               <details className="mt-6 group">
@@ -151,6 +140,8 @@ export default async function ProductDetailPage({ params }: Props) {
 
           <ProductLifestyleSection product={product} />
 
+          <ProductPersuasionBand product={product} />
+
           <div id="mode-emploi" className="mt-12 max-w-3xl scroll-mt-36">
             <div className="mb-4 flex flex-wrap gap-3">
               <Link href="/preparation" className="text-sm font-medium text-gold hover:underline">
@@ -164,6 +155,7 @@ export default async function ProductDetailPage({ params }: Props) {
           </div>
 
           <ProductTestimonials
+            productSlug={product.slug}
             productName={product.name}
             testimonials={testimonials}
           />

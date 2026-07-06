@@ -26,8 +26,8 @@ const CAPTION_PATTERNS: Record<ProductSlug, { match: RegExp; meta: GalleryImageM
     { match: /cuisine|fresh|froid|02-/, meta: { caption: "En cuisine — frais, eau glacée et paille", preparation: "froid" } },
   ],
   bloom: [
-    { match: /grossesse|01-/, meta: { caption: "Grossesse — une tasse chaude, douceur au ventre", preparation: "chaud" } },
-    { match: /maman|bebe|post-partum|02-/, meta: { caption: "Post-partum — rituel cocooning avec bébé, boisson chaude", preparation: "chaud" } },
+    { match: /grossesse|01-/, meta: { caption: "Grossesse — tasse fumante, pot officiel BLOOM en cuisine", preparation: "chaud" } },
+    { match: /maman|bebe|post-partum|02-/, meta: { caption: "Post-partum — rituel cocooning avec bébé", preparation: "chaud" } },
   ],
   period: [
     { match: /rituel|01-/, meta: { caption: "Mon rituel — tasse chaude, eau frémissante", preparation: "chaud" } },
@@ -39,7 +39,7 @@ const CAPTION_PATTERNS: Record<ProductSlug, { match: RegExp; meta: GalleryImageM
   ],
   calm: [
     { match: /soir|01-/, meta: { caption: "En fin de journée — tisane chaude, moment détente", preparation: "chaud" } },
-    { match: /chambre|02-/, meta: { caption: "Avant le coucher — tasse fumante au chevet", preparation: "chaud" } },
+    { match: /preparation|02-/, meta: { caption: "Rituel du soir — une cuillère dans une tasse, mode sommeil activé", preparation: "chaud" } },
   ],
 };
 
