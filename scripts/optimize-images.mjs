@@ -27,8 +27,16 @@ const files = walk(ROOT);
 let saved = 0;
 
 for (const file of files) {
-  const webpPath = file.replace(IMAGE_EXT, ".webp");
+  const basename = path.basename(file);
+  if (/\s+\d+\.[^.]+$/i.test(basename)) continue;
+
   const before = fs.statSync(file).size;
+  if (before < 1024) {
+    console.log(`⊘ ${path.relative(ROOT, file)} (fichier vide, ignoré)`);
+    continue;
+  }
+
+  const webpPath = file.replace(IMAGE_EXT, ".webp");
 
   await sharp(file)
     .rotate()
