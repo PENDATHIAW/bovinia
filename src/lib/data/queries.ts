@@ -164,7 +164,7 @@ export const SEED_BLOG_POSTS: BlogPost[] = [
 function withAutoGallery(product: Product): Product {
   return {
     ...product,
-    image: resolveProductImage(product.slug, product.image ?? ""),
+    image: resolveProductImage(product.slug),
     gallery: resolveProductGallery(product.slug, product.gallery ?? []),
   };
 }
@@ -183,7 +183,7 @@ function enrichProductFromSeed(row: Product): Product {
 
 export async function getProducts(): Promise<Product[]> {
   const supabase = await createClient();
-  if (!supabase) return SEED_PRODUCTS;
+  if (!supabase) return SEED_PRODUCTS.map(withAutoGallery);
 
   const { data, error } = await supabase
     .from("products")

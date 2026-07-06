@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { ASSETS } from "@/lib/data/assetPaths";
+import { ASSETS, LEGACY_ASSETS } from "@/lib/data/assetPaths";
 import { OfficialAssetImage } from "./OfficialAssetImage";
 
 interface LogoProps {
@@ -27,6 +27,7 @@ export function Logo({ className, size = "md", onDark = false }: LogoProps) {
     >
       <OfficialAssetImage
         src={ASSETS.logo}
+        fallbackSrc={LEGACY_ASSETS.logo}
         alt="BOVINIA — Powered by Bone Broth"
         priority
         className={cn("h-auto object-contain", sizes[size])}

@@ -1,18 +1,18 @@
-import { ASSETS } from "@/lib/data/assetPaths";
+import { ASSETS, LEGACY_ASSETS } from "@/lib/data/assetPaths";
 import { OfficialAssetImage } from "./OfficialAssetImage";
 
 const DEFAULT_STRIP = [
-  { src: ASSETS.lifestyle.wellnessOffice, alt: "WELLNESS au bureau" },
-  { src: ASSETS.lifestyle.wellnessFresh, alt: "WELLNESS en cuisine" },
-  { src: ASSETS.lifestyle.bloom, alt: "BLOOM rituel maternité" },
-  { src: ASSETS.lifestyle.period, alt: "PERIOD! confort cycle" },
-  { src: ASSETS.lifestyle.pulse, alt: "PULSE sport" },
-  { src: ASSETS.lifestyle.calm, alt: "CALM soirée" },
+  { src: ASSETS.lifestyle.wellnessOffice, fallback: LEGACY_ASSETS.lifestyle.wellnessOffice, alt: "WELLNESS au bureau" },
+  { src: ASSETS.lifestyle.wellnessFresh, fallback: LEGACY_ASSETS.lifestyle.wellnessFresh, alt: "WELLNESS en cuisine" },
+  { src: ASSETS.lifestyle.bloom, fallback: LEGACY_ASSETS.lifestyle.bloom, alt: "BLOOM rituel maternité" },
+  { src: ASSETS.lifestyle.period, fallback: LEGACY_ASSETS.lifestyle.period, alt: "PERIOD! confort cycle" },
+  { src: ASSETS.lifestyle.pulse, fallback: LEGACY_ASSETS.lifestyle.pulse, alt: "PULSE sport" },
+  { src: ASSETS.lifestyle.calm, fallback: LEGACY_ASSETS.lifestyle.calm, alt: "CALM soirée" },
 ];
 
 interface LifestyleMarqueeProps {
-  /** Images supplémentaires lues depuis public/assets/auto/marquee/ */
-  extraItems?: { src: string; alt: string }[];
+  /** Images supplémentaires lues depuis public/assets/products/ */
+  extraItems?: { src: string; alt: string; fallback?: string }[];
 }
 
 export function LifestyleMarquee({ extraItems = [] }: LifestyleMarqueeProps) {
@@ -34,6 +34,7 @@ export function LifestyleMarquee({ extraItems = [] }: LifestyleMarqueeProps) {
           >
             <OfficialAssetImage
               src={item.src}
+              fallbackSrc={"fallback" in item ? item.fallback : undefined}
               alt={item.alt}
               className="h-full w-full object-cover opacity-90"
             />

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ASSETS } from "@/lib/data/assetPaths";
+import { ASSETS, LEGACY_ASSETS } from "@/lib/data/assetPaths";
 import type { Product } from "@/types/database";
 import { OfficialAssetImage } from "./OfficialAssetImage";
 
@@ -13,6 +13,7 @@ export function HeroShowcase({ products }: { products: Product[] }) {
         >
           <OfficialAssetImage
             src={ASSETS.heroRange}
+            fallbackSrc={LEGACY_ASSETS.heroRange}
             alt="BOVINIA — les 5 rituels nutritionnels"
             priority
             className="h-auto w-full object-contain"

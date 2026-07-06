@@ -5,9 +5,8 @@ import { isBlockedAsset } from "@/lib/data/assetPaths";
 
 const IMAGE_EXT = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif"]);
 const PUBLIC_DIR = path.join(process.cwd(), "public");
-const AUTO_ROOT = "assets/auto";
 
-/** Liste les images d'un dossier dans public/ → URLs du type /assets/auto/... */
+/** Liste les images d'un dossier dans public/ → URLs du type /assets/... */
 export function listPublicImages(relativeDir: string): string[] {
   const abs = path.join(PUBLIC_DIR, relativeDir);
   if (!fs.existsSync(abs)) return [];
@@ -26,12 +25,42 @@ export function listPublicImages(relativeDir: string): string[] {
     .map((name) => `/${relativeDir}/${name}`.replace(/\\/g, "/"));
 }
 
+/** Parcourt récursivement un dossier et retourne toutes les images */
+export function listPublicImagesRecursive(relativeDir: string): string[] {
+  const abs = path.join(PUBLIC_DIR, relativeDir);
+  if (!fs.existsSync(abs)) return [];
+
+  const results: string[] = [];
+
+  function walk(currentAbs: string, currentRel: string) {
+    for (const entry of fs.readdirSync(currentAbs, { withFileTypes: true })) {
+      if (entry.name.startsWith(".")) continue;
+      const entryAbs = path.join(currentAbs, entry.name);
+      const entryRel = `${currentRel}/${entry.name}`.replace(/\\/g, "/");
+
+      if (entry.isDirectory()) {
+        walk(entryAbs, entryRel);
+        continue;
+      }
+
+      const ext = path.extname(entry.name).toLowerCase();
+      if (!IMAGE_EXT.has(ext) || isBlockedAsset(entry.name)) continue;
+      results.push(`/${entryRel}`);
+    }
+  }
+
+  walk(abs, relativeDir.replace(/\\/g, "/"));
+  return results.sort((a, b) => a.localeCompare(b, "fr"));
+}
+
 function altFromFilename(src: string): string {
   const base = path.basename(src, path.extname(src));
   return base.replace(/[-_]+/g, " ").trim() || "BOVINIA";
 }
 
-/** Images du bandeau défilant (accueil) — dossier public/assets/auto/marquee/ */
+const AUTO_ROOT = "assets/auto";
+
+/** Images du bandeau défilant — auto/marquee/ */
 export function getAutoMarqueeImages(): { src: string; alt: string }[] {
   return listPublicImages(`${AUTO_ROOT}/marquee`).map((src) => ({
     src,
@@ -39,7 +68,7 @@ export function getAutoMarqueeImages(): { src: string; alt: string }[] {
   }));
 }
 
-/** Images ajoutées automatiquement à la galerie d'un rituel — public/assets/auto/gallery/{slug}/ */
+/** Images auto/gallery/{slug}/ */
 export function getAutoGalleryForSlug(slug: string): string[] {
   return listPublicImages(`${AUTO_ROOT}/gallery/${slug}`);
 }
@@ -57,3 +86,5 @@ export function mergeProductGallery(base: string[], slug: string): string[] {
 
   return merged;
 }
+
+export { altFromFilename };

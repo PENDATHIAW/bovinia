@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types/database";
+import { getProductPotFallback, getProductPotPath } from "@/lib/data/assetPaths";
 import { OfficialAssetImage } from "./OfficialAssetImage";
 
 interface ProductPotImageProps {
-  product: Pick<Product, "name" | "mission" | "image">;
+  product: Pick<Product, "name" | "mission" | "image" | "slug">;
   size?: "sm" | "md" | "lg" | "full";
   className?: string;
   priority?: boolean;
@@ -23,7 +24,14 @@ export function ProductPotImage({
   className,
   priority = false,
 }: ProductPotImageProps) {
-  if (!product.image) return null;
+  const src =
+    product.image ||
+    getProductPotPath(product.slug) ||
+    getProductPotFallback(product.slug);
+
+  if (!src) return null;
+
+  const fallbackSrc = getProductPotFallback(product.slug) || undefined;
 
   return (
     <div
@@ -33,7 +41,8 @@ export function ProductPotImage({
       )}
     >
       <OfficialAssetImage
-        src={product.image}
+        src={src}
+        fallbackSrc={fallbackSrc !== src ? fallbackSrc : undefined}
         alt={`${product.name} — ${product.mission}`}
         priority={priority}
         className={cn(
