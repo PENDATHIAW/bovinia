@@ -18,9 +18,9 @@ import {
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  hero_title: "Qu'est-ce que le Bone Broth ?",
+  hero_title: "Cinq rituels. Une base : le Bone Broth.",
   hero_subtitle:
-    "Le bouillon d'os mijoté longuement, transformé en poudre premium au Sénégal — associé à des fruits et plantes africains pour des rituels gourmands, chauds ou frais.",
+    "BOVINIA transforme la puissance du bouillon d'os en boissons gourmandes et modernes — enrichies de fruits et plantes africains, fabriquées au Sénégal, prêtes à commander.",
   hero_cta_primary: "Découvrir la boutique",
   hero_cta_secondary: "Commander",
   whatsapp_number: "+221 78 589 01 53",

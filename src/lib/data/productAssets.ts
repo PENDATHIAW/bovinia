@@ -156,9 +156,12 @@ export function resolveProductImage(slug: string): string {
   return getProductPotUrl(slug);
 }
 
-export function resolveProductGallery(slug: string, _seedGallery: string[] = []): string[] {
+export function resolveProductGallery(slug: string, seedGallery: string[] = []): string[] {
   const folderGallery = getProductLifestyleUrls(slug);
   if (folderGallery.length > 0) return folderGallery;
+  if (seedGallery.length > 0) {
+    return sortIllustrationPaths(dedupe(seedGallery)).slice(0, MAX_GALLERY);
+  }
   return [];
 }
 

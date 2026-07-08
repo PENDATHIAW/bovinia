@@ -34,54 +34,74 @@ const BENEFITS = [
   },
 ];
 
-export function BoneBrothEducation({ compact = false }: { compact?: boolean }) {
+export function BoneBrothEducation({
+  compact = false,
+  skipIntro = false,
+}: {
+  compact?: boolean;
+  skipIntro?: boolean;
+}) {
   return (
     <div className={compact ? "space-y-10" : "space-y-16"}>
-      {/* Qu'est-ce que c'est */}
-      <div className="grid items-center gap-10 lg:grid-cols-2">
-        <div className="gold-frame order-2 lg:order-1">
-          <div className="gold-frame-inner">
-            <OfficialAssetImage
-              src={ASSETS.heroRange}
-              alt="Gamme BOVINIA au Bone Broth"
-              className="h-full w-full object-cover"
-            />
+      {!skipIntro && (
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div className="gold-frame order-2 lg:order-1">
+            <div className="gold-frame-inner">
+              <OfficialAssetImage
+                src={ASSETS.heroRange}
+                alt="Gamme BOVINIA au Bone Broth"
+                className="h-auto w-full object-contain"
+              />
+            </div>
+          </div>
+          <div className="order-1 lg:order-2">
+            <p className="section-label">{BONE_BROTH_INTRO.label}</p>
+            <h2 className="mt-2 font-serif text-3xl text-forest md:text-4xl">
+              {BONE_BROTH_INTRO.title}
+            </h2>
+            {BONE_BROTH_INTRO.paragraphs.map((paragraph, i) => (
+              <p key={i} className="mt-4 leading-relaxed text-foreground/70">
+                {i === 0 ? (
+                  <>
+                    Le <strong className="font-medium text-forest">Bone Broth</strong> — le bouillon
+                    d&apos;os — est une préparation traditionnelle obtenue en faisant mijoter
+                    longuement des os, tendons et articulations de bœuf. Cette cuisson lente extrait
+                    naturellement le{" "}
+                    <strong className="font-medium text-forest">collagène</strong>, la{" "}
+                    <strong className="font-medium text-forest">gélatine</strong>, des{" "}
+                    <strong className="font-medium text-forest">acides aminés</strong> et des{" "}
+                    <strong className="font-medium text-forest">minéraux</strong>.
+                  </>
+                ) : (
+                  <>
+                    <strong className="font-medium text-forest">
+                      Au Sénégal, peu de gens connaissent encore le Bone Broth
+                    </strong>{" "}
+                    sous cette forme moderne et premium. BOVINIA est pionnière : nous le transformons
+                    en poudre pratique, puis l&apos;associons à des{" "}
+                    <strong className="font-medium text-forest">fruits et plantes africains</strong>{" "}
+                    (baobab, kinkeliba, bissap, gingembre…) pour des rituels gourmands, agréables à
+                    boire chaud ou frais.
+                  </>
+                )}
+              </p>
+            ))}
           </div>
         </div>
-        <div className="order-1 lg:order-2">
+      )}
+
+      {skipIntro && (
+        <div className="text-center">
           <p className="section-label">{BONE_BROTH_INTRO.label}</p>
           <h2 className="mt-2 font-serif text-3xl text-forest md:text-4xl">
             {BONE_BROTH_INTRO.title}
           </h2>
-          {BONE_BROTH_INTRO.paragraphs.map((paragraph, i) => (
-            <p key={i} className="mt-4 leading-relaxed text-foreground/70">
-              {i === 0 ? (
-                <>
-                  Le <strong className="font-medium text-forest">Bone Broth</strong> — le bouillon
-                  d&apos;os — est une préparation traditionnelle obtenue en faisant mijoter
-                  longuement des os, tendons et articulations de bœuf. Cette cuisson lente extrait
-                  naturellement le{" "}
-                  <strong className="font-medium text-forest">collagène</strong>, la{" "}
-                  <strong className="font-medium text-forest">gélatine</strong>, des{" "}
-                  <strong className="font-medium text-forest">acides aminés</strong> et des{" "}
-                  <strong className="font-medium text-forest">minéraux</strong>.
-                </>
-              ) : (
-                <>
-                  <strong className="font-medium text-forest">
-                    Au Sénégal, peu de gens connaissent encore le Bone Broth
-                  </strong>{" "}
-                  sous cette forme moderne et premium. BOVINIA est pionnière : nous le transformons
-                  en poudre pratique, puis l&apos;associons à des{" "}
-                  <strong className="font-medium text-forest">fruits et plantes africains</strong>{" "}
-                  (baobab, kinkeliba, bissap, gingembre…) pour des rituels gourmands, agréables à
-                  boire chaud ou frais.
-                </>
-              )}
-            </p>
-          ))}
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-foreground/70">
+            Découvrez pourquoi le bouillon d&apos;os est au cœur de chaque rituel BOVINIA — et
+            pourquoi il fait sensation dans le monde entier.
+          </p>
         </div>
-      </div>
+      )}
 
       {/* TikTok & engouement */}
       <div className="card-premium border-l-4 border-l-gold/60 p-8 md:p-10">

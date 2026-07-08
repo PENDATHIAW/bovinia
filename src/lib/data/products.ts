@@ -57,7 +57,7 @@ export const SEED_PRODUCTS: Product[] = [
     short_description:
       "Rituel doux mangue, coco et vanille — conçu pour accompagner les femmes enceintes et les jeunes mamans après l'accouchement.",
     long_description:
-      "BLOOM accompagne les femmes enceintes et les jeunes mamans avec un rituel crémeux type milkshake. Il peut contribuer au confort digestif, à l'énergie quotidienne, au soutien nutritionnel et au bien-être peau, cheveux et ongles. Se déguste chaud, au lait ou en smoothie gourmand. Le gingembre est présent à dose modérée — consultez votre professionnel de santé avant utilisation.",
+      "BLOOM accompagne les femmes enceintes et les jeunes mamans avec un rituel crémeux type milkshake. Il peut contribuer au confort digestif, au soutien nutritionnel doux, au réconfort en grossesse et post-partum, et au bien-être peau, cheveux et ongles. Se déguste chaud, au lait ou en smoothie gourmand. Le gingembre est présent à dose modérée — consultez votre professionnel de santé avant utilisation.",
     target_audience:
       "Femmes enceintes et jeunes mamans — post-partum et allaitement, avis médical recommandé.",
     usage_moment: "Le matin ou l'après-midi — pendant la grossesse et en post-partum.",
