@@ -33,14 +33,23 @@ export function ProductDetailActions({ product, whatsappUrl }: ProductDetailActi
 
       {orderable && (
         <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-gold/20 bg-ivory/95 p-4 shadow-lg backdrop-blur-md md:hidden">
-          <div className="container-bovinia flex items-center gap-3">
+          <div className="container-bovinia flex items-center gap-2">
             <AddToCartButton
               product={product}
               variant="gold"
               size="sm"
               openDrawerOnAdd
-              className="flex-1 [&_button]:w-full"
+              className="min-w-0 flex-1 [&_button]:w-full"
             />
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Poser une question sur WhatsApp"
+              className="btn-secondary shrink-0 px-3"
+            >
+              <MessageCircle size={18} />
+            </a>
             <Link href="/commander" className="btn-secondary shrink-0 text-xs">
               Commander
             </Link>

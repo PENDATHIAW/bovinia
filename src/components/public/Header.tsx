@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ShoppingBag } from "lucide-react";
@@ -32,10 +32,17 @@ export function Header() {
   const pathname = usePathname();
   const { itemCount, openDrawer, hydrated } = useCart();
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-40 border-b border-gold/20 bg-ivory/95 shadow-[0_1px_24px_rgba(27,67,50,0.06)] backdrop-blur-md">
       <div className="container-bovinia flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
-        <Logo size="xl" />
+        <Logo size="header" />
 
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => (
@@ -97,10 +104,10 @@ export function Header() {
       <div
         className={cn(
           "overflow-hidden border-t border-gold/10 bg-ivory transition-all lg:hidden",
-          open ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+          open ? "max-h-[85vh] opacity-100" : "max-h-0 opacity-0"
         )}
       >
-        <nav className="flex flex-col gap-1 px-4 py-4">
+        <nav className="flex max-h-[calc(85vh-1px)] flex-col gap-1 overflow-y-auto px-4 py-4">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}

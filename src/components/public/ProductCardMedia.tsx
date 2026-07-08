@@ -15,7 +15,7 @@ const sizeClasses = {
 
 /** Carte produit — pot uniquement (léger, pas de double image). */
 export function ProductCardMedia({ product, size = "md", className }: ProductCardMediaProps) {
-  const hasGallery = product.gallery.length > 1;
+  const hasGallery = product.gallery.length >= 1;
 
   return (
     <div className={cn("relative overflow-hidden bg-cream/40", className)}>

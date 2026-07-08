@@ -12,7 +12,7 @@ export function RitualComparisonTable({ products }: { products: Product[] }) {
   return (
     <div className="space-y-8">
       {/* Desktop table */}
-      <div className="hidden overflow-x-auto lg:block">
+      <div className="hidden overflow-x-auto md:block">
         <table className="w-full min-w-[900px] border-collapse text-left text-sm">
           <thead>
             <tr className="border-b border-gold/20">
@@ -71,7 +71,7 @@ export function RitualComparisonTable({ products }: { products: Product[] }) {
       </div>
 
       {/* Mobile cards */}
-      <div className="grid gap-6 lg:hidden">
+      <div className="grid gap-6 md:hidden">
         {products.map((p) => (
           <article key={p.id} className="card-premium overflow-hidden border-l-4 border-l-gold/50">
             <div className="flex gap-4 p-5">
@@ -80,7 +80,9 @@ export function RitualComparisonTable({ products }: { products: Product[] }) {
               </div>
               <div>
                 <p className="text-xs font-medium uppercase tracking-wider text-gold">{p.mission}</p>
-                <h3 className="font-serif text-xl text-forest">{p.name}</h3>
+                <Link href={`/produits/${p.slug}`}>
+                  <h3 className="font-serif text-xl text-forest hover:text-gold">{p.name}</h3>
+                </Link>
                 <p className="mt-1 text-sm text-foreground/60">{p.dominant_flavors.join(" • ")}</p>
               </div>
             </div>
